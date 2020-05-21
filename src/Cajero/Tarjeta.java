@@ -8,7 +8,7 @@ public class Tarjeta {
 
 	public Tarjeta (int numeroDeTarjeta, int pin) {
 
-		if ( ( contadorDeCaracteres(numeroDeTarjeta) == 9 )  && ( contadorDeCaracteres(pin) == 4 ) ) {
+		if ( ( contadorDeCaracteres(numeroDeTarjeta) == 8 )  && ( contadorDeCaracteres(pin) == 4 ) ) {
 
 			this.numeroDeTarjeta = numeroDeTarjeta;
 

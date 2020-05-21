@@ -39,16 +39,7 @@ public class Cliente {
 	}
 
 
-	public int compareTo(Cliente clienteAcomparar) {
-		if(clienteAcomparar.getCuit()==this.cuit) {
-			return 0;
-		}
-		else if(this.cuit<clienteAcomparar.getCuit()) {
-			return -1;
-		}
-		else {
-			return 1;
 
-		}
-	}
+
 }
+

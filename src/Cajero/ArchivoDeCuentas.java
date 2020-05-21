@@ -19,6 +19,7 @@ public class ArchivoDeCuentas {
 		}
 		catch(Exception e) {
 			System.out.println("Eror");
+			e.printStackTrace();
 		}
 		
 		
@@ -73,6 +74,7 @@ public class ArchivoDeCuentas {
 		
 
 			lineaArchivoCuentas = lecturaArchivoCuentas.readLine();
+			
 
 		}
 	}

@@ -19,20 +19,22 @@ public class ArchivoDeClientes {
 	}
 	
 
-	private void clientesAsociados() throws FileNotFoundException, IOException {
-
+	private void clientesAsociados() throws IOException  {
+ 
 		//Extraer datos de los .txt
-		BufferedReader lecturaArchivoCliente = new BufferedReader(new FileReader("ArchivoTerjetas.txt"));
+		BufferedReader lecturaArchivoCliente = new BufferedReader(new FileReader("ArchivoClientes.txt"));
 
 		String lineaArchivoClientes = lecturaArchivoCliente.readLine();
 
 		while ((lineaArchivoClientes != null)) {
+			
 
 			lineaArchivoClientes.trim();
 
 			String separadorArchivoTerjetas[] = lineaArchivoClientes.split(",");
 
 			int cuit = Integer.parseInt(separadorArchivoTerjetas[0]);
+			
 
 			String alias = separadorArchivoTerjetas[1];
 
@@ -40,8 +42,10 @@ public class ArchivoDeClientes {
 			this.aliasCuit.put(alias, cuit);
 			
 			lineaArchivoClientes = lecturaArchivoCliente.readLine();
-
+			
+			
 		}
+		lecturaArchivoCliente.close();
 	}
 	
 	

@@ -10,5 +10,5 @@ public class CajaAhorroUSD extends Cuenta implements Operacion{
 	public void comprarDolares(int valor) {}
 	public void transferir(String alias, int valor) {}
 	
-	//sadas
+	
 }

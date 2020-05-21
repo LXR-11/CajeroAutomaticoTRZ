@@ -6,6 +6,9 @@ public class Cliente {
 
 	 Tarjeta tarjeta;
      int cuit;
+     CajaAhorroUSD cajaDelClienteUSD;
+     CajaDeAhorroARS cajaDelClienteARS;
+     CuentaCorriente cuentaCorrienteDelCliente;
 
 
      /**
@@ -15,9 +18,29 @@ public class Cliente {
      public Cliente (Tarjeta tarjeta, int cuit) {
          this.tarjeta = tarjeta;
          this.cuit = cuit;
+     
      }
 
+ 
      public int getCuit () {
          return cuit;
      }
+     
+     
+     
+     public void asociarAhorroARS(double saldo,String alias) throws Exception {
+    	this.cajaDelClienteARS = new CajaDeAhorroARS(saldo, alias);
+     }
+     public void asociarAhorroUSD(double saldo, String alias) throws Exception {
+     	this.cajaDelClienteUSD = new CajaAhorroUSD(saldo,alias);
+      }
+     public void asociarCorriente(double saldo, String alias, double descubierto) throws Exception {
+    	 this.cuentaCorrienteDelCliente=new CuentaCorriente(saldo, alias, descubierto);
+     }
+     
+     
+     public copareTo(){
+    	 
+     }
+     
 }

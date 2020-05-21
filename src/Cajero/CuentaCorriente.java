@@ -1,8 +1,10 @@
 package Cajero;
 
 public class CuentaCorriente extends Cuenta implements Operacion{
-	public CuentaCorriente(double saldo, String alias) throws Exception {
+	private double descubierto;
+	public CuentaCorriente(double saldo, String alias, double descubierto) throws Exception {
 		super(saldo, alias);
+		this.descubierto=descubierto;
 
 	}
 	

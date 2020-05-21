@@ -1,70 +1,60 @@
 package Cajero;
+import java.io.*;
+import java.util.*;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 public class ArchivoDeTarjetas {
-	
+
+	private	Map <Integer, Cliente> cuitCliente;
+
 	public ArchivoDeTarjetas() throws FileNotFoundException, IOException {
-		
+		this.cuitCliente = new HashMap<Integer,Cliente>();			//Creo un mapa k=CUIT | v=Cliente
 		listaDeClientes();
-		
+
 	}
 
-	TreeSet <Tarjeta> tarjetas;
-
-	TreeMap <Integer, Integer> validacion;
-
+	
+	
+	
 	private void listaDeClientes() throws FileNotFoundException, IOException {
 
-		this.tarjetas = new TreeSet <Tarjeta>();
-
-		BufferedReader lecturaArchivoTerjetas = new BufferedReader(new FileReader("ArchivoTerjetas.txt"));
+		
+		//Separo el TXT en valores
+		BufferedReader lecturaArchivoTerjetas = new BufferedReader(new FileReader("ArchivoTarjetas.txt"));
 
 		String lineaArchivoTerjetas = lecturaArchivoTerjetas.readLine();
 
-		while ( ( lineaArchivoTerjetas != null ) ) {
+		while ((lineaArchivoTerjetas != null)) {
 
 			lineaArchivoTerjetas.trim();
 
-			String separadorArchivoTerjetas [] = lineaArchivoTerjetas.split(",");
+			String separadorArchivoTerjetas[] = lineaArchivoTerjetas.split(",");
 
-			int numeroDeTarjeta = pasarDeStrinAInt(separadorArchivoTerjetas[0]);
+			int numeroDeTarjeta = Integer.parseInt(separadorArchivoTerjetas[0]);
 
-			int pin = pasarDeStrinAInt(separadorArchivoTerjetas[1]);
+			int pin = Integer.parseInt(separadorArchivoTerjetas[1]);
+
+			int cuit = Integer.parseInt(separadorArchivoTerjetas[2]);
 			
-			int cuit = pasarDeStrinAInt(separadorArchivoTerjetas[2]);
+			//Creo Clientes
+			Tarjeta tarjeta = new Tarjeta(numeroDeTarjeta, pin);
 
-			Tarjeta tarjeta = new Tarjeta (numeroDeTarjeta, pin );
+			Cliente cliente = new Cliente(tarjeta, cuit);
 			
-			validacion.put(cuit, numeroDeTarjeta);
-
-			tarjetas.add(tarjeta);
+			//Integro los clientes en el mapa
+			cuitCliente.put(cuit, cliente);
 
 			lineaArchivoTerjetas = lecturaArchivoTerjetas.readLine();
 
 		}
 	}
+
+	public Map <Integer, Cliente> getClientesConCuit() {
+
+		return this.cuitCliente;
+
+	}
 	
-	public TreeSet <Tarjeta> getTarjetas (){
-		
-		return this.tarjetas;
-		
-	}
-	
-	public TreeMap <Integer, Integer> getValidacion (){
-		
-		return this.validacion;
-		
-	}
 
-	private int pasarDeStrinAInt(String string) {
 
-		return ( Integer.parseInt(string) );
-
-	}
 }

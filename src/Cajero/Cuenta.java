@@ -45,6 +45,7 @@ public abstract class Cuenta {
 	    public void depositar(int monto) {
 			if(monto>0) {
 				this.saldo=+monto;
+				System.out.println("DEPOSITADO CORRECTAMENTE");
 			}
 			
 			else {

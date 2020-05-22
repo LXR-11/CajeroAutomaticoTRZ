@@ -23,11 +23,8 @@ public class Dispensador {
 		int billeteDe100 = 0;
 		int billeteDe500 = 0;
 		int billeteDe1000 = 0;
-		boolean hayDinero = this.cantidadDeBilletes.get(100) * 100 + this.cantidadDeBilletes.get(500) * 500
-				+ this.cantidadDeBilletes.get(1000) * 1000 >= dineroAretirar;
-				
-				
-		if (hayDinero) {
+					
+		if (hayDinero(dineroAretirar)) {
 			while (dineroAretirar >= 100) {
 				while (dineroAretirar >= 1000) {
 					if (this.cantidadDeBilletes.get(1000) > 0) {
@@ -54,5 +51,11 @@ public class Dispensador {
 		else {
 			return "No hay dinero suficiente en el Dispensador";
 		}
+	}
+	
+	
+	public boolean hayDinero(int dineroAretirar) {
+		return  this.cantidadDeBilletes.get(100) * 100 + this.cantidadDeBilletes.get(500) * 500
+				+ this.cantidadDeBilletes.get(1000) * 1000 >= dineroAretirar;
 	}
 }

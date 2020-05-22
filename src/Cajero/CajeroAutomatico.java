@@ -29,7 +29,9 @@ public class CajeroAutomatico {
 			this.numeroDeTarjeta = entrada.nextInt();
 			System.out.println(todosLosMensajes.pinTarjeta());
 			this.pin = entrada.nextInt();
+			
 			///// Creamos una tarjeta con los valores dados/////
+			
 			Tarjeta tarjetaIngresada = new Tarjeta(this.numeroDeTarjeta, this.pin);
 
 			boolean existeElUsuario = todasLasCuentas.getArchivoTarjetas().getCuitConTarjeta()
@@ -43,6 +45,7 @@ public class CajeroAutomatico {
 				System.out.println(this.todosLosMensajes.menuPrincipal());
 
 				int opcionElegida = entrada.nextInt();
+				int tipoDeCuenta;
 				switch (opcionElegida) {
 
 				///////////////////// CONSULTA /////////////////////
@@ -55,8 +58,8 @@ public class CajeroAutomatico {
 					//////////////// CONSULTAR SALDO ////////////////
 					case 1:
 						System.out.println(todosLosMensajes.tipoDeCuenta());
-						int tipoDeCuentaConsulta = entrada.nextInt();
-						switch (tipoDeCuentaConsulta) {
+						tipoDeCuenta = entrada.nextInt();
+						switch (tipoDeCuenta) {
 
 						//////////////// CONSULTAR SALDO ARS ////////////////
 
@@ -83,8 +86,8 @@ public class CajeroAutomatico {
 						//////////////// EXTRAER ////////////////
 					case 2:
 						System.out.println(todosLosMensajes.tipoDeCuenta());
-						int tipoDeCuentaExtraccion = entrada.nextInt();
-						switch (tipoDeCuentaExtraccion) {
+						tipoDeCuenta = entrada.nextInt();
+						switch (tipoDeCuenta) {
 
 						//////////////// EXTRAER EN CAJA ARS ////////////////
 

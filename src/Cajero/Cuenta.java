@@ -3,13 +3,14 @@ package Cajero;
 
 public abstract class Cuenta {
 	protected String alias;
-	   protected double saldo,valorDelDolar;
+	  protected double saldo,valorDelDolar;
 
 
 	    public Cuenta(double saldo, String alias) throws Exception{
 	    	if(saldoPositivo(saldo)) {
 	    		this.saldo=saldo;
 	    		this.alias=alias;
+	    		this.valorDelDolar=103;
 	 	       
 	    	}
 	    	else {

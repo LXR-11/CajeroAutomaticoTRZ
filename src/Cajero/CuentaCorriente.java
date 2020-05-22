@@ -12,5 +12,17 @@ public class CuentaCorriente extends Cuenta implements Operacion{
 	public void retirarEfectivo(int valor) {}
 	public void comprarDolares(int valor) {}
 	public void transferir(String alias, int valor) {}
+
+	@Override
+	public void comprarDolares(int valor, Cliente cliente) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean saldoSuficiente(int saldoAretirar) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

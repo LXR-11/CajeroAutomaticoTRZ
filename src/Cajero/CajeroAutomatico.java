@@ -11,31 +11,73 @@ public class CajeroAutomatico {
 
 	public CajeroAutomatico() {
 		try {
-			todasLasCuentas= new ArchivoDeCuentas();
+			todasLasCuentas = new ArchivoDeCuentas();
 
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println("Error al leer archivos");
 		}
-		todosLosMensajes=new Mensajes();
-		entrada= new Scanner (System.in);
+		todosLosMensajes = new Mensajes();
+		entrada = new Scanner(System.in);
 
 	}
 
 	public void iniciar() {
-		todosLosMensajes.bienvenida();
+		System.out.println(todosLosMensajes.bienvenida());
 
-		try{
-			this.numeroDeTarjeta= entrada.nextInt();
-			todosLosMensajes.pinTarjeta();
-			this.pin=entrada.nextInt();
-			System.out.println("Muy bien, tu numero de tarjeta es" + this.numeroDeTarjeta + " y tu pin es: " + this.pin);
+		try {
+			this.numeroDeTarjeta = entrada.nextInt();
+			System.out.println(todosLosMensajes.pinTarjeta());
+			this.pin = entrada.nextInt();
+			///// Creamos una tarjeta con los valores dados/////
+			Tarjeta tarjetaIngresada = new Tarjeta(this.numeroDeTarjeta, this.pin);
 
-		}
-		catch(InputMismatchException e){
+			boolean existeElUsuario = todasLasCuentas.getArchivoTarjetas().getCuitConTarjeta()
+					.containsKey(tarjetaIngresada);
+
+			if (existeElUsuario) {
+				int cuitDelUsuario = todasLasCuentas.getArchivoTarjetas().getCuitConTarjeta().get(tarjetaIngresada);
+				Cliente clienteIngresado = todasLasCuentas.getArchivoTarjetas().getClientesConCuit()
+						.get(cuitDelUsuario);
+
+				System.out.println(this.todosLosMensajes.tipoDeCuenta());
+
+				System.out.println(this.todosLosMensajes.menuPrincipal());
+
+				int opcionElegida = entrada.nextInt();
+				switch (opcionElegida) {
+
+				case 1:
+					System.out.println(todosLosMensajes.consultas());
+					break;
+
+				case 2:
+					System.out.println(todosLosMensajes.monto());
+					break;
+
+				case 3:
+					System.out.println(todosLosMensajes.monto());
+					break;
+
+				case 4:
+					System.out.println(todosLosMensajes.monto());
+					break;
+
+				case 5:
+					System.out.println(todosLosMensajes.transferenciaAlias());
+					break;
+
+				default:
+					System.out.println("Opcion invalida");
+				}
+
+			}
+
+			else {
+				System.out.println("Usuario no encontrado");
+			}
+		} catch (InputMismatchException e) {
 			System.out.println("Numero Invalido");
 		}
-
 
 	}
 }

@@ -6,9 +6,11 @@ import java.util.*;
 public class ArchivoDeTarjetas {
 
 	private	Map <Integer, Cliente> cuitCliente;
+	private Map <Tarjeta, Integer> tarjetaCuit;
 
 	public ArchivoDeTarjetas() throws FileNotFoundException, IOException {
 		this.cuitCliente = new HashMap<Integer,Cliente>();			//Creo un mapa k=CUIT | v=Cliente
+		this.tarjetaCuit = new HashMap<Tarjeta, Integer>();
 		listaDeClientes();
 
 	}
@@ -42,13 +44,17 @@ public class ArchivoDeTarjetas {
 			Cliente cliente = new Cliente(tarjeta, cuit);
 			
 			//Integro los clientes en el mapa
-			cuitCliente.put(cuit, cliente);
+			this.cuitCliente.put(cuit, cliente);
+			this.tarjetaCuit.put(tarjeta, cuit);
 
 			lineaArchivoTerjetas = lecturaArchivoTerjetas.readLine();
 
 		}
 	}
 
+	public Map<Tarjeta,Integer> getCuitConTarjeta(){
+		return this.tarjetaCuit;
+	}
 	public Map <Integer, Cliente> getClientesConCuit() {
 
 		return this.cuitCliente;

@@ -1,6 +1,13 @@
 package Cajero;
 
+import java.util.Objects;
+
 public class Tarjeta {
+
+
+	
+	
+	
 
 	private int numeroDeTarjeta;
 	
@@ -50,4 +57,21 @@ public class Tarjeta {
 		return cifras;
 		
 	}
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+		boolean iguales=this==obj;
+		if(! iguales && obj instanceof Tarjeta) {
+			Tarjeta objeto = (Tarjeta)obj;
+			iguales=(this.numeroDeTarjeta == objeto.numeroDeTarjeta && this.pin == objeto.pin);
+		}
+		return iguales;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.numeroDeTarjeta);
+	}
+	
 }

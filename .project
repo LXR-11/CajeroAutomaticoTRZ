@@ -14,26 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/Cajero/ArchivoClientes.txt</name>
-			<type>1</type>
-			<locationURI>PROJECT_LOC/ArchivoClientes.txt</locationURI>
-		</link>
-		<link>
-			<name>src/Cajero/ArchivoCuentas.txt</name>
-			<type>1</type>
-			<locationURI>PROJECT_LOC/ArchivoCuentas.txt</locationURI>
-		</link>
-		<link>
-			<name>src/Cajero/ArchivoMovimientos.txt</name>
-			<type>1</type>
-			<locationURI>PROJECT_LOC/ArchivoMovimientos.txt</locationURI>
-		</link>
-		<link>
-			<name>src/Cajero/ArchivoTarjetas.txt</name>
-			<type>1</type>
-			<locationURI>PROJECT_LOC/ArchivoTarjetas.txt</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

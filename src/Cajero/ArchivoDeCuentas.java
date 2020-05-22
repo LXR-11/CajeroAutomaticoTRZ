@@ -5,12 +5,14 @@ import java.io.*;
 
 public class ArchivoDeCuentas {
 	
-	ArchivoDeClientes archivoCliente;
-	ArchivoDeTarjetas archivoTarjetas;
+	private ArchivoDeClientes archivoCliente;
+	private ArchivoDeTarjetas archivoTarjetas;
 	
 	
 
 	
+	
+
 	public ArchivoDeCuentas() throws FileNotFoundException, IOException {
 		this.archivoCliente= new ArchivoDeClientes();		//Creo dos objetos, de archivoCliente y de archivoTarjeta
 		this.archivoTarjetas=new ArchivoDeTarjetas();		//Se crean esos dos objetos para tener dos mapas. Uno: CUIT | CLIENTE y otro ALIAS | CUIT
@@ -77,6 +79,13 @@ public class ArchivoDeCuentas {
 			
 
 		}
+	}
+	public ArchivoDeClientes getArchivoCliente() {
+		return archivoCliente;
+	}
+
+	public ArchivoDeTarjetas getArchivoTarjetas() {
+		return archivoTarjetas;
 	}
 	
 }

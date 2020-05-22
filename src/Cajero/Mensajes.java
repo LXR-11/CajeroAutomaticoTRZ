@@ -34,6 +34,7 @@ public class Mensajes {
 				+"\n	2. Extraccion"
 				+"\n	3. Comprar Dolares"
 				+"\n	4. Depositar"
+				+"\n	5. Transferencia"
 				+"\n"
 				+"\n*************************************************************";
 	}

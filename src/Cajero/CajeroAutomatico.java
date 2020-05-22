@@ -40,6 +40,9 @@ public class CajeroAutomatico {
 						.get(cuitDelUsuario);
 
 				System.out.println(this.todosLosMensajes.tipoDeCuenta());
+				
+				int tipoDeCuenta = entrada.nextInt();
+				
 
 				System.out.println(this.todosLosMensajes.menuPrincipal());
 
@@ -48,6 +51,7 @@ public class CajeroAutomatico {
 
 				case 1:
 					System.out.println(todosLosMensajes.consultas());
+					System.out.println(todasLasCuentas.getArchivoTarjetas().getClientesConCuit().get(clienteIngresado).cajaDelClienteARS.consultarSaldo());
 					break;
 
 				case 2:

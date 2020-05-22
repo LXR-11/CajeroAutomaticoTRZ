@@ -27,7 +27,8 @@ public class Mensajes {
 	}
 	
 	public String menuPrincipal() {
-		return  "*************************************************************"
+		 
+				return "*************************************************************"
 				+"\nQUE DESEA HACER?"
 				+"\n"
 				+"\n	1. Consulta"
@@ -37,6 +38,8 @@ public class Mensajes {
 				+"\n	5. Transferencia"
 				+"\n"
 				+"\n*************************************************************";
+		
+		
 	}
 	
 	public String consultas() {

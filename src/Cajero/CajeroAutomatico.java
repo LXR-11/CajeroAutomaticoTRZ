@@ -39,11 +39,6 @@ public class CajeroAutomatico {
 				Cliente clienteIngresado = todasLasCuentas.getArchivoTarjetas().getClientesConCuit()
 						.get(cuitDelUsuario);
 
-				System.out.println(this.todosLosMensajes.tipoDeCuenta());
-				
-				int tipoDeCuenta = entrada.nextInt();
-				
-
 				System.out.println(this.todosLosMensajes.menuPrincipal());
 
 				int opcionElegida = entrada.nextInt();
@@ -51,7 +46,36 @@ public class CajeroAutomatico {
 
 				case 1:
 					System.out.println(todosLosMensajes.consultas());
-					System.out.println(todasLasCuentas.getArchivoTarjetas().getClientesConCuit().get(clienteIngresado).cajaDelClienteARS.consultarSaldo());
+					int opcionConsultas = entrada.nextInt();
+					switch (opcionConsultas) {
+					case 1:
+						System.out.println(todosLosMensajes.tipoDeCuenta());
+						int tipoDeCuenta = entrada.nextInt();
+						switch (tipoDeCuenta) {
+
+						case 1:
+							System.out.println(todosLosMensajes.saldo(todasLasCuentas.getArchivoTarjetas()
+									.getClientesConCuit().get(cuitDelUsuario).cajaDelClienteARS.consultarSaldo()));
+							break;
+
+						case 2:
+							System.out.println(todosLosMensajes.saldo(todasLasCuentas.getArchivoTarjetas()
+									.getClientesConCuit().get(cuitDelUsuario).cajaDelClienteUSD.consultarSaldo()));
+							break;
+
+						case 3:
+							System.out.println(
+									todosLosMensajes.saldo(todasLasCuentas.getArchivoTarjetas().getClientesConCuit()
+											.get(cuitDelUsuario).cuentaCorrienteDelCliente.consultarSaldo()));
+							break;
+						}
+						break;
+
+					case 2:
+
+					case 3:
+					}
+
 					break;
 
 				case 2:

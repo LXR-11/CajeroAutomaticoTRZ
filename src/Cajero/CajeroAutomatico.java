@@ -64,7 +64,7 @@ public class CajeroAutomatico {
 						
 
 						case 1:	//ARS
-							System.out.println(clienteIngresado.cajaDelClienteARS.consultarSaldo());
+							todosLosMensajes.saldo(clienteIngresado.cajaDelClienteARS.consultarSaldo());
 							break;
 
 							
@@ -81,6 +81,8 @@ public class CajeroAutomatico {
 									.saldo(clienteIngresado.cuentaCorrienteDelCliente.consultarSaldo()));
 							break;
 						}
+						entrada.close();
+						System.exit(0);
 						break;
 
 						//////////////// CONSULTAR ALIAS  ////////////////
@@ -90,10 +92,12 @@ public class CajeroAutomatico {
 						switch(tipoDeCuenta) {
 						case 1: //ARS
 							System.out.println("Su alias es: " + clienteIngresado.cajaDelClienteARS.consultarAlias());
+							
 							break;
 						
 						case 2: //USD
 							System.out.println("Su alias es: " + clienteIngresado.cajaDelClienteUSD.consultarAlias());
+
 							break;
 							
 						case 3: //CC
@@ -101,12 +105,16 @@ public class CajeroAutomatico {
 							System.out.println("Su alias es: " + clienteIngresado.cuentaCorrienteDelCliente.consultarAlias());
 							break;
 						}
+						entrada.close();
+						System.exit(0);
 						break;
 						
 					//////////////// CONSULTAR ULTIMOS MOVIMIENTOS  ////////////////
 
 					case 3:
 						System.out.println("TODAVIA FALTA IMPLEMENTAR");
+						entrada.close();
+						System.exit(0);
 						break;
 					}
 
@@ -151,8 +159,9 @@ public class CajeroAutomatico {
 					System.out.println("TODAVIA FALTA IMPLEMENTAR");
 					break;
 				}
-
-
+				entrada.close();
+				System.exit(0);
+				break;
 
 
 				//////////////// COMPRAR USD  ////////////////
@@ -176,7 +185,8 @@ public class CajeroAutomatico {
 					System.out.println("TODAVIA FALTA IMPLEMENTAR");
 					break;
 				}
-
+				entrada.close();
+				System.exit(0);
 				break;
 
 				//////////////// DEPOSITAR  ////////////////
@@ -201,12 +211,15 @@ public class CajeroAutomatico {
 					clienteIngresado.cuentaCorrienteDelCliente.depositar(monto);
 					break;
 				}
-
+				entrada.close();
+				System.exit(0);
 				break;
 
 				////////////////TRANSFERENCIA////////////////
 			case 5:
 				System.out.println("FALTA IMPLEMENTAR");
+				entrada.close();
+				System.exit(0);
 				break;
 
 				

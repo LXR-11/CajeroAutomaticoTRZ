@@ -86,12 +86,12 @@ public class CajeroAutomatico {
 						tipoDeCuenta = entrada.nextInt();
 						switch (tipoDeCuenta) {
 						case 1: // ARS
-							System.out.println("Su alias es: " + clienteIngresado.cajaDelClienteARS.consultarAlias());
+							System.out.println(this.todosLosMensajes.alias(clienteIngresado.cajaDelClienteARS.consultarAlias()));
 
 							break;
 
 						case 2: // USD
-							System.out.println("Su alias es: " + clienteIngresado.cajaDelClienteUSD.consultarAlias());
+							System.out.println(this.todosLosMensajes.alias(clienteIngresado.cajaDelClienteUSD.consultarAlias()));
 
 							break;
 

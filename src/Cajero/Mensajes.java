@@ -47,7 +47,7 @@ public class Mensajes {
 				+"\n"
 				+"\n	1. Consultar Saldo"
 				+"\n	2. Consultar Alias"
-				+"\n	3. Consultar ultimos movimientos"		///VA?
+				+"\n	3. Consultar ultimos movimientos"		
 				+"\n"
 				+"\n*************************************************************";
 	}
@@ -83,6 +83,14 @@ public class Mensajes {
 		return  "*************************************************************"
 				+"\n"
 				+"\n	Su saldo es: "+saldo
+				+"\n"
+				+"\n*************************************************************";
+	}
+	
+	public String alias(String alias) {
+		return  "*************************************************************"
+				+"\n"
+				+"\n	Su alias es: "+alias
 				+"\n"
 				+"\n*************************************************************";
 	}

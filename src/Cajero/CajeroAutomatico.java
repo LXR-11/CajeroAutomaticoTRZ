@@ -61,22 +61,17 @@ public class CajeroAutomatico {
 						tipoDeCuenta = entrada.nextInt();
 						switch (tipoDeCuenta) {
 
-						
-
-						case 1:	//ARS
-							todosLosMensajes.saldo(clienteIngresado.cajaDelClienteARS.consultarSaldo());
+						case 1: // ARS
+							System.out.println(
+									todosLosMensajes.saldo(clienteIngresado.cajaDelClienteARS.consultarSaldo()));
 							break;
 
-							
-
-						case 2:	//USD
+						case 2: // USD
 							System.out.println(
 									todosLosMensajes.saldo(clienteIngresado.cajaDelClienteUSD.consultarSaldo()));
 							break;
 
-							
-
-						case 3:	//CC
+						case 3: // CC
 							System.out.println(todosLosMensajes
 									.saldo(clienteIngresado.cuentaCorrienteDelCliente.consultarSaldo()));
 							break;
@@ -85,31 +80,32 @@ public class CajeroAutomatico {
 						System.exit(0);
 						break;
 
-						//////////////// CONSULTAR ALIAS  ////////////////
+					//////////////// CONSULTAR ALIAS ////////////////
 					case 2:
 						System.out.println(todosLosMensajes.tipoDeCuenta());
 						tipoDeCuenta = entrada.nextInt();
-						switch(tipoDeCuenta) {
-						case 1: //ARS
+						switch (tipoDeCuenta) {
+						case 1: // ARS
 							System.out.println("Su alias es: " + clienteIngresado.cajaDelClienteARS.consultarAlias());
-							
+
 							break;
-						
-						case 2: //USD
+
+						case 2: // USD
 							System.out.println("Su alias es: " + clienteIngresado.cajaDelClienteUSD.consultarAlias());
 
 							break;
-							
-						case 3: //CC
+
+						case 3: // CC
 							System.out.println("TODAVIA FALTA IMPLEMENTAR");
-							System.out.println("Su alias es: " + clienteIngresado.cuentaCorrienteDelCliente.consultarAlias());
+							System.out.println(
+									"Su alias es: " + clienteIngresado.cuentaCorrienteDelCliente.consultarAlias());
 							break;
 						}
 						entrada.close();
 						System.exit(0);
 						break;
-						
-					//////////////// CONSULTAR ULTIMOS MOVIMIENTOS  ////////////////
+
+					//////////////// CONSULTAR ULTIMOS MOVIMIENTOS ////////////////
 
 					case 3:
 						System.out.println("TODAVIA FALTA IMPLEMENTAR");
@@ -118,142 +114,116 @@ public class CajeroAutomatico {
 						break;
 					}
 
+					//////////////// EXTRAER ////////////////
+				case 2:
+					System.out.println(todosLosMensajes.tipoDeCuenta());
+					tipoDeCuenta = entrada.nextInt();
+					switch (tipoDeCuenta) {
 
-				
-				//////////////// EXTRAER ////////////////
-			case 2:
-				System.out.println(todosLosMensajes.tipoDeCuenta());
-				tipoDeCuenta = entrada.nextInt();
-				switch (tipoDeCuenta) {
-
-				
-
-				case 1:	//ARS
-					System.out.println(todosLosMensajes.monto());
-					monto = entrada.nextInt();
-					if (clienteIngresado.cajaDelClienteARS != null) { // VERIFICA QUE HAYA CAJA
-						if (clienteIngresado.cajaDelClienteARS.saldoSuficiente(monto)) { // VERIFICA QUE TENGA
-							// SALDO
-							if (this.dispensador.hayDinero(monto)) { // VERIFICA QUE EL DISPENSADOR TENGA DINERO
-								clienteIngresado.cajaDelClienteARS.depositar(monto);
-								System.out.println(this.dispensador.retirarBillete(monto));
+					case 1: // ARS
+						System.out.println(todosLosMensajes.monto());
+						monto = entrada.nextInt();
+						if (clienteIngresado.cajaDelClienteARS != null) { // VERIFICA QUE HAYA CAJA
+							if (clienteIngresado.cajaDelClienteARS.saldoSuficiente(monto)) { // VERIFICA QUE TENGA
+								// SALDO
+								if (this.dispensador.hayDinero(monto)) { // VERIFICA QUE EL DISPENSADOR TENGA DINERO
+									clienteIngresado.cajaDelClienteARS.depositar(monto);
+									System.out.println(this.dispensador.retirarBillete(monto));
+								} else {
+									System.out.println("El dispensador no tiene dinero");
+								}
 							} else {
-								System.out.println("El dispensador no tiene dinero");
+								System.out.println("No posee dinero en la cuenta");
 							}
 						} else {
-							System.out.println("No posee dinero en la cuenta");
+							System.out.println("No posee cuenta en ARS");
 						}
-					} else {
-						System.out.println("No posee cuenta en ARS");
+						break;
+
+					case 2: // USD
+						System.out.println("No se puede retirar efectivo desde una Caja de ahorro en USD");
+						break;
+
+					case 3: // CC
+						System.out.println("TODAVIA FALTA IMPLEMENTAR");
+						break;
 					}
+					entrada.close();
+					System.exit(0);
 					break;
 
-					
-
-				case 2:	//USD
-					System.out.println("No se puede retirar efectivo desde una Caja de ahorro en USD");
-					break;
-
-					
-				case 3:	//CC
-					System.out.println("TODAVIA FALTA IMPLEMENTAR");
-					break;
-				}
-				entrada.close();
-				System.exit(0);
-				break;
-
-
-				//////////////// COMPRAR USD  ////////////////
-
-			case 3:
-				System.out.println(todosLosMensajes.tipoDeCuenta());
-				tipoDeCuenta = entrada.nextInt();
-
-				switch (tipoDeCuenta) {
-				case 1:		//ARS
-					System.out.println(todosLosMensajes.monto());
-					monto = entrada.nextInt();
-					clienteIngresado.cajaDelClienteARS.comprarDolares(monto, clienteIngresado);
-					break;
-
-				case 2:		//USD
-					System.out.println("No se puede comprar USD desde esta cuenta");
-					break;
-
-				case 3:		//CC
-					System.out.println("TODAVIA FALTA IMPLEMENTAR");
-					break;
-				}
-				entrada.close();
-				System.exit(0);
-				break;
-
-				//////////////// DEPOSITAR  ////////////////
-			case 4:
-				System.out.println(todosLosMensajes.tipoDeCuenta());
-				tipoDeCuenta = entrada.nextInt();
-				System.out.println(todosLosMensajes.monto());
-				monto = entrada.nextInt();
-
-				switch (tipoDeCuenta) {
-
-				case 1: //ARS
-					clienteIngresado.cajaDelClienteARS.depositar(monto);
-					break;
-
-				case 2:	//USD
-					clienteIngresado.cajaDelClienteUSD.depositar(monto);
-					break;
+				//////////////// COMPRAR USD ////////////////
 
 				case 3:
-					System.out.println("TODAVIA FALTA IMPLEMENTAR");
-					clienteIngresado.cuentaCorrienteDelCliente.depositar(monto);
+					System.out.println(todosLosMensajes.tipoDeCuenta());
+					tipoDeCuenta = entrada.nextInt();
+
+					switch (tipoDeCuenta) {
+					case 1: // ARS
+						System.out.println(todosLosMensajes.monto());
+						monto = entrada.nextInt();
+						clienteIngresado.cajaDelClienteARS.comprarDolares(monto, clienteIngresado);
+						break;
+
+					case 2: // USD
+						System.out.println("No se puede comprar USD desde esta cuenta");
+						break;
+
+					case 3: // CC
+						System.out.println("TODAVIA FALTA IMPLEMENTAR");
+						break;
+					}
+					entrada.close();
+					System.exit(0);
 					break;
+
+				//////////////// DEPOSITAR ////////////////
+				case 4:
+					System.out.println(todosLosMensajes.tipoDeCuenta());
+					tipoDeCuenta = entrada.nextInt();
+					System.out.println(todosLosMensajes.monto());
+					monto = entrada.nextInt();
+
+					switch (tipoDeCuenta) {
+
+					case 1: // ARS
+						clienteIngresado.cajaDelClienteARS.depositar(monto);
+						break;
+
+					case 2: // USD
+						clienteIngresado.cajaDelClienteUSD.depositar(monto);
+						break;
+
+					case 3:
+						System.out.println("TODAVIA FALTA IMPLEMENTAR");
+						clienteIngresado.cuentaCorrienteDelCliente.depositar(monto);
+						break;
+					}
+					entrada.close();
+					System.exit(0);
+					break;
+
+				//////////////// TRANSFERENCIA////////////////
+				case 5:
+					System.out.println("FALTA IMPLEMENTAR");
+					entrada.close();
+					System.exit(0);
+					break;
+
+				default:
+					System.out.println("Opcion invalida");
 				}
-				entrada.close();
-				System.exit(0);
-				break;
 
-				////////////////TRANSFERENCIA////////////////
-			case 5:
-				System.out.println("FALTA IMPLEMENTAR");
-				entrada.close();
-				System.exit(0);
-				break;
-
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-
-			default:
-				System.out.println("Opcion invalida");
 			}
 
+			else {
+				System.out.println("Usuario no encontrado");
+			}
+		} catch (
+
+		InputMismatchException e) {
+			System.out.println("Numero Invalido");
 		}
 
-		else {
-			System.out.println("Usuario no encontrado");
-		}
-	}catch(
-
-			InputMismatchException e)
-	{
-		System.out.println("Numero Invalido");
 	}
-
-}}
+}

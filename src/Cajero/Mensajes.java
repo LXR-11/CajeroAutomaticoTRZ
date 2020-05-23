@@ -42,6 +42,14 @@ public class Mensajes {
 		
 	}
 	
+	public String transferenciaExitosa(int valor) {
+		 return "*************************************************************"
+					+"\n"
+					+"\n	Transferiste correctamente: "+valor+ " ARS"
+					+"\n"
+					+"\n*************************************************************";
+	}
+	
 	public String consultas() {
 		return  "*************************************************************"
 				+"\n"

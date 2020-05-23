@@ -32,8 +32,10 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 
 	}
 
-	public void transferir(String alias, int valor) {
-
+	public void transferir(Cuenta cuentaAtransferir, int valor) {
+		if(saldoSuficiente(valor)) {
+			cuentaAtransferir.depositar(valor);
+		}
 	}
 
 }

@@ -3,6 +3,6 @@ package Cajero;
 public interface Operacion {
 	void retirarEfectivo(int valor);
 	void comprarDolares(int valor, Cliente cliente);
-	void transferir(String alias, int valor);
+	void transferir(Cuenta cuentaAtransferir, int valor);
 	boolean saldoSuficiente(int saldoAretirar);
 }

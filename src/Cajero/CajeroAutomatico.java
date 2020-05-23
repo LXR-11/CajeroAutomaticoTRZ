@@ -205,7 +205,38 @@ public class CajeroAutomatico {
 
 				//////////////// TRANSFERENCIA////////////////
 				case 5:
-					System.out.println("FALTA IMPLEMENTAR");
+					System.out.println(todosLosMensajes.tipoDeCuenta());
+					tipoDeCuenta = entrada.nextInt();
+					switch(tipoDeCuenta) {
+					case 1:	//ARS
+						System.out.println(this.todosLosMensajes.transferenciaAlias());
+						String aliasDestinatario = entrada.next();
+						if(this.todasLasCuentas.getArchivoCliente().getAliasConCuit().containsKey(aliasDestinatario)) { //¿Existe cuit con ese alias?
+							int cuitDestinatario = this.todasLasCuentas.getArchivoCliente().getAliasConCuit().get(aliasDestinatario);
+							Cliente clienteDestinatario = this.todasLasCuentas.getArchivoTarjetas().getClientesConCuit().get(cuitDestinatario);
+							System.out.println(this.todosLosMensajes.monto());
+							monto = entrada.nextInt();
+							if(clienteIngresado.cajaDelClienteARS.saldoSuficiente(monto)) {
+								clienteIngresado.cajaDelClienteARS.transferir(clienteDestinatario.cajaDelClienteARS, monto);
+								System.out.println(this.todosLosMensajes.transferenciaExitosa(monto));
+								System.out.println("TODAVIA FALTA IMPLEMENTAR: REESCRIBIR EL TXT DE SALDO DE CUENTAS");
+							}
+							else {
+								System.out.println("Saldo insuficiente");
+							}
+						}
+						else {
+							System.out.println("Cuenta inexistente");
+						}
+						break;
+					case 2:	//USD
+						System.out.println("No se puede realizar transferencias en USD");
+						break;
+					case 3:	//CC
+						System.out.println("TODAVIA FALTA IMPLEMENTAR");
+						break;
+					}
+					
 					entrada.close();
 					System.exit(0);
 					break;

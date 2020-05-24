@@ -2,7 +2,8 @@
 
 ### Nombres de los integrantes del grupo :
 •Aguilera Agustín •Ambrosetti Ramiro •Soto Luciano • Noguera Sol
-
+ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ 
+ 
 ### Decisiones de diseño tomadas :
 Se pueden ver en el UML. La intención del diseño es almacenar Clientes(con sus cuentas y tarjetas) con el fin de buscarlos de forma rapida y eficiente a la hora de solicitar el ingreso de tarjeta, además de conservar la prolijidad en el código. Para esto, se usaron Mapas con sus debidos metodos (Redefiniendo Equals y HashCode en caso de ser necesario).
  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ 
@@ -39,8 +40,10 @@ Se pueden ver en el UML. La intención del diseño es almacenar Clientes(con sus
   •CajeroAutomatico: Usando todas las clases necesarias, crea el cajero con todas sus opciones.
   
   •Main: Crea un cajero automatico y lo ejecuta.  
+   _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ 
   
   Conclusiones: 
+   _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ 
   
   
 

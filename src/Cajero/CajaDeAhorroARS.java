@@ -17,12 +17,12 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 
 	public boolean saldoSuficiente(int saldoAretirar) {
 
-		return (saldoAretirar <= this.saldo);
+		return (saldoAretirar <= this.saldo  && (saldoAretirar>0));
 	}
 
 	public void comprarDolares(int valor, Cliente cliente) throws ErroresDeCuenta {
 
-		if (cliente.cajaDelClienteUSD != null) {
+		if (cliente.verificarCuentaEnCliente(2)) {
 			if (valor >= this.saldo / this.valorDelDolar * valor) {
 				try {
 					cliente.cajaDelClienteUSD.depositar(valor);
@@ -42,7 +42,7 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 
 	public void transferir(Cliente clienteAtransferir, int valor) throws ErroresDeCuenta {
 		try {
-			if(clienteAtransferir.cajaDelClienteARS!=null) {
+			if(clienteAtransferir.verificarCuentaEnCliente(1)) {
 				if(saldoSuficiente(valor)) {
 					clienteAtransferir.cajaDelClienteARS.depositar(valor);
 					System.out.println(Mensajes.transferenciaExitosa(valor));

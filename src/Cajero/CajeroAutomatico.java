@@ -80,7 +80,7 @@ public class CajeroAutomatico {
 						System.exit(0);
 						break;
 
-					//////////////// CONSULTAR ALIAS ////////////////
+						//////////////// CONSULTAR ALIAS ////////////////
 					case 2:
 						System.out.println(todosLosMensajes.tipoDeCuenta());
 						tipoDeCuenta = entrada.nextInt();
@@ -103,7 +103,7 @@ public class CajeroAutomatico {
 						System.exit(0);
 						break;
 
-					//////////////// CONSULTAR ULTIMOS MOVIMIENTOS ////////////////
+						//////////////// CONSULTAR ULTIMOS MOVIMIENTOS ////////////////
 
 					case 3:
 						System.out.println("TODAVIA FALTA IMPLEMENTAR");
@@ -122,9 +122,9 @@ public class CajeroAutomatico {
 						System.out.println(todosLosMensajes.monto());
 						monto = entrada.nextInt();
 						if (clienteIngresado.verificarCuentaEnCliente(1)) { // VERIFICA QUE HAYA CAJA
-								clienteIngresado.cajaDelClienteARS.retirarEfectivo(monto);
-								System.out.println(this.dispensador.retirarBillete(monto));		
-						} 
+							clienteIngresado.cajaDelClienteARS.retirarEfectivo(monto);
+							System.out.println(this.dispensador.retirarBillete(monto));
+						}
 						break;
 
 					case 2: // USD
@@ -132,14 +132,18 @@ public class CajeroAutomatico {
 						break;
 
 					case 3: // CC
-						System.out.println("TODAVIA FALTA IMPLEMENTAR");
+						System.out.println(todosLosMensajes.monto());
+						monto = entrada.nextInt();
+						if (clienteIngresado.verificarCuentaEnCliente(3)) {
+							clienteIngresado.cuentaCorrienteDelCliente.retirarEfectivo(monto);
+						}
 						break;
 					}
 					entrada.close();
 					System.exit(0);
 					break;
 
-				//////////////// COMPRAR USD ////////////////
+					//////////////// COMPRAR USD ////////////////
 
 				case 3:
 					System.out.println(todosLosMensajes.tipoDeCuenta());
@@ -157,14 +161,16 @@ public class CajeroAutomatico {
 						break;
 
 					case 3: // CC
-						System.out.println("TODAVIA FALTA IMPLEMENTAR");
+						System.out.println(todosLosMensajes.monto());
+						monto = entrada.nextInt();
+						clienteIngresado.cuentaCorrienteDelCliente.comprarDolares(monto, clienteIngresado); // PROBAR
 						break;
 					}
 					entrada.close();
 					System.exit(0);
 					break;
 
-				//////////////// DEPOSITAR ////////////////
+					//////////////// DEPOSITAR ////////////////
 				case 4:
 					System.out.println(todosLosMensajes.tipoDeCuenta());
 					tipoDeCuenta = entrada.nextInt();
@@ -181,8 +187,7 @@ public class CajeroAutomatico {
 						clienteIngresado.cajaDelClienteUSD.depositar(monto);
 						break;
 
-					case 3:
-						System.out.println("TODAVIA FALTA IMPLEMENTAR");
+					case 3: // CC
 						clienteIngresado.cuentaCorrienteDelCliente.depositar(monto);
 						break;
 					}
@@ -190,39 +195,41 @@ public class CajeroAutomatico {
 					System.exit(0);
 					break;
 
-				//////////////// TRANSFERENCIA////////////////
+					//////////////// TRANSFERENCIA////////////////
 				case 5:
 					System.out.println(todosLosMensajes.tipoDeCuenta());
 					tipoDeCuenta = entrada.nextInt();
-					switch (tipoDeCuenta) {
-					case 1: // ARS
-						System.out.println(this.todosLosMensajes.transferenciaAlias());
-						String aliasDestinatario = entrada.next();
-						if (this.todasLasCuentas.getArchivoCliente().getAliasConCuit().containsKey(aliasDestinatario)) { // ¿Existe
-																															// cuit
-																															// con
-																															// ese
-																															// alias?
-							int cuitDestinatario = this.todasLasCuentas.getArchivoCliente().getAliasConCuit()
-									.get(aliasDestinatario);
-							Cliente clienteDestinatario = this.todasLasCuentas.getArchivoTarjetas().getClientesConCuit()
-									.get(cuitDestinatario);
+					System.out.println(this.todosLosMensajes.transferenciaAlias());
+					String aliasDestinatario = entrada.next();
+					if (this.todasLasCuentas.getArchivoCliente().getAliasConCuit().containsKey(aliasDestinatario)) { // ¿Existe
+																														// cuit
+																														// con
+																														// ese
+																														// alias?
+						int cuitDestinatario = this.todasLasCuentas.getArchivoCliente().getAliasConCuit()
+								.get(aliasDestinatario);
+						Cliente clienteDestinatario = this.todasLasCuentas.getArchivoTarjetas().getClientesConCuit()
+								.get(cuitDestinatario);
+
+						switch (tipoDeCuenta) {
+						case 1: // ARS
+
 							System.out.println(this.todosLosMensajes.monto());
 							monto = entrada.nextInt();
-
 							clienteIngresado.cajaDelClienteARS.transferir(clienteDestinatario, monto);
 							System.out.println("TODAVIA FALTA IMPLEMENTAR: REESCRIBIR EL TXT DE SALDO DE CUENTAS");
-
+							break;
+						case 2: // USD
+							System.out.println("No se puede realizar transferencias en USD");
+							break;
+						case 3: // CC
+							System.out.println(this.todosLosMensajes.monto());
+							monto = entrada.nextInt();
+							clienteIngresado.cuentaCorrienteDelCliente.transferir(clienteDestinatario, monto);
+							System.out.println("TODAVIA FALTA IMPLEMENTAR: REESCRIBIR EL TXT DE SALDO DE CUENTAS");
+							break;
 						}
-						break;
-					case 2: // USD
-						System.out.println("No se puede realizar transferencias en USD");
-						break;
-					case 3: // CC
-						System.out.println("TODAVIA FALTA IMPLEMENTAR");
-						break;
 					}
-
 					entrada.close();
 					System.exit(0);
 					break;
@@ -238,7 +245,7 @@ public class CajeroAutomatico {
 			}
 		} catch (
 
-		InputMismatchException e) {
+				InputMismatchException e) {
 			System.out.println("Numero Invalido");
 		} catch (ErroresDeCuenta e) {
 			e.printStackTrace();

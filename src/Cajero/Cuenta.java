@@ -16,9 +16,17 @@ public abstract class Cuenta{
             else {
                 throw new ErroresDeCuenta("No se puede crear una cuenta con saldo negativo");
             }
-
-
-
+        }
+        
+        public Cuenta(double saldo, String alias, double descubierto) throws ErroresDeCuenta{
+        	if(saldo+descubierto>=0) {
+        		this.saldo=saldo;
+                this.alias=alias;
+                this.valorDelDolar=103;
+        	}
+        	else {
+        		throw new ErroresDeCuenta("Error al crear cuenta corriente. Saldo insuficiente en base al descubierto");
+        	}
         }
 
 

@@ -1,28 +1,68 @@
 package Cajero;
 
 public class CuentaCorriente extends Cuenta implements Operacion{
+
 	private double descubierto;
-	private double saldoInicial;
+	
 	public CuentaCorriente(double saldo, String alias, double descubierto) throws Exception {
-		super(saldo+descubierto, alias);
-		this.saldoInicial=saldo;
+		super(saldo, alias, descubierto);
+		this.descubierto=descubierto;
+	}
+	
+	public void retirarEfectivo(int valor) throws ErroresDeCuenta {
+		if (saldoSuficiente(valor)) {
+			this.saldo = -valor;
+		} else {
+			throw new ErroresDeCuenta("Saldo insuficiente");
+		}
+	}
+	
+	public void comprarDolares(int valor, Cliente cliente) throws ErroresDeCuenta {
+
+		if (cliente.verificarCuentaEnCliente(2)) {
+			if (valor >= this.saldo / this.valorDelDolar * valor) {
+				try {
+					cliente.cajaDelClienteUSD.depositar(valor);
+				} catch (ErroresDeCuenta e) {
+
+					e.printStackTrace();
+				}
+			} else {
+				throw new ErroresDeCuenta("Saldo insuficiente");
+			}
+
+		} else {
+			throw new ErroresDeCuenta("Usted no posee una Caja de Ahorro en USD");
+		}
 
 	}
 	
-	public void retirarEfectivo(int valor) {}
-	public void comprarDolares(int valor) {}
-	public void transferir(Cliente clienteDestino, int valor) {}
-
-	@Override
-	public void comprarDolares(int valor, Cliente cliente) {
-		// TODO Auto-generated method stub
-		
+	public void transferir(Cliente clienteAtransferir, int valor) throws ErroresDeCuenta {
+		try {
+			if(clienteAtransferir.verificarCuentaEnCliente(3)) {
+				if(saldoSuficiente(valor)) {
+					clienteAtransferir.cuentaCorrienteDelCliente.depositar(valor);
+					System.out.println(Mensajes.transferenciaExitosa(valor));
+				}
+				else {
+					throw new ErroresDeCuenta("Saldo insuficiente");
+				}
+			}
+			else {
+				throw new ErroresDeCuenta("El destinatario no posee una cuenta corriente");
+			}
+		} catch (ErroresDeCuenta e) {
+			e.printStackTrace();
+		}
 	}
 
-	@Override
+
 	public boolean saldoSuficiente(int saldoAretirar) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean retorno=false;;
+		if((this.saldo>=0-this.descubierto) && (saldoAretirar>0) ){
+			retorno=true;
+		}
+		return retorno;
 	}
 	
 }

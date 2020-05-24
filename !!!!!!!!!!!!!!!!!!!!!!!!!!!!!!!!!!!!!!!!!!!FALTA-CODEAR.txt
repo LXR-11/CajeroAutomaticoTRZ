@@ -1,1 +1,1 @@
-Falta: Pruebas, UltimosMovimientos, Transacciones Reversibles, Pasar a long
+Falta: Pruebas, UltimosMovimientos, Transacciones Reversibles

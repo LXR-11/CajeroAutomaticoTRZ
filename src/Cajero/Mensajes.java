@@ -47,6 +47,21 @@ public class Mensajes {
 					+"\n"
 					+"\n	Transferiste correctamente: "+valor+ " ARS"
 					+"\n"
+					+"\n"
+					+"\n	Desea imprimir ticket?"
+					+"\n	1. Si"
+					+"\n	2. No"
+					+"\n*************************************************************";
+	}
+	public static String deposito() {
+		 return "*************************************************************"
+					+"\n"
+					+"\n	Depositaste correctamente."
+					+"\n"
+					+"\n"
+					+"\n	Desea imprimir ticket?"
+					+"\n	1. Si"
+					+"\n	2. No"
 					+"\n*************************************************************";
 	}
 	
@@ -92,14 +107,22 @@ public class Mensajes {
 				+"\n"
 				+"\n	Su saldo es: "+saldo
 				+"\n"
+				+"\n	Desea imprimir ticket?"
+				+"\n"
+				+"\n	1. Si"
+				+"\n	2. No"
 				+"\n*************************************************************";
 	}
 	
-	public static String alias(String alias) {
+	public String alias(Cuenta cuenta) {
 		return  "*************************************************************"
 				+"\n"
-				+"\n	Su alias es: "+alias
+				+"\n	Su alias es: "+cuenta.getAlias()
 				+"\n"
+				+"\n	Desea imprimir ticket?"
+				+"\n"
+				+"\n	1. Si"
+				+"\n	2. No"
 				+"\n*************************************************************";
 	}
 	
@@ -109,6 +132,21 @@ public class Mensajes {
 				+"\n	Operacion exitosa"
 				+"\n"
 				+"\n	Con "+valor+"ARS compraste "+valorFinal+" Gracias al impuesto pais del 30% de "+impuesto+"ARS"
+				+"\n"
+				+"\n	Desea imprimir ticket?"
+				+"\n	1. Si"
+				+"\n	2. No"
+				+"\n*************************************************************";
+	}
+	public static String extraer(int valor) {
+		return  "*************************************************************"
+				+"\n"
+				+"\n	Se extrajo correctamente"+valor+"ARS"
+				+"\n"
+				+"\n	Desea imprimir ticket?"
+				+"\n"
+				+"\n	1. Si"
+				+"\n	2. No"
 				+"\n*************************************************************";
 	}
 }

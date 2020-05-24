@@ -52,8 +52,8 @@ public abstract class Cuenta{
 
         public void depositar (double monto)throws ErroresDeCuenta {
             if(monto>0) {
-                this.saldo=+monto;
-                System.out.println("DEPOSITADO CORRECTAMENTE");
+                this.saldo+=monto;
+                System.out.println(Mensajes.deposito());
             }
 
             else {

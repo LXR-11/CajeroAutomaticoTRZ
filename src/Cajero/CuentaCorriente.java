@@ -13,9 +13,11 @@ public class CuentaCorriente extends Cuenta implements Operacion{
 		if (saldoSuficiente(valor)) {
 			if(valor%100==0) {
 			this.saldo = -valor;
+			System.out.println(Mensajes.extraer(valor));
 			}
 			else {
 				throw new ErroresDeCuenta("Solo se puede retirar divisores de 100");
+
 			}
 		} else {
 			throw new ErroresDeCuenta("Saldo insuficiente");
@@ -28,8 +30,9 @@ public class CuentaCorriente extends Cuenta implements Operacion{
 			if (valor >= this.saldo / this.valorDelDolar * valor) {
 				try {
 					double impuestoPais= ((30*valor)/100);	//30% Del valor
-					cliente.cajaDelClienteUSD.depositar(valor-impuestoPais);
-					System.out.println(Mensajes.comprarDolaresExitoso(valor, impuestoPais, valor-impuestoPais));
+					cliente.cajaDelClienteUSD.depositar(valor/super.valorDelDolar - impuestoPais);
+					this.saldo-=valor;
+					System.out.println(Mensajes.comprarDolaresExitoso(valor, impuestoPais, valor/super.valorDelDolar-impuestoPais));
 				} catch (ErroresDeCuenta e) {
 
 					e.printStackTrace();
@@ -49,6 +52,7 @@ public class CuentaCorriente extends Cuenta implements Operacion{
 			if(clienteAtransferir.verificarCuentaEnCliente(3)) {
 				if(saldoSuficiente(valor)) {
 					clienteAtransferir.cuentaCorrienteDelCliente.depositar(valor);
+					this.saldo-=valor;
 					System.out.println(Mensajes.transferenciaExitosa(valor));
 				}
 				else {

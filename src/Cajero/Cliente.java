@@ -27,43 +27,7 @@ public class Cliente {
 	}
 
 
-	public void consultarAliasDeCuentaX(int cuentaAlias) throws ErroresDeCuenta  {
-
-		try{
-			switch(cuentaAlias) {
-			case 1:	//ARS
-
-				if(verificarCuentaEnCliente(1)) {
-					System.out.println(Mensajes.alias(this.cajaDelClienteARS.getAlias()));
-				}
-				else {
-					throw new ErroresDeCuenta("Usted no posee esta cuenta");
-				}
-				break;
-
-			case 2:	//USD
-				if(verificarCuentaEnCliente(2)){
-					System.out.println(Mensajes.alias(this.cajaDelClienteUSD.getAlias()));
-				}
-				else {
-					throw new ErroresDeCuenta("Usted no posee esta cuenta");
-				}
-				break;
-			case 3:	//CC
-				if(verificarCuentaEnCliente(3)) {
-					System.out.println(Mensajes.alias(this.cuentaCorrienteDelCliente.getAlias()));
-				}
-				else {
-					throw new ErroresDeCuenta("Usted no posee esta cuenta");
-				}
-				break;
-			}
-		}
-		catch(ErroresDeCuenta e) {
-			e.printStackTrace();
-		}
-
-	}
+	
 
 	/**
 	 * 

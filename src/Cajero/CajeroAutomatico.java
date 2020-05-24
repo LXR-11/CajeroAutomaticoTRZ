@@ -9,6 +9,8 @@ public class CajeroAutomatico {
 	private Scanner entrada;
 	private Dispensador dispensador;
 	private int numeroDeTarjeta, pin;
+	private int deseaImprimir;
+	private Ticket generarTicket;
 
 	public CajeroAutomatico() {
 		try {
@@ -64,18 +66,34 @@ public class CajeroAutomatico {
 						case 1: // ARS
 							System.out.println(
 									todosLosMensajes.saldo(clienteIngresado.cajaDelClienteARS.consultarSaldo()));
+							this.deseaImprimir = entrada.nextInt();
+							if(this.deseaImprimir==1) {	//GENERA TICKET
+								this.generarTicket.escribirSaldo(clienteIngresado.cajaDelClienteARS);
+								System.out.println("Ticket generado correctamente. Saliendo..");
+							}
 							break;
 
 						case 2: // USD
 							System.out.println(
 									todosLosMensajes.saldo(clienteIngresado.cajaDelClienteUSD.consultarSaldo()));
+							this.deseaImprimir = entrada.nextInt();
+							if(this.deseaImprimir==1) {	//GENERA TICKET
+								this.generarTicket.escribirSaldo(clienteIngresado.cajaDelClienteUSD);
+								System.out.println("Ticket generado correctamente. Saliendo..");
+							}
 							break;
 
 						case 3: // CC
 							System.out.println(todosLosMensajes
 									.saldo(clienteIngresado.cuentaCorrienteDelCliente.consultarSaldo()));
+							this.deseaImprimir = entrada.nextInt();
+							if(this.deseaImprimir==1) {	//GENERA TICKET
+								this.generarTicket.escribirSaldo(clienteIngresado.cuentaCorrienteDelCliente);
+								System.out.println("Ticket generado correctamente. Saliendo..");
+							}
 							break;
 						}
+						System.out.println("Saliendo...");
 						entrada.close();
 						System.exit(0);
 						break;
@@ -86,19 +104,33 @@ public class CajeroAutomatico {
 						tipoDeCuenta = entrada.nextInt();
 						switch (tipoDeCuenta) {
 						case 1: // ARS
-							clienteIngresado.consultarAliasDeCuentaX(1);
-
+							System.out.println(this.todosLosMensajes.alias(clienteIngresado.cajaDelClienteARS));
+							this.deseaImprimir = entrada.nextInt();
+							if(this.deseaImprimir==1) {	//GENERA TICKET
+								this.generarTicket.escribirTicketAlias(tarjetaIngresada.getNumeroDeTarjeta(), clienteIngresado.cajaDelClienteARS.getAlias());
+								System.out.println("Ticket generado correctamente. Saliendo..");
+							}
 							break;
 
 						case 2: // USD
-							clienteIngresado.consultarAliasDeCuentaX(2);
-
+							System.out.println(this.todosLosMensajes.alias(clienteIngresado.cajaDelClienteUSD));
+							this.deseaImprimir = entrada.nextInt();
+							if(this.deseaImprimir==1) {	//GENERA TICKET
+								this.generarTicket.escribirTicketAlias(tarjetaIngresada.getNumeroDeTarjeta(), clienteIngresado.cajaDelClienteUSD.getAlias());
+								System.out.println("Ticket generado correctamente. Saliendo..");
+							}
 							break;
 
 						case 3: // CC
-							clienteIngresado.consultarAliasDeCuentaX(3);
+							System.out.println(this.todosLosMensajes.alias(clienteIngresado.cuentaCorrienteDelCliente));
+							this.deseaImprimir = entrada.nextInt();
+							if(this.deseaImprimir==1) {	//GENERA TICKET
+								this.generarTicket.escribirTicketAlias(tarjetaIngresada.getNumeroDeTarjeta(), clienteIngresado.cuentaCorrienteDelCliente.getAlias());
+								System.out.println("Ticket generado correctamente. Saliendo..");
+							}
 							break;
 						}
+						System.out.println("Saliendo...");
 						entrada.close();
 						System.exit(0);
 						break;
@@ -107,6 +139,7 @@ public class CajeroAutomatico {
 
 					case 3:
 						System.out.println("TODAVIA FALTA IMPLEMENTAR");
+						System.out.println("Saliendo...");
 						entrada.close();
 						System.exit(0);
 						break;
@@ -122,8 +155,14 @@ public class CajeroAutomatico {
 						System.out.println(todosLosMensajes.monto());
 						monto = entrada.nextInt();
 						if (clienteIngresado.verificarCuentaEnCliente(1)) { // VERIFICA QUE HAYA CAJA
-							clienteIngresado.cajaDelClienteARS.retirarEfectivo(monto);
 							System.out.println(this.dispensador.retirarBillete(monto));
+							clienteIngresado.cajaDelClienteARS.retirarEfectivo(monto);
+							this.deseaImprimir = entrada.nextInt();
+							if(this.deseaImprimir==1) {	//GENERA TICKET
+								this.generarTicket.escribirExtraccion(clienteIngresado.cajaDelClienteARS, monto);
+								System.out.println("Ticket generado correctamente.");
+							}
+
 						}
 						break;
 
@@ -135,10 +174,18 @@ public class CajeroAutomatico {
 						System.out.println(todosLosMensajes.monto());
 						monto = entrada.nextInt();
 						if (clienteIngresado.verificarCuentaEnCliente(3)) {
+							System.out.println(this.dispensador.retirarBillete(monto));
 							clienteIngresado.cuentaCorrienteDelCliente.retirarEfectivo(monto);
+							this.deseaImprimir = entrada.nextInt();
+							if(this.deseaImprimir==1) {	//GENERA TICKET
+								this.generarTicket.escribirExtraccion(clienteIngresado.cuentaCorrienteDelCliente, monto);
+								System.out.println("Ticket generado correctamente.");
+							}
 						}
+
 						break;
 					}
+					System.out.println("Saliendo...");
 					entrada.close();
 					System.exit(0);
 					break;
@@ -154,6 +201,11 @@ public class CajeroAutomatico {
 						System.out.println(todosLosMensajes.monto());
 						monto = entrada.nextInt();
 						clienteIngresado.cajaDelClienteARS.comprarDolares(monto, clienteIngresado);
+						this.deseaImprimir = entrada.nextInt();
+						if(this.deseaImprimir==1) {	//GENERA TICKET
+							this.generarTicket.escribirCompraUSD(clienteIngresado.cajaDelClienteARS, monto);
+							System.out.println("Ticket generado correctamente.");
+						}
 						break;
 
 					case 2: // USD
@@ -164,6 +216,11 @@ public class CajeroAutomatico {
 						System.out.println(todosLosMensajes.monto());
 						monto = entrada.nextInt();
 						clienteIngresado.cuentaCorrienteDelCliente.comprarDolares(monto, clienteIngresado); // PROBAR
+						this.deseaImprimir = entrada.nextInt();
+						if(this.deseaImprimir==1) {	//GENERA TICKET
+							this.generarTicket.escribirCompraUSD(clienteIngresado.cuentaCorrienteDelCliente, monto);
+							System.out.println("Ticket generado correctamente.");
+						}
 						break;
 					}
 					entrada.close();
@@ -181,16 +238,31 @@ public class CajeroAutomatico {
 
 					case 1: // ARS
 						clienteIngresado.cajaDelClienteARS.depositar(monto);
+						if(this.deseaImprimir==1) {	//GENERA TICKET
+							this.generarTicket.escribirDeposito(clienteIngresado.cajaDelClienteARS, monto);
+							System.out.println("Ticket generado correctamente.");
+						}
+						
+						
 						break;
 
 					case 2: // USD
 						clienteIngresado.cajaDelClienteUSD.depositar(monto);
+						if(this.deseaImprimir==1) {	//GENERA TICKET
+							this.generarTicket.escribirDeposito(clienteIngresado.cajaDelClienteUSD, monto);
+							System.out.println("Ticket generado correctamente.");
+						}
 						break;
 
 					case 3: // CC
 						clienteIngresado.cuentaCorrienteDelCliente.depositar(monto);
+						if(this.deseaImprimir==1) {	//GENERA TICKET
+							this.generarTicket.escribirDeposito(clienteIngresado.cuentaCorrienteDelCliente, monto);
+							System.out.println("Ticket generado correctamente.");
+						}
 						break;
 					}
+					System.out.println("Saliendo...");
 					entrada.close();
 					System.exit(0);
 					break;
@@ -202,10 +274,10 @@ public class CajeroAutomatico {
 					System.out.println(this.todosLosMensajes.transferenciaAlias());
 					String aliasDestinatario = entrada.next();
 					if (this.todasLasCuentas.getArchivoCliente().getAliasConCuit().containsKey(aliasDestinatario)) { // ¿Existe
-																														// cuit
-																														// con
-																														// ese
-																														// alias?
+						// cuit
+						// con
+						// ese
+						// alias?
 						int cuitDestinatario = this.todasLasCuentas.getArchivoCliente().getAliasConCuit()
 								.get(aliasDestinatario);
 						Cliente clienteDestinatario = this.todasLasCuentas.getArchivoTarjetas().getClientesConCuit()
@@ -217,6 +289,9 @@ public class CajeroAutomatico {
 							System.out.println(this.todosLosMensajes.monto());
 							monto = entrada.nextInt();
 							clienteIngresado.cajaDelClienteARS.transferir(clienteDestinatario, monto);
+
+							this.generarTicket=new Ticket();
+							this.generarTicket.escribirTicketTransferencia(aliasDestinatario, monto, clienteIngresado.cajaDelClienteARS.consultarSaldo());
 							System.out.println("TODAVIA FALTA IMPLEMENTAR: REESCRIBIR EL TXT DE SALDO DE CUENTAS");
 							break;
 						case 2: // USD
@@ -230,6 +305,7 @@ public class CajeroAutomatico {
 							break;
 						}
 					}
+					System.out.println("Saliendo...");
 					entrada.close();
 					System.exit(0);
 					break;

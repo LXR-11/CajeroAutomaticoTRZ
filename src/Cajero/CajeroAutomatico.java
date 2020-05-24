@@ -40,7 +40,7 @@ public class CajeroAutomatico {
 					.containsKey(tarjetaIngresada);
 
 			if (existeElUsuario) {
-				int cuitDelUsuario = todasLasCuentas.getArchivoTarjetas().getCuitConTarjeta().get(tarjetaIngresada);
+				long cuitDelUsuario = todasLasCuentas.getArchivoTarjetas().getCuitConTarjeta().get(tarjetaIngresada);
 				Cliente clienteIngresado = todasLasCuentas.getArchivoTarjetas().getClientesConCuit()
 						.get(cuitDelUsuario);
 
@@ -291,7 +291,7 @@ public class CajeroAutomatico {
 						// con
 						// ese
 						// alias?
-						int cuitDestinatario = this.todasLasCuentas.getArchivoCliente().getAliasConCuit()
+						long cuitDestinatario = this.todasLasCuentas.getArchivoCliente().getAliasConCuit()
 								.get(aliasDestinatario);
 						Cliente clienteDestinatario = this.todasLasCuentas.getArchivoTarjetas().getClientesConCuit()
 								.get(cuitDestinatario);

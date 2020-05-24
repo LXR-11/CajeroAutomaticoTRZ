@@ -7,7 +7,7 @@
 
 •Soto Luciano 
 
-• Noguera Sol
+•Noguera Sol
  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ 
  
 ### Decisiones de diseño tomadas :

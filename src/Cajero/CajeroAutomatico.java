@@ -86,19 +86,17 @@ public class CajeroAutomatico {
 						tipoDeCuenta = entrada.nextInt();
 						switch (tipoDeCuenta) {
 						case 1: // ARS
-							System.out.println(this.todosLosMensajes.alias(clienteIngresado.cajaDelClienteARS.consultarAlias()));
+							clienteIngresado.consultarAliasDeCuentaX(1);
 
 							break;
 
 						case 2: // USD
-							System.out.println(this.todosLosMensajes.alias(clienteIngresado.cajaDelClienteUSD.consultarAlias()));
+							clienteIngresado.consultarAliasDeCuentaX(2);
 
 							break;
 
 						case 3: // CC
-							System.out.println("TODAVIA FALTA IMPLEMENTAR");
-							System.out.println(
-									"Su alias es: " + clienteIngresado.cuentaCorrienteDelCliente.consultarAlias());
+							clienteIngresado.consultarAliasDeCuentaX(3);
 							break;
 						}
 						entrada.close();
@@ -123,20 +121,10 @@ public class CajeroAutomatico {
 					case 1: // ARS
 						System.out.println(todosLosMensajes.monto());
 						monto = entrada.nextInt();
-						if (clienteIngresado.cajaDelClienteARS != null) { // VERIFICA QUE HAYA CAJA
-							if (clienteIngresado.cajaDelClienteARS.saldoSuficiente(monto)) { // VERIFICA QUE TENGA SALDO
-								if (this.dispensador.hayDinero(monto)) { // VERIFICA QUE EL DISPENSADOR TENGA DINERO
-									clienteIngresado.cajaDelClienteARS.retirarEfectivo(monto);
-									System.out.println(this.dispensador.retirarBillete(monto));
-								} else {
-									System.out.println("El dispensador no tiene dinero");
-								}
-							} else {
-								System.out.println("No posee dinero en la cuenta");
-							}
-						} else {
-							System.out.println("No posee cuenta en ARS");
-						}
+						if (clienteIngresado.verificarCuentaEnCliente(1)) { // VERIFICA QUE HAYA CAJA
+								clienteIngresado.cajaDelClienteARS.retirarEfectivo(monto);
+								System.out.println(this.dispensador.retirarBillete(monto));		
+						} 
 						break;
 
 					case 2: // USD
@@ -206,36 +194,35 @@ public class CajeroAutomatico {
 				case 5:
 					System.out.println(todosLosMensajes.tipoDeCuenta());
 					tipoDeCuenta = entrada.nextInt();
-					switch(tipoDeCuenta) {
-					case 1:	//ARS
+					switch (tipoDeCuenta) {
+					case 1: // ARS
 						System.out.println(this.todosLosMensajes.transferenciaAlias());
 						String aliasDestinatario = entrada.next();
-						if(this.todasLasCuentas.getArchivoCliente().getAliasConCuit().containsKey(aliasDestinatario)) { //¿Existe cuit con ese alias?
-							int cuitDestinatario = this.todasLasCuentas.getArchivoCliente().getAliasConCuit().get(aliasDestinatario);
-							Cliente clienteDestinatario = this.todasLasCuentas.getArchivoTarjetas().getClientesConCuit().get(cuitDestinatario);
+						if (this.todasLasCuentas.getArchivoCliente().getAliasConCuit().containsKey(aliasDestinatario)) { // ¿Existe
+																															// cuit
+																															// con
+																															// ese
+																															// alias?
+							int cuitDestinatario = this.todasLasCuentas.getArchivoCliente().getAliasConCuit()
+									.get(aliasDestinatario);
+							Cliente clienteDestinatario = this.todasLasCuentas.getArchivoTarjetas().getClientesConCuit()
+									.get(cuitDestinatario);
 							System.out.println(this.todosLosMensajes.monto());
 							monto = entrada.nextInt();
-							if(clienteIngresado.cajaDelClienteARS.saldoSuficiente(monto)) {
-								clienteIngresado.cajaDelClienteARS.transferir(clienteDestinatario.cajaDelClienteARS, monto);
-								System.out.println(this.todosLosMensajes.transferenciaExitosa(monto));
-								System.out.println("TODAVIA FALTA IMPLEMENTAR: REESCRIBIR EL TXT DE SALDO DE CUENTAS");
-							}
-							else {
-								System.out.println("Saldo insuficiente");
-							}
-						}
-						else {
-							System.out.println("Cuenta inexistente");
+
+							clienteIngresado.cajaDelClienteARS.transferir(clienteDestinatario, monto);
+							System.out.println("TODAVIA FALTA IMPLEMENTAR: REESCRIBIR EL TXT DE SALDO DE CUENTAS");
+
 						}
 						break;
-					case 2:	//USD
+					case 2: // USD
 						System.out.println("No se puede realizar transferencias en USD");
 						break;
-					case 3:	//CC
+					case 3: // CC
 						System.out.println("TODAVIA FALTA IMPLEMENTAR");
 						break;
 					}
-					
+
 					entrada.close();
 					System.exit(0);
 					break;

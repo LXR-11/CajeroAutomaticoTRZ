@@ -29,7 +29,7 @@ public abstract class Cuenta{
             return this.saldo;
         }
 
-        public String consultarAlias(){
+        public String getAlias(){
             return this.alias;
         }
 

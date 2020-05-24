@@ -17,7 +17,7 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 
 	public boolean saldoSuficiente(int saldoAretirar) {
 
-		return (saldoAretirar >= this.saldo);
+		return (saldoAretirar <= this.saldo);
 	}
 
 	public void comprarDolares(int valor, Cliente cliente) throws ErroresDeCuenta {
@@ -40,13 +40,19 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 
 	}
 
-	public void transferir(Cuenta cuentaAtransferir, int valor) throws ErroresDeCuenta {
+	public void transferir(Cliente clienteAtransferir, int valor) throws ErroresDeCuenta {
 		try {
-			if(saldoSuficiente(valor)) {
-				cuentaAtransferir.depositar(valor);
+			if(clienteAtransferir.cajaDelClienteARS!=null) {
+				if(saldoSuficiente(valor)) {
+					clienteAtransferir.cajaDelClienteARS.depositar(valor);
+					System.out.println(Mensajes.transferenciaExitosa(valor));
+				}
+				else {
+					throw new ErroresDeCuenta("Saldo insuficiente");
+				}
 			}
 			else {
-				throw new ErroresDeCuenta("Saldo insuficiente");
+				throw new ErroresDeCuenta("El destinatario no posee una cuenta en ARS");
 			}
 		} catch (ErroresDeCuenta e) {
 			e.printStackTrace();

@@ -11,7 +11,7 @@ public class CuentaCorriente extends Cuenta implements Operacion{
 	
 	public void retirarEfectivo(int valor) {}
 	public void comprarDolares(int valor) {}
-	public void transferir(Cuenta cuentaDestino, int valor) {}
+	public void transferir(Cliente clienteDestino, int valor) {}
 
 	@Override
 	public void comprarDolares(int valor, Cliente cliente) {

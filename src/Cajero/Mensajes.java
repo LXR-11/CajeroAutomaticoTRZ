@@ -42,7 +42,7 @@ public class Mensajes {
 		
 	}
 	
-	public String transferenciaExitosa(int valor) {
+	public static String transferenciaExitosa(int valor) {
 		 return "*************************************************************"
 					+"\n"
 					+"\n	Transferiste correctamente: "+valor+ " ARS"
@@ -95,7 +95,7 @@ public class Mensajes {
 				+"\n*************************************************************";
 	}
 	
-	public String alias(String alias) {
+	public static String alias(String alias) {
 		return  "*************************************************************"
 				+"\n"
 				+"\n	Su alias es: "+alias

@@ -1,1 +1,1 @@
-Falta: Pruebas, UltimosMovimientos 
+Falta: Pruebas, UltimosMovimientos, Transacciones Reversibles, Tickets

@@ -50,7 +50,7 @@ public abstract class Cuenta{
         }
 
 
-        public void depositar (int monto)throws ErroresDeCuenta {
+        public void depositar (double monto)throws ErroresDeCuenta {
             if(monto>0) {
                 this.saldo=+monto;
                 System.out.println("DEPOSITADO CORRECTAMENTE");

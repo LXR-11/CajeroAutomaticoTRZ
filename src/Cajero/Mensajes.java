@@ -102,4 +102,13 @@ public class Mensajes {
 				+"\n"
 				+"\n*************************************************************";
 	}
+	
+	public static String comprarDolaresExitoso(int valor, double impuesto, double valorFinal) {
+		return  "*************************************************************"
+				+"\n"
+				+"\n	Operacion exitosa"
+				+"\n"
+				+"\n	Con "+valor+"ARS compraste "+valorFinal+" Gracias al impuesto pais del 30% de "+impuesto+"ARS"
+				+"\n*************************************************************";
+	}
 }

@@ -1,7 +1,5 @@
 package Cajero;
 
-
-
 public class CajaDeAhorroARS extends Cuenta implements Operacion {
 	public CajaDeAhorroARS(double saldo, String alias) throws Exception {
 		super(saldo, alias);
@@ -9,7 +7,11 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 
 	public void retirarEfectivo(int valor) throws ErroresDeCuenta {
 		if (saldoSuficiente(valor)) {
-			this.saldo = -valor;
+			if (valor % 100 == 0) {
+				this.saldo = -valor;
+			} else {
+				throw new ErroresDeCuenta("Solo se puede retirar divisores de 100");
+			}
 		} else {
 			throw new ErroresDeCuenta("Saldo insuficiente");
 		}
@@ -17,7 +19,7 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 
 	public boolean saldoSuficiente(int saldoAretirar) {
 
-		return (saldoAretirar <= this.saldo  && (saldoAretirar>0));
+		return (saldoAretirar <= this.saldo && (saldoAretirar > 0));
 	}
 
 	public void comprarDolares(int valor, Cliente cliente) throws ErroresDeCuenta {
@@ -25,7 +27,9 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 		if (cliente.verificarCuentaEnCliente(2)) {
 			if (valor >= this.saldo / this.valorDelDolar * valor) {
 				try {
-					cliente.cajaDelClienteUSD.depositar(valor);
+					double impuestoPais = ((30 * valor) / 100); // 30% Del valor
+					cliente.cajaDelClienteUSD.depositar(valor - impuestoPais);
+					System.out.println(Mensajes.comprarDolaresExitoso(valor, impuestoPais, valor - impuestoPais));
 				} catch (ErroresDeCuenta e) {
 
 					e.printStackTrace();
@@ -42,16 +46,14 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 
 	public void transferir(Cliente clienteAtransferir, int valor) throws ErroresDeCuenta {
 		try {
-			if(clienteAtransferir.verificarCuentaEnCliente(1)) {
-				if(saldoSuficiente(valor)) {
+			if (clienteAtransferir.verificarCuentaEnCliente(1)) {
+				if (saldoSuficiente(valor)) {
 					clienteAtransferir.cajaDelClienteARS.depositar(valor);
 					System.out.println(Mensajes.transferenciaExitosa(valor));
-				}
-				else {
+				} else {
 					throw new ErroresDeCuenta("Saldo insuficiente");
 				}
-			}
-			else {
+			} else {
 				throw new ErroresDeCuenta("El destinatario no posee una cuenta en ARS");
 			}
 		} catch (ErroresDeCuenta e) {

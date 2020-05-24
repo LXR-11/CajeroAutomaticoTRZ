@@ -11,7 +11,12 @@ public class CuentaCorriente extends Cuenta implements Operacion{
 	
 	public void retirarEfectivo(int valor) throws ErroresDeCuenta {
 		if (saldoSuficiente(valor)) {
+			if(valor%100==0) {
 			this.saldo = -valor;
+			}
+			else {
+				throw new ErroresDeCuenta("Solo se puede retirar divisores de 100");
+			}
 		} else {
 			throw new ErroresDeCuenta("Saldo insuficiente");
 		}
@@ -22,7 +27,9 @@ public class CuentaCorriente extends Cuenta implements Operacion{
 		if (cliente.verificarCuentaEnCliente(2)) {
 			if (valor >= this.saldo / this.valorDelDolar * valor) {
 				try {
-					cliente.cajaDelClienteUSD.depositar(valor);
+					double impuestoPais= ((30*valor)/100);	//30% Del valor
+					cliente.cajaDelClienteUSD.depositar(valor-impuestoPais);
+					System.out.println(Mensajes.comprarDolaresExitoso(valor, impuestoPais, valor-impuestoPais));
 				} catch (ErroresDeCuenta e) {
 
 					e.printStackTrace();

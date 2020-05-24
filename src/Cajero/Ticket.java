@@ -13,7 +13,7 @@ public class Ticket {
 
 	public void escribirTicketTransferencia(String alias, double monto, double saldo) {
 		try {
-			 escritor = new BufferedWriter(new FileWriter(alias + ".txt"));
+			 escritor = new BufferedWriter(new FileWriter("TRANSFERENCIA-"+alias + ".txt"));
 			escritor.write(this.escrituraDelTicket.transferencia(monto, saldo));
 			escritor.close();
 
@@ -23,7 +23,7 @@ public class Ticket {
 	}
 	public void escribirTicketAlias(int numeroTarjeta, String alias) {
 		try {
-			 escritor = new BufferedWriter(new FileWriter("CONSULTA"+numeroTarjeta+ "ALIAS.txt"));
+			 escritor = new BufferedWriter(new FileWriter("CONSULTA-"+numeroTarjeta+ "ALIAS.txt"));
 			escritor.write(this.escrituraDelTicket.alias(alias));
 			escritor.close();
 
@@ -33,7 +33,7 @@ public class Ticket {
 	}
 	public void escribirExtraccion(Cuenta cuenta, double valor) {
 		try {
-			 escritor = new BufferedWriter(new FileWriter("EXTRACCION"+cuenta.getAlias()+ ".txt"));
+			 escritor = new BufferedWriter(new FileWriter("EXTRACCION-"+cuenta.getAlias()+ ".txt"));
 			escritor.write(this.escrituraDelTicket.extraer(cuenta, valor));
 			escritor.close();
 
@@ -43,7 +43,7 @@ public class Ticket {
 	}
 	public void escribirCompraUSD(Cuenta cuenta, double valor) {
 		try {
-			 escritor = new BufferedWriter(new FileWriter("COMPRA"+cuenta.getAlias()+ ".txt"));
+			 escritor = new BufferedWriter(new FileWriter("COMPRA-"+cuenta.getAlias()+ ".txt"));
 			escritor.write(this.escrituraDelTicket.comprarUSD(cuenta, valor));
 			escritor.close();
 
@@ -64,7 +64,7 @@ public class Ticket {
 	public void escribirSaldo(Cuenta cuenta) {
 		try {
 
-			escritor = new BufferedWriter(new FileWriter("CONSULTA"+cuenta.getAlias()+ ".txt"));
+			escritor = new BufferedWriter(new FileWriter("CONSULTA-"+cuenta.getAlias()+ ".txt"));
 			escritor.write(this.escrituraDelTicket.saldo(cuenta));
 			escritor.close();
 

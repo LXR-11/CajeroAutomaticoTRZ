@@ -1,0 +1,5 @@
+01,isla.pez.arbol,12000.03
+02,sol.monte.valle,-1021.90,25000.00
+01,uva.sandalia.halcon,0.00
+02,hormiga.lija.crema,-50.97,150.00
+03,lobo.luna.pasto,200.00

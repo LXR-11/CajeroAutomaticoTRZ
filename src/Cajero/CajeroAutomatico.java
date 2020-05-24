@@ -68,6 +68,7 @@ public class CajeroAutomatico {
 									todosLosMensajes.saldo(clienteIngresado.cajaDelClienteARS.consultarSaldo()));
 							this.deseaImprimir = entrada.nextInt();
 							if(this.deseaImprimir==1) {	//GENERA TICKET
+								this.generarTicket=new Ticket();
 								this.generarTicket.escribirSaldo(clienteIngresado.cajaDelClienteARS);
 								System.out.println("Ticket generado correctamente. Saliendo..");
 							}
@@ -78,6 +79,7 @@ public class CajeroAutomatico {
 									todosLosMensajes.saldo(clienteIngresado.cajaDelClienteUSD.consultarSaldo()));
 							this.deseaImprimir = entrada.nextInt();
 							if(this.deseaImprimir==1) {	//GENERA TICKET
+								this.generarTicket=new Ticket();
 								this.generarTicket.escribirSaldo(clienteIngresado.cajaDelClienteUSD);
 								System.out.println("Ticket generado correctamente. Saliendo..");
 							}
@@ -88,6 +90,7 @@ public class CajeroAutomatico {
 									.saldo(clienteIngresado.cuentaCorrienteDelCliente.consultarSaldo()));
 							this.deseaImprimir = entrada.nextInt();
 							if(this.deseaImprimir==1) {	//GENERA TICKET
+								this.generarTicket=new Ticket();
 								this.generarTicket.escribirSaldo(clienteIngresado.cuentaCorrienteDelCliente);
 								System.out.println("Ticket generado correctamente. Saliendo..");
 							}
@@ -107,6 +110,7 @@ public class CajeroAutomatico {
 							System.out.println(this.todosLosMensajes.alias(clienteIngresado.cajaDelClienteARS));
 							this.deseaImprimir = entrada.nextInt();
 							if(this.deseaImprimir==1) {	//GENERA TICKET
+								this.generarTicket=new Ticket();
 								this.generarTicket.escribirTicketAlias(tarjetaIngresada.getNumeroDeTarjeta(), clienteIngresado.cajaDelClienteARS.getAlias());
 								System.out.println("Ticket generado correctamente. Saliendo..");
 							}
@@ -116,6 +120,7 @@ public class CajeroAutomatico {
 							System.out.println(this.todosLosMensajes.alias(clienteIngresado.cajaDelClienteUSD));
 							this.deseaImprimir = entrada.nextInt();
 							if(this.deseaImprimir==1) {	//GENERA TICKET
+								this.generarTicket=new Ticket();
 								this.generarTicket.escribirTicketAlias(tarjetaIngresada.getNumeroDeTarjeta(), clienteIngresado.cajaDelClienteUSD.getAlias());
 								System.out.println("Ticket generado correctamente. Saliendo..");
 							}
@@ -125,6 +130,7 @@ public class CajeroAutomatico {
 							System.out.println(this.todosLosMensajes.alias(clienteIngresado.cuentaCorrienteDelCliente));
 							this.deseaImprimir = entrada.nextInt();
 							if(this.deseaImprimir==1) {	//GENERA TICKET
+								this.generarTicket=new Ticket();
 								this.generarTicket.escribirTicketAlias(tarjetaIngresada.getNumeroDeTarjeta(), clienteIngresado.cuentaCorrienteDelCliente.getAlias());
 								System.out.println("Ticket generado correctamente. Saliendo..");
 							}
@@ -159,6 +165,7 @@ public class CajeroAutomatico {
 							clienteIngresado.cajaDelClienteARS.retirarEfectivo(monto);
 							this.deseaImprimir = entrada.nextInt();
 							if(this.deseaImprimir==1) {	//GENERA TICKET
+								this.generarTicket=new Ticket();
 								this.generarTicket.escribirExtraccion(clienteIngresado.cajaDelClienteARS, monto);
 								System.out.println("Ticket generado correctamente.");
 							}
@@ -178,6 +185,7 @@ public class CajeroAutomatico {
 							clienteIngresado.cuentaCorrienteDelCliente.retirarEfectivo(monto);
 							this.deseaImprimir = entrada.nextInt();
 							if(this.deseaImprimir==1) {	//GENERA TICKET
+								this.generarTicket=new Ticket();
 								this.generarTicket.escribirExtraccion(clienteIngresado.cuentaCorrienteDelCliente, monto);
 								System.out.println("Ticket generado correctamente.");
 							}
@@ -203,6 +211,7 @@ public class CajeroAutomatico {
 						clienteIngresado.cajaDelClienteARS.comprarDolares(monto, clienteIngresado);
 						this.deseaImprimir = entrada.nextInt();
 						if(this.deseaImprimir==1) {	//GENERA TICKET
+							this.generarTicket=new Ticket();
 							this.generarTicket.escribirCompraUSD(clienteIngresado.cajaDelClienteARS, monto);
 							System.out.println("Ticket generado correctamente.");
 						}
@@ -218,6 +227,7 @@ public class CajeroAutomatico {
 						clienteIngresado.cuentaCorrienteDelCliente.comprarDolares(monto, clienteIngresado); // PROBAR
 						this.deseaImprimir = entrada.nextInt();
 						if(this.deseaImprimir==1) {	//GENERA TICKET
+							this.generarTicket=new Ticket();
 							this.generarTicket.escribirCompraUSD(clienteIngresado.cuentaCorrienteDelCliente, monto);
 							System.out.println("Ticket generado correctamente.");
 						}
@@ -239,6 +249,7 @@ public class CajeroAutomatico {
 					case 1: // ARS
 						clienteIngresado.cajaDelClienteARS.depositar(monto);
 						if(this.deseaImprimir==1) {	//GENERA TICKET
+							this.generarTicket=new Ticket();
 							this.generarTicket.escribirDeposito(clienteIngresado.cajaDelClienteARS, monto);
 							System.out.println("Ticket generado correctamente.");
 						}
@@ -249,6 +260,7 @@ public class CajeroAutomatico {
 					case 2: // USD
 						clienteIngresado.cajaDelClienteUSD.depositar(monto);
 						if(this.deseaImprimir==1) {	//GENERA TICKET
+							this.generarTicket=new Ticket();
 							this.generarTicket.escribirDeposito(clienteIngresado.cajaDelClienteUSD, monto);
 							System.out.println("Ticket generado correctamente.");
 						}
@@ -257,6 +269,7 @@ public class CajeroAutomatico {
 					case 3: // CC
 						clienteIngresado.cuentaCorrienteDelCliente.depositar(monto);
 						if(this.deseaImprimir==1) {	//GENERA TICKET
+							this.generarTicket=new Ticket();
 							this.generarTicket.escribirDeposito(clienteIngresado.cuentaCorrienteDelCliente, monto);
 							System.out.println("Ticket generado correctamente.");
 						}

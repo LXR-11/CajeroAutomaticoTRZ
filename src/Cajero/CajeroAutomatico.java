@@ -124,10 +124,9 @@ public class CajeroAutomatico {
 						System.out.println(todosLosMensajes.monto());
 						monto = entrada.nextInt();
 						if (clienteIngresado.cajaDelClienteARS != null) { // VERIFICA QUE HAYA CAJA
-							if (clienteIngresado.cajaDelClienteARS.saldoSuficiente(monto)) { // VERIFICA QUE TENGA
-								// SALDO
+							if (clienteIngresado.cajaDelClienteARS.saldoSuficiente(monto)) { // VERIFICA QUE TENGA SALDO
 								if (this.dispensador.hayDinero(monto)) { // VERIFICA QUE EL DISPENSADOR TENGA DINERO
-									clienteIngresado.cajaDelClienteARS.depositar(monto);
+									clienteIngresado.cajaDelClienteARS.retirarEfectivo(monto);
 									System.out.println(this.dispensador.retirarBillete(monto));
 								} else {
 									System.out.println("El dispensador no tiene dinero");
@@ -254,6 +253,8 @@ public class CajeroAutomatico {
 
 		InputMismatchException e) {
 			System.out.println("Numero Invalido");
+		} catch (ErroresDeCuenta e) {
+			e.printStackTrace();
 		}
 
 	}

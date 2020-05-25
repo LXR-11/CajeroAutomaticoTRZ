@@ -77,5 +77,26 @@ public class ArchivoDeCuentas {
 	public ArchivoDeTarjetas getArchivoTarjetas() {
 		return archivoTarjetas;
 	}
-	
+	public Cuenta encontrarCuentaPorAlias(String aliasDestinatario) {
+		if (archivoCliente.getAliasConCuit().containsKey(aliasDestinatario)) { 
+			long cuitDestinatario = archivoCliente.getAliasConCuit()
+					.get(aliasDestinatario);
+			Cliente clienteDestinatario = archivoTarjetas.getClientesConCuit()
+					.get(cuitDestinatario);
+			if (clienteDestinatario.cajaDelClienteARS.alias.equalsIgnoreCase(aliasDestinatario)) {
+				return clienteDestinatario.cajaDelClienteARS;
+				
+			} else if (clienteDestinatario.cajaDelClienteUSD.alias.equalsIgnoreCase(aliasDestinatario)) {
+				return clienteDestinatario.cajaDelClienteUSD;
+				
+			} else if (clienteDestinatario.cuentaCorrienteDelCliente.alias.equalsIgnoreCase(aliasDestinatario)) {
+				return clienteDestinatario.cuentaCorrienteDelCliente;
+			} else {
+				return null;
+			}
+			
+	} else {
+		return null;
+		}
+	}
 }

@@ -31,7 +31,7 @@ public class Mensajes {
 				return "*************************************************************"
 				+"\nQUE DESEA HACER?"
 				+"\n"
-				+"\n	1. Consulta"
+				+"\n	1. Consultar o revertir mi ultimo movimiento."
 				+"\n	2. Extraccion"
 				+"\n	3. Comprar Dolares"
 				+"\n	4. Depositar"
@@ -42,35 +42,16 @@ public class Mensajes {
 		
 	}
 	
-	public static String transferenciaExitosa(int valor) {
-		 return "*************************************************************"
-					+"\n"
-					+"\n	Transferiste correctamente: "+valor+ " ARS"
-					+"\n"
-					+"\n"
-					+"\n	Desea imprimir ticket?"
-					+"\n	1. Si"
-					+"\n	2. No"
-					+"\n*************************************************************";
-	}
-	public static String deposito() {
-		 return "*************************************************************"
-					+"\n"
-					+"\n	Depositaste correctamente."
-					+"\n"
-					+"\n"
-					+"\n	Desea imprimir ticket?"
-					+"\n	1. Si"
-					+"\n	2. No"
-					+"\n*************************************************************";
-	}
+
+
 	
 	public String consultas() {
 		return  "*************************************************************"
 				+"\n"
 				+"\n	1. Consultar Saldo"
 				+"\n	2. Consultar Alias"
-				+"\n	3. Consultar ultimos movimientos"		
+				+"\n	3. Consultar ultimo movimiento y si es posible,"
+				+ "\n	   realizar una reversion."		
 				+"\n"
 				+"\n*************************************************************";
 	}
@@ -88,7 +69,7 @@ public class Mensajes {
 	public String transferenciaAlias() {
 		return  "*************************************************************"
 				+"\n"
-				+"\n	Introduzca el Alias del destinatario"
+				+"\n	Introduzca el Alias de la cuenta del destinatario"
 				+"\n"
 				+"\n*************************************************************";
 	}
@@ -101,7 +82,7 @@ public class Mensajes {
 				+"\n*************************************************************";
 	}
 	
-	
+									//CONSULTAS//
 	public String saldo(double saldo) {
 		return  "*************************************************************"
 				+"\n"
@@ -125,7 +106,39 @@ public class Mensajes {
 				+"\n	2. No"
 				+"\n*************************************************************";
 	}
+	public String ultimoMovimientoNoReversible(String movimiento) {
+
+		return  "*************************************************************"
+				+"\n"
+				+"\n	Su ultimo movimiento fue: "
+				+ "\n"+movimiento
+				+"\n 	Esta operacion no es reversible."
+				+"\n"
+				+"\n	Desea imprimir ticket?"
+				+"\n"
+				+"\n	1. Si"
+				+"\n	2. No"
+				+"\n*************************************************************";
+	}
 	
+	public String ultimoMovimientoReversible(String movimiento) {
+
+		return  "*************************************************************"
+				+"\n"
+				+"\n	Su ultimo movimiento fue: "
+				+ "\n"+movimiento
+				+"\n"
+				+"\n	QUE DESEA HACER?"
+				+"\n"
+				+"\n	1. Imprimir ticket."
+				+"\n	2. Revertir Transaccion."
+				+"\n"
+				+"\n*************************************************************";
+	}
+	
+	
+	
+							//OPERACIONES EXITOSAS//
 	public static String comprarDolaresExitoso(int valor, double impuesto, double valorFinal) {
 		return  "*************************************************************"
 				+"\n"
@@ -138,7 +151,7 @@ public class Mensajes {
 				+"\n	2. No"
 				+"\n*************************************************************";
 	}
-	public static String extraer(int valor) {
+	public static String extraerExitoso(int valor) {
 		return  "*************************************************************"
 				+"\n"
 				+"\n	Se extrajo correctamente"+valor+"ARS"
@@ -149,11 +162,27 @@ public class Mensajes {
 				+"\n	2. No"
 				+"\n*************************************************************";
 	}
-
-
-
-	public static char[] alias(String alias) {
-		// TODO Auto-generated method stub
-		return null;
+	public static String transferenciaExitosa(int valor) {
+		 return "*************************************************************"
+					+"\n"
+					+"\n	Transferiste correctamente: "+valor+ " ARS"
+					+"\n"
+					+"\n	QUE DESEA HACER?"
+					+"\n"
+					+"\n	1.Revertir transferencia."
+					+"\n	2.Imprimir ticket."
+					+"\n*************************************************************";
 	}
+	public static String depositoExitoso() {
+		 return "*************************************************************"
+					+"\n"
+					+"\n	Depositaste correctamente."
+					+"\n"
+					+"\n"
+					+"\n	Desea imprimir ticket?"
+					+"\n	1. Si"
+					+"\n	2. No"
+					+"\n*************************************************************";
+	}
+
 }

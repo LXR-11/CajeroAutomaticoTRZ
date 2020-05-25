@@ -11,17 +11,17 @@ public class Ticket {
 		this.escrituraDelTicket = new MensajesTicket();
 	}
 
-	public void escribirTicketTransferencia(String alias, double monto, double saldo) {
+	public void escribirTransferencia(String alias, double monto) {
 		try {
 			 escritor = new BufferedWriter(new FileWriter("TRANSFERENCIA-"+alias + ".txt"));
-			escritor.write(this.escrituraDelTicket.transferencia(monto, saldo));
+			escritor.write(this.escrituraDelTicket.transferencia(monto));
 			escritor.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	public void escribirTicketAlias(int numeroTarjeta, String alias) {
+	public void escribirConsulta(int numeroTarjeta, String alias) {
 		try {
 			 escritor = new BufferedWriter(new FileWriter("CONSULTA-"+numeroTarjeta+ "ALIAS.txt"));
 			escritor.write(this.escrituraDelTicket.alias(alias));
@@ -72,4 +72,23 @@ public class Ticket {
 			e.printStackTrace();
 		}
 	}
+	
+	public void escribirSegunMovimiento(Movimiento mov, Cuenta cuenta) {
+		
+		switch(mov.movimiento) {
+		case DEPOSITO:
+			escribirDeposito(cuenta,mov.saldoInvolucrado);
+			break;
+		case COMPRADEDOLARES:
+			escribirCompraUSD(cuenta,mov.saldoInvolucrado);
+		case RETIRAREFECTIVO:
+			escribirExtraccion(cuenta,mov.saldoInvolucrado);
+		case TRANSFERENCIAENPESOS:
+			escribirTransferencia(mov.aliasDelDestinatario,mov.saldoInvolucrado);
+			
+		default:
+			break;
+		}
+	}
+	
 }

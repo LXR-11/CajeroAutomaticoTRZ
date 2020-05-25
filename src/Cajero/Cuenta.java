@@ -1,10 +1,13 @@
 package Cajero;
 
+import java.util.Stack;
 
 public abstract class Cuenta{
-    protected String alias;
-      protected double saldo,valorDelDolar;
-
+	
+      protected String alias;
+      protected double saldo;
+      protected double valorDelDolar;
+      protected Stack<Movimiento> movimientosDeCuenta = new Stack<Movimiento>();
 
         public Cuenta(double saldo, String alias)throws ErroresDeCuenta{
             if(saldoPositivo(saldo)) {
@@ -29,10 +32,6 @@ public abstract class Cuenta{
         	}
         }
 
-
-
-
-
         public double consultarSaldo(){
             return this.saldo;
         }
@@ -48,12 +47,26 @@ public abstract class Cuenta{
             return true;
 
         }
-
-
+        
+        
+        public void agregarMovimiento(Movimiento mov) {
+        	this.movimientosDeCuenta.push(mov);
+        }
+        
+        public void revertirUltimaTransferencia(double saldoInvolucrado, Cuenta destinatario) {
+        	this.saldo += saldoInvolucrado;
+        	destinatario.saldo -= saldoInvolucrado;
+        	//remueve el ultimo movimiento 
+        	movimientosDeCuenta.remove(movimientosDeCuenta.size());
+        	
+        }
+        
         public void depositar (double monto)throws ErroresDeCuenta {
             if(monto>0) {
                 this.saldo+=monto;
-                System.out.println(Mensajes.deposito());
+                System.out.println(Mensajes.depositoExitoso());
+                Movimiento mov = new Movimiento(TipoDeMovimiento.DEPOSITO,monto);
+                agregarMovimiento(mov);
             }
 
             else {

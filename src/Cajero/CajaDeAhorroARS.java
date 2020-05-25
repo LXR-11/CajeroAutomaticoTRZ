@@ -9,7 +9,9 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 		if (saldoSuficiente(valor)) {
 			if (valor % 100 == 0) {
 				this.saldo = -valor;
-				System.out.println(Mensajes.extraer(valor));
+				System.out.println(Mensajes.extraerExitoso(valor));
+				Movimiento mov = new Movimiento(TipoDeMovimiento.RETIRAREFECTIVO,valor);
+				agregarMovimiento(mov);
 			} else {
 				throw new ErroresDeCuenta("Solo se puede retirar divisores de 100");
 			}
@@ -32,6 +34,8 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 					cliente.cajaDelClienteUSD.depositar(valor/super.valorDelDolar - impuestoPais);
 					this.saldo-=valor;
 					System.out.println(Mensajes.comprarDolaresExitoso(valor, impuestoPais, valor/super.valorDelDolar-impuestoPais));
+					Movimiento mov = new Movimiento(TipoDeMovimiento.COMPRADEDOLARES,valor);
+					agregarMovimiento(mov);
 				} catch (ErroresDeCuenta e) {
 
 					e.printStackTrace();
@@ -53,6 +57,10 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 					clienteAtransferir.cajaDelClienteARS.depositar(valor);
 					this.saldo-=valor;
 					System.out.println(Mensajes.transferenciaExitosa(valor));
+					
+					String destinatarioAlias = clienteAtransferir.cajaDelClienteARS.alias;
+					Movimiento mov = new Movimiento(TipoDeMovimiento.TRANSFERENCIAENPESOS,valor,destinatarioAlias);
+					agregarMovimiento(mov);
 				} else {
 					throw new ErroresDeCuenta("Saldo insuficiente");
 				}
@@ -63,5 +71,6 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 			e.printStackTrace();
 		}
 	}
+
 
 }

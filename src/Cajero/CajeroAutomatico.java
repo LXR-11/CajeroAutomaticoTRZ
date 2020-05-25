@@ -157,28 +157,29 @@ public class CajeroAutomatico {
 								String ultimoARSEscrito;
 								
 								if (esReversible) {
+									MovimientoReversible reversible =(MovimientoReversible) ultimoARS;
 									//si es reversible como transferencia imprime y pregunta por el ticket tambien
-									ultimoARSEscrito = ultimoARS.imprimirTransferencia();
+									ultimoARSEscrito = reversible.imprimirMovimiento();
 									todosLosMensajes.ultimoMovimientoReversible(ultimoARSEscrito);
 									
 									int opcion1 = entrada.nextInt();
 									if(opcion1 == 1) { //GENERATICKET
-										generarTicket.escribirTransferencia(ultimoARS.aliasDelDestinatario, ultimoARS.saldoInvolucrado);
+										generarTicket.escribirTransferencia(reversible.aliasDelDestinatario, reversible.saldoInvolucrado);
 										System.out.println("Ticket generado correctamente.");
 									}else if (opcion1 == 2) { //REVIERTE TRANSFERENCIA
-										Cuenta destinatario = todasLasCuentas.encontrarCuentaPorAlias(ultimoARS.aliasDelDestinatario);
-										clienteIngresado.cajaDelClienteARS.revertirUltimaTransferencia(ultimoARS.saldoInvolucrado, destinatario);
+										Cuenta destinatario = todasLasCuentas.encontrarCuentaPorAlias(reversible.aliasDelDestinatario);
+										clienteIngresado.cajaDelClienteARS.revertirUltimaTransferencia(reversible.saldoInvolucrado, destinatario);
 										System.out.println("Transaccion revertida correctamente.");
 									} else {
 										System.out.println("Opcion invalida");
 									}
 								} else {
 									//NO ES REVERSIBLE
-									ultimoARSEscrito = ultimoARS.imprimirMovimientoMenosTransferencia();
+									ultimoARSEscrito = ultimoARS.imprimirMovimiento();
 									todosLosMensajes.ultimoMovimientoNoReversible(ultimoARSEscrito);
 									int opcion2 = entrada.nextInt();
 									if(opcion2 == 1) { //GENERATICKET
-										generarTicket.escribirSegunMovimiento(ultimoARS, clienteIngresado.cajaDelClienteARS);
+										generarTicket.escribirSegunMovimientosNoReversibles(ultimoARS, clienteIngresado.cajaDelClienteARS);
 										System.out.println("Ticket generado correctamente.");
 									} else if (opcion2 == 2) {/**nada*/} else {
 										System.out.println("Opcion invalida");
@@ -193,28 +194,29 @@ public class CajeroAutomatico {
 								String ultimoUSDEscrito;
 								
 								if (esReversibleUSD) {
+									MovimientoReversible reversibleUSD = (MovimientoReversible) ultimoUSD;
 									//si es reversible como transferencia imprime y pregunta por el ticket tambien
-									ultimoUSDEscrito = ultimoUSD.imprimirTransferencia();
+									ultimoUSDEscrito = ultimoUSD.imprimirMovimiento();
 									todosLosMensajes.ultimoMovimientoReversible(ultimoUSDEscrito);
 									
 									int opcion1 = entrada.nextInt();
 									if(opcion1 == 1) { //GENERATICKET
-										generarTicket.escribirTransferencia(ultimoUSD.aliasDelDestinatario, ultimoUSD.saldoInvolucrado);
+										generarTicket.escribirTransferencia(reversibleUSD.aliasDelDestinatario, reversibleUSD.saldoInvolucrado);
 										System.out.println("Ticket generado correctamente.");
 									} else if (opcion1 == 2) { //REVIERTE TRANSFERENCIA
-										Cuenta destinatario = todasLasCuentas.encontrarCuentaPorAlias(ultimoUSD.aliasDelDestinatario);
-										clienteIngresado.cajaDelClienteUSD.revertirUltimaTransferencia(ultimoUSD.saldoInvolucrado, destinatario);
+										Cuenta destinatario = todasLasCuentas.encontrarCuentaPorAlias(reversibleUSD.aliasDelDestinatario);
+										clienteIngresado.cajaDelClienteUSD.revertirUltimaTransferencia(reversibleUSD.saldoInvolucrado, destinatario);
 										System.out.println("Transaccion revertida correctamente.");
 									} else {
 										System.out.println("Opcion invalida");
 									}
 								} else {
 									//NO ES REVERSIBLE
-									ultimoUSDEscrito = ultimoUSD.imprimirMovimientoMenosTransferencia();
+									ultimoUSDEscrito = ultimoUSD.imprimirMovimiento();
 									todosLosMensajes.ultimoMovimientoNoReversible(ultimoUSDEscrito);
 									int opcion2 = entrada.nextInt();
 									if(opcion2 == 1) { //GENERATICKET
-										generarTicket.escribirSegunMovimiento(ultimoUSD, clienteIngresado.cajaDelClienteUSD);
+										generarTicket.escribirSegunMovimientosNoReversibles(ultimoUSD, clienteIngresado.cajaDelClienteUSD);
 										System.out.println("Ticket generado correctamente.");
 									} else if (opcion2 == 2) {/**nada*/} else {
 										System.out.println("Opcion invalida");
@@ -228,28 +230,29 @@ public class CajeroAutomatico {
 								String ultimoCCEscrito;
 								
 								if (esReversibleCC) {
+									MovimientoReversible reversibleCC = (MovimientoReversible) ultimoCC;
 									//si es reversible como transferencia imprime y pregunta por el ticket tambien
-									ultimoCCEscrito = ultimoCC.imprimirTransferencia();
+									ultimoCCEscrito = reversibleCC.imprimirMovimiento();
 									todosLosMensajes.ultimoMovimientoReversible(ultimoCCEscrito);
 									
 									int opcion1 = entrada.nextInt();
 									if(opcion1 == 1) { //GENERATICKET
-										generarTicket.escribirTransferencia(ultimoCC.aliasDelDestinatario, ultimoCC.saldoInvolucrado);
+										generarTicket.escribirTransferencia(reversibleCC.aliasDelDestinatario, reversibleCC.saldoInvolucrado);
 										System.out.println("Ticket generado correctamente.");
 									} else if (opcion1 == 2) { //REVIERTE TRANSFERENCIA
-										Cuenta destinatario = todasLasCuentas.encontrarCuentaPorAlias(ultimoCC.aliasDelDestinatario);
-										clienteIngresado.cuentaCorrienteDelCliente.revertirUltimaTransferencia(ultimoCC.saldoInvolucrado, destinatario);
+										Cuenta destinatario = todasLasCuentas.encontrarCuentaPorAlias(reversibleCC.aliasDelDestinatario);
+										clienteIngresado.cuentaCorrienteDelCliente.revertirUltimaTransferencia(reversibleCC.saldoInvolucrado, destinatario);
 										System.out.println("Transaccion revertida correctamente.");
 									} else {
 										System.out.println("Opcion invalida");
 									}
 								} else {
 									//NO ES REVERSIBLE
-									ultimoCCEscrito = ultimoCC.imprimirMovimientoMenosTransferencia();
+									ultimoCCEscrito = ultimoCC.imprimirMovimiento();
 									todosLosMensajes.ultimoMovimientoNoReversible(ultimoCCEscrito);
 									int opcion2 = entrada.nextInt();
 									if(opcion2 == 1) { //GENERATICKET
-										generarTicket.escribirSegunMovimiento(ultimoCC, clienteIngresado.cuentaCorrienteDelCliente);
+										generarTicket.escribirSegunMovimientosNoReversibles(ultimoCC, clienteIngresado.cuentaCorrienteDelCliente);
 										System.out.println("Ticket generado correctamente.");
 									} else if (opcion2 == 2) {/**nada*/} else {
 										System.out.println("Opcion invalida");

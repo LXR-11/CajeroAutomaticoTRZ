@@ -73,7 +73,7 @@ public class Ticket {
 		}
 	}
 	
-	public void escribirSegunMovimiento(Movimiento mov, Cuenta cuenta) {
+	public void escribirSegunMovimientosNoReversibles(Movimiento mov, Cuenta cuenta) {
 		
 		switch(mov.movimiento) {
 		case DEPOSITO:
@@ -83,8 +83,6 @@ public class Ticket {
 			escribirCompraUSD(cuenta,mov.saldoInvolucrado);
 		case RETIRAREFECTIVO:
 			escribirExtraccion(cuenta,mov.saldoInvolucrado);
-		case TRANSFERENCIAENPESOS:
-			escribirTransferencia(mov.aliasDelDestinatario,mov.saldoInvolucrado);
 			
 		default:
 			break;

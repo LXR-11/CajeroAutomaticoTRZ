@@ -136,8 +136,6 @@ public class Mensajes {
 				+"\n*************************************************************";
 	}
 	
-	
-	
 							//OPERACIONES EXITOSAS//
 	public static String comprarDolaresExitoso(int valor, double impuesto, double valorFinal) {
 		return  "*************************************************************"

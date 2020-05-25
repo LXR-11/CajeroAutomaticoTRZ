@@ -64,7 +64,7 @@ public class CuentaCorriente extends Cuenta implements Operacion{
 					System.out.println(Mensajes.transferenciaExitosa(valor));
 					
 					String destinatarioAlias = clienteAtransferir.cuentaCorrienteDelCliente.alias;
-					Movimiento mov = new Movimiento(TipoDeMovimiento.TRANSFERENCIAENPESOS,valor,destinatarioAlias);
+					MovimientoReversible mov = new MovimientoReversible(TipoDeMovimiento.TRANSFERENCIAENPESOS,valor,destinatarioAlias);
 					agregarMovimiento(mov);
 				}
 				else {

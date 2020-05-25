@@ -149,4 +149,11 @@ public class Mensajes {
 				+"\n	2. No"
 				+"\n*************************************************************";
 	}
+
+
+
+	public static char[] alias(String alias) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

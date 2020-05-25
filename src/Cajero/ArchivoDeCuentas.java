@@ -7,11 +7,7 @@ public class ArchivoDeCuentas {
 	
 	private ArchivoDeClientes archivoCliente;
 	private ArchivoDeTarjetas archivoTarjetas;
-	
-	
 
-	
-	
 
 	public ArchivoDeCuentas() throws FileNotFoundException, IOException {
 		this.archivoCliente= new ArchivoDeClientes();		//Creo dos objetos, de archivoCliente y de archivoTarjeta
@@ -20,16 +16,13 @@ public class ArchivoDeCuentas {
 			crearCuenta();
 		}
 		catch(Exception e) {
-			System.out.println("Eror");
+			System.out.println("Error");
 			e.printStackTrace();
 		}
-		
 		
 	}
 	
 	private void crearCuenta() throws Exception {
-
-		
 
 		BufferedReader lecturaArchivoCuentas = new BufferedReader(new FileReader("ArchivoCuentas.txt"));
 
@@ -54,7 +47,7 @@ public class ArchivoDeCuentas {
 			}
 			
 //////////////////////////////////ASOCIAR CUENTA A CLIENTES////////////////////////////////////////////////////////	
-			int cuitMOD=archivoCliente.getAliasConCuit().get(alias);
+			long cuitMOD=archivoCliente.getAliasConCuit().get(alias);
 			switch (tipoDeCuenta) {
 			case 01: 
 				Cliente clienteARS = archivoTarjetas.getClientesConCuit().get(cuitMOD);
@@ -72,13 +65,10 @@ public class ArchivoDeCuentas {
 				archivoTarjetas.getClientesConCuit().put(cuitMOD, clienteUSD);
 				break;
 			}
-			
-		
 
 			lineaArchivoCuentas = lecturaArchivoCuentas.readLine();
-			
-
 		}
+		lecturaArchivoCuentas.close();
 	}
 	public ArchivoDeClientes getArchivoCliente() {
 		return archivoCliente;

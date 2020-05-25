@@ -7,11 +7,11 @@ import java.util.Map;
 
 public class ArchivoDeClientes {
 	
-	private	Map <String, Integer> aliasCuit;
+	private	Map <String, Long> aliasCuit;
 	
 	
 	public ArchivoDeClientes() throws FileNotFoundException, IOException {
-		this.aliasCuit = new HashMap<String,Integer>();		//Creo un mapa k=alias | v= cuit
+		this.aliasCuit = new HashMap<String,Long>();		//Creo un mapa k=alias | v= cuit
 		
 		clientesAsociados();
 		
@@ -31,12 +31,12 @@ public class ArchivoDeClientes {
 
 			lineaArchivoClientes.trim();
 
-			String separadorArchivoTerjetas[] = lineaArchivoClientes.split(",");
+			String separadorArchivoTarjetas[] = lineaArchivoClientes.split(",");
 
-			int cuit = Integer.parseInt(separadorArchivoTerjetas[0]);
+			long cuit = Long.parseLong(separadorArchivoTarjetas[0]);
 			
 
-			String alias = separadorArchivoTerjetas[1];
+			String alias = separadorArchivoTarjetas[1];
 
 			//Poner valores en el mapa
 			this.aliasCuit.put(alias, cuit);
@@ -49,7 +49,7 @@ public class ArchivoDeClientes {
 	}
 	
 	
-	public Map<String,Integer> getAliasConCuit(){
+	public Map<String,Long> getAliasConCuit(){
 		return this.aliasCuit;
 	}
 

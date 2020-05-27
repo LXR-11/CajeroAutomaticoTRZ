@@ -372,7 +372,7 @@ public class CajeroAutomatico {
 
 					case 2: // USD
 						try {
-							if (clienteIngresado.cajaDelClienteARS.depositar(monto)) {
+							if (clienteIngresado.cajaDelClienteUSD.depositar(monto)) {
 								System.out.println(todosLosMensajes.depositoExitoso());
 								deseaImprimir = entrada.nextInt();
 
@@ -393,7 +393,7 @@ public class CajeroAutomatico {
 
 					case 3: // CC
 						try {
-							if (clienteIngresado.cajaDelClienteARS.depositar(monto)) {
+							if (clienteIngresado.cuentaCorrienteDelCliente.depositar(monto)) {
 								System.out.println(todosLosMensajes.depositoExitoso());
 								deseaImprimir = entrada.nextInt();
 
@@ -453,6 +453,7 @@ public class CajeroAutomatico {
 										clienteIngresado.cajaDelClienteARS.revertirUltimaTransferencia(saldo,
 												destinataria);
 										System.out.println("Se ha revertido con exito.");
+										
 										break;
 									case 2: // GENERAR TICKET
 
@@ -468,6 +469,7 @@ public class CajeroAutomatico {
 										break;
 									}
 								}
+								else {System.out.println("entro");}
 
 							} catch (ErroresDeCuenta e) {
 								System.out.println(e.getMessage());

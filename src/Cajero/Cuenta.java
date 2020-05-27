@@ -86,6 +86,7 @@ public abstract class Cuenta{
         
         public boolean depositar (double monto)throws ErroresDeCuenta {
             if(monto>0) {
+            	
                 this.saldo+=monto;
                 Movimiento mov = new Movimiento(TipoDeMovimiento.DEPOSITO,monto,this.alias);
                 agregarMovimiento(mov);

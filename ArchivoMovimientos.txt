@@ -1,6 +1,1 @@
-2020-05-01,DEPOSITO,isla.pez.arbol,175.00
-2020-05-01,DEPOSITO,lobo.luna.pasto,10.99
-2020-05-02,DEPOSITO,hormiga.lija.crema,120.00
-2020-05-02,DEPOSITO,isla.pez.arbol,250.00
-2020-05-03,DEPOSITO,lobo.luna.pasto,-135.00
-2020-05-03,DEPOSITO,sol.monte.valle,2000.00
+/n2020-05-27,RETIRAREFECTIVO,isla.pez.arbol,100.0

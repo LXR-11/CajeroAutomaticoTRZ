@@ -9,8 +9,8 @@ public class MovimientoReversible extends Movimiento {
 		this.aliasDelDestinatario = aliasDestinatario;
 	}
 
-	@Override
-	 public String imprimirMovimiento() {
-		return super.imprimirMovimiento() + " depositados a " + aliasDelDestinatario;
-  }
+//	@Override
+//	 public String imprimirMovimiento() {
+//		return super.imprimirMovimiento() + " depositados a " + aliasDelDestinatario;
+//  }
 }

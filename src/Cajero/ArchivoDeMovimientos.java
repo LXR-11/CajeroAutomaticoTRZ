@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Stack;
 
 public class ArchivoDeMovimientos {
@@ -61,11 +62,12 @@ public class ArchivoDeMovimientos {
 		
 		try{
 			//escribe en el archivo
+			BufferedWriter buffer = new BufferedWriter(new FileWriter("ArchivoMovimientos.txt",true));
+			PrintWriter pw = new PrintWriter(buffer);
+			pw.println(movimiento.imprimirMovimiento());
+			pw.flush();
+			pw.close();
 			
-			BufferedWriter buffer = new BufferedWriter(new FileWriter ("ArchivoMovimientos.txt"));
-			
-			buffer.write(movimiento.imprimirMovimiento());
-			buffer.newLine();
 			
 			//agrega a la pila
 			this.movimientos.add(movimiento);

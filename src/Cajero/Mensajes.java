@@ -31,7 +31,7 @@ public class Mensajes {
 				return "*************************************************************"
 				+"\nQUE DESEA HACER?"
 				+"\n"
-				+"\n	1. Consultar o revertir mi ultimo movimiento."
+				+"\n	1. Consultar"
 				+"\n	2. Extraccion"
 				+"\n	3. Comprar Dolares"
 				+"\n	4. Depositar"
@@ -50,8 +50,20 @@ public class Mensajes {
 				+"\n"
 				+"\n	1. Consultar Saldo"
 				+"\n	2. Consultar Alias"
-				+"\n	3. Consultar ultimo movimiento y si es posible,"
-				+ "\n	   realizar una reversion."		
+				+"\n	3. Consultar ultimos movimientos."
+				+ "\n"		
+				+"\n"
+				+"\n*************************************************************";
+	}
+	
+	public String cantidadDeMovimientos() {
+		return  "*************************************************************"
+				+"\n"
+				+"\n	Introduzca la cantidad de ultimos movimientos que "
+				+ "\n	desea consultar."
+				+ "\n"
+				+ "\n	Si el numero es mayor a los movimientos hechos se"
+				+ "\n	mostraran todos los movimientos de la cuenta."
 				+"\n"
 				+"\n*************************************************************";
 	}
@@ -66,6 +78,16 @@ public class Mensajes {
 				+"\n*************************************************************";
 	}
 	
+	public String tipoDeCuentaParaTrasferir() {
+		return  "*************************************************************"
+				+"\n"
+				+"\n	1. Caja de ahorro ARS"
+				+"\n	2. Cuenta corriente"
+				+"\n"
+				+"\n	(No se pueden realizar transferencias en USD)"
+				+"\n*************************************************************";
+	}
+	
 	public String transferenciaAlias() {
 		return  "*************************************************************"
 				+"\n"
@@ -77,7 +99,7 @@ public class Mensajes {
 	public String monto() {
 		return  "*************************************************************"
 				+"\n"
-				+"\n	Introduzca el Monto"
+				+"\n	Introduzca el monto a transferir"
 				+"\n"
 				+"\n*************************************************************";
 	}
@@ -137,19 +159,21 @@ public class Mensajes {
 	}
 	
 							//OPERACIONES EXITOSAS//
-	public static String comprarDolaresExitoso(int valor, double impuesto, double valorFinal) {
+	public String comprarDolaresExitoso(int valor, double valorFinal) {
+		double impuestoPais = ((30 * valor) / 100);
 		return  "*************************************************************"
 				+"\n"
 				+"\n	Operacion exitosa"
 				+"\n"
-				+"\n	Con "+valor+"ARS compraste "+valorFinal+" Gracias al impuesto pais del 30% de "+impuesto+"ARS"
+				+"\n	Con "+valor+"ARS compraste "+valorFinal+" USD"
+				+"\n 	debido al impuesto pais del 30% de "+impuestoPais+"ARS"
 				+"\n"
 				+"\n	Desea imprimir ticket?"
 				+"\n	1. Si"
 				+"\n	2. No"
 				+"\n*************************************************************";
 	}
-	public static String extraerExitoso(int valor) {
+	public String extraerExitoso(int valor) {
 		return  "*************************************************************"
 				+"\n"
 				+"\n	Se extrajo correctamente"+valor+"ARS"
@@ -160,7 +184,7 @@ public class Mensajes {
 				+"\n	2. No"
 				+"\n*************************************************************";
 	}
-	public static String transferenciaExitosa(int valor) {
+	public String transferenciaExitosa(int valor) {
 		 return "*************************************************************"
 					+"\n"
 					+"\n	Transferiste correctamente: "+valor+ " ARS"
@@ -171,7 +195,7 @@ public class Mensajes {
 					+"\n	2.Imprimir ticket."
 					+"\n*************************************************************";
 	}
-	public static String depositoExitoso() {
+	public String depositoExitoso() {
 		 return "*************************************************************"
 					+"\n"
 					+"\n	Depositaste correctamente."

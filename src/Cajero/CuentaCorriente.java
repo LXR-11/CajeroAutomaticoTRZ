@@ -9,15 +9,13 @@ public class CuentaCorriente extends Cuenta implements Operacion{
 		this.descubierto=descubierto;
 	}
 	
-	public void retirarEfectivo(int valor) throws ErroresDeCuenta {
+	public boolean retirarEfectivo(int valor) throws ErroresDeCuenta {
 		if (saldoSuficiente(valor)) {
 			if(valor%100==0) {
 			this.saldo = -valor;
-			System.out.println(Mensajes.extraerExitoso(valor));
-			
-			Movimiento mov = new Movimiento(TipoDeMovimiento.RETIRAREFECTIVO, valor);
+			Movimiento mov = new Movimiento(TipoDeMovimiento.RETIRAREFECTIVO, valor,this.alias);
 			agregarMovimiento(mov);
-			
+			return true;
 			}
 			else {
 				throw new ErroresDeCuenta("Solo se puede retirar divisores de 100");
@@ -28,21 +26,21 @@ public class CuentaCorriente extends Cuenta implements Operacion{
 		}
 	}
 	
-	public void comprarDolares(int valor, Cliente cliente) throws ErroresDeCuenta {
+	public double comprarDolares(int valorARS, Cliente cliente) throws ErroresDeCuenta {
 
 		if (cliente.verificarCuentaEnCliente(2)) {
-			if (valor >= this.saldo / this.valorDelDolar * valor) {
+			if (valorARS >= this.saldo / this.valorDelDolar * valorARS) {
 				try {
-					double impuestoPais= ((30*valor)/100);	//30% Del valor
-					cliente.cajaDelClienteUSD.depositar(valor/super.valorDelDolar - impuestoPais);
-					this.saldo-=valor;
-					System.out.println(Mensajes.comprarDolaresExitoso(valor, impuestoPais, valor/super.valorDelDolar-impuestoPais));
-					
-					Movimiento mov = new Movimiento(TipoDeMovimiento.COMPRADEDOLARES,valor);
+					double impuestoPais = ((30 * valorARS) / 100); // 30% Del valor
+					double USDcomprados = valorARS/super.valorDelDolar - impuestoPais;
+					cliente.cajaDelClienteUSD.depositar(USDcomprados);
+					this.saldo-=valorARS;
+					Movimiento mov = new Movimiento(TipoDeMovimiento.COMPRADEDOLARES,valorARS,this.alias);
 					agregarMovimiento(mov);
 					
+					return USDcomprados;
+					
 				} catch (ErroresDeCuenta e) {
-
 					e.printStackTrace();
 				}
 			} else {
@@ -51,21 +49,21 @@ public class CuentaCorriente extends Cuenta implements Operacion{
 
 		} else {
 			throw new ErroresDeCuenta("Usted no posee una Caja de Ahorro en USD");
-		}
-
+		} 
+		return -1;
 	}
 	
-	public void transferir(Cliente clienteAtransferir, int valor) throws ErroresDeCuenta {
+	public boolean transferir(Cliente clienteAtransferir, int valor) throws ErroresDeCuenta {
 		try {
 			if(clienteAtransferir.verificarCuentaEnCliente(3)) {
 				if(saldoSuficiente(valor)) {
 					clienteAtransferir.cuentaCorrienteDelCliente.depositar(valor);
 					this.saldo-=valor;
-					System.out.println(Mensajes.transferenciaExitosa(valor));
 					
 					String destinatarioAlias = clienteAtransferir.cuentaCorrienteDelCliente.alias;
-					MovimientoReversible mov = new MovimientoReversible(TipoDeMovimiento.TRANSFERENCIAENPESOS,valor,destinatarioAlias);
+					MovimientoReversible mov = new MovimientoReversible(TipoDeMovimiento.TRANSFERENCIAENPESOS,valor,this.alias,destinatarioAlias);
 					agregarMovimiento(mov);
+					return true;
 				}
 				else {
 					throw new ErroresDeCuenta("Saldo insuficiente");
@@ -77,6 +75,7 @@ public class CuentaCorriente extends Cuenta implements Operacion{
 		} catch (ErroresDeCuenta e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 	public boolean saldoSuficiente(int saldoAretirar) {

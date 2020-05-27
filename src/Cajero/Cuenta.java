@@ -1,5 +1,8 @@
 package Cajero;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
 
 public abstract class Cuenta{
@@ -48,29 +51,46 @@ public abstract class Cuenta{
 
         }
         
-        
         public void agregarMovimiento(Movimiento mov) {
         	this.movimientosDeCuenta.push(mov);
+        }
+        
+        public List<Movimiento> mostrarHastaXUltimosMovimientos(int ultimosMov){
+
+        	if(movimientosDeCuenta.size() < ultimosMov) {
+        		//si me pasan un numero mas grande lo convierto en el tamaño de la pila
+        		ultimosMov = movimientosDeCuenta.size();
+        	}     	
+        	//crea una copia de los movimientos, los agrega a una lista y los devuelve
+	        	Stack<Movimiento> auxiliar = movimientosDeCuenta;
+	        	Iterator<Movimiento> miIterador = auxiliar.iterator();
+	        	List<Movimiento> resultado = new LinkedList<Movimiento>();
+	        	int contador=0;
+	        	while (miIterador.hasNext() && contador < ultimosMov ) {
+	        		resultado.add(auxiliar.pop());
+	        		contador++;
+	        	}
+	        	return resultado;
+        
+        	
         }
         
         public void revertirUltimaTransferencia(double saldoInvolucrado, Cuenta destinatario) {
         	this.saldo += saldoInvolucrado;
         	destinatario.saldo -= saldoInvolucrado;
         	//remueve el ultimo movimiento 
-        	movimientosDeCuenta.remove(movimientosDeCuenta.size());
+        	movimientosDeCuenta.pop();
         	
         }
         
-        public void depositar (double monto)throws ErroresDeCuenta {
+        public boolean depositar (double monto)throws ErroresDeCuenta {
             if(monto>0) {
                 this.saldo+=monto;
-                System.out.println(Mensajes.depositoExitoso());
-                Movimiento mov = new Movimiento(TipoDeMovimiento.DEPOSITO,monto);
+                Movimiento mov = new Movimiento(TipoDeMovimiento.DEPOSITO,monto,this.alias);
                 agregarMovimiento(mov);
-            }
-
-            else {
-                throw new ErroresDeCuenta("Monto invalido");
+                return true;
+            } else {
+            	throw new ErroresDeCuenta("Debe depositar un valor mayor a 0.");
             }
         }
 

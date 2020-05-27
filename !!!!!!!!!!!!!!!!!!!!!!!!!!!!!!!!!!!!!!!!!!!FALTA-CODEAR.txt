@@ -1,1 +1,1 @@
-Falta: Pruebas, UltimosMovimientos, Transacciones Reversibles
+Falta: Pruebas

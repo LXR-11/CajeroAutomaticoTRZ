@@ -80,7 +80,7 @@ public class Cliente {
 					retorno = true;
 				}
 				else {
-					throw new ErroresDeCuenta("Usted no posee esta cuenta");
+					throw new ErroresDeCuenta("El cliente no posee esta cuenta");
 				}
 				break;
 
@@ -89,7 +89,7 @@ public class Cliente {
 					retorno = true;
 				}
 				else {
-					throw new ErroresDeCuenta("Usted no posee esta cuenta");
+					throw new ErroresDeCuenta("El cliente no posee esta cuenta");
 				}
 				break;
 			case 3:	//CC
@@ -97,7 +97,7 @@ public class Cliente {
 					retorno = true;
 				}
 				else {
-					throw new ErroresDeCuenta("Usted no posee esta cuenta");
+					throw new ErroresDeCuenta("El cliente no posee esta cuenta");
 				}
 				break;
 			}

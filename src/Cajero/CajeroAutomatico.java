@@ -9,8 +9,7 @@ public class CajeroAutomatico {
 	private Mensajes todosLosMensajes;
 	private Scanner entrada;
 	private Dispensador dispensador;
-	private int numeroDeTarjeta, pin;
-	private int deseaImprimir;
+	private int numeroDeTarjeta, pin,deseaImprimir;
 	private Ticket generarTicket;
 	private Movimiento nuevoMovimiento;
 
@@ -103,7 +102,7 @@ public class CajeroAutomatico {
 						System.exit(0);
 						break;
 
-					//////////////// CONSULTAR ALIAS ////////////////
+						//////////////// CONSULTAR ALIAS ////////////////
 					case 2:
 						System.out.println(todosLosMensajes.tipoDeCuenta());
 						tipoDeCuenta = entrada.nextInt();
@@ -146,7 +145,7 @@ public class CajeroAutomatico {
 						System.exit(0);
 						break;
 
-					//////////////// CONSULTAR ULTIMOS MOVIMIENTOS ////////////////
+						//////////////// CONSULTAR ULTIMOS MOVIMIENTOS ////////////////
 
 					case 3:
 						System.out.println(todosLosMensajes.cantidadDeMovimientos());	// pregunta cuantos mov quiere consultar
@@ -159,7 +158,7 @@ public class CajeroAutomatico {
 
 						case 1: // ARS
 							List<Movimiento> ultimosMovEnARS = clienteIngresado.cajaDelClienteARS
-									.mostrarHastaXUltimosMovimientos(cantidadDeMovimientos);
+							.mostrarHastaXUltimosMovimientos(cantidadDeMovimientos);
 							int length = ultimosMovEnARS.size();
 							for (int a = 0; a < length; a++) {
 								System.out.println(ultimosMovEnARS.get(a).imprimirMovimiento());
@@ -168,7 +167,7 @@ public class CajeroAutomatico {
 
 						case 2: // USD
 							List<Movimiento> ultimosMovEnUSD = clienteIngresado.cajaDelClienteUSD
-									.mostrarHastaXUltimosMovimientos(cantidadDeMovimientos);
+							.mostrarHastaXUltimosMovimientos(cantidadDeMovimientos);
 							int lengthUSD = ultimosMovEnUSD.size();
 							for (int b = 0; b < lengthUSD; b++) {
 								System.out.println(ultimosMovEnUSD.get(b).imprimirMovimiento());
@@ -177,7 +176,7 @@ public class CajeroAutomatico {
 
 						case 3: // CC
 							List<Movimiento> ultimosMovEnCC = clienteIngresado.cuentaCorrienteDelCliente
-									.mostrarHastaXUltimosMovimientos(cantidadDeMovimientos);
+							.mostrarHastaXUltimosMovimientos(cantidadDeMovimientos);
 							int lengthCC = ultimosMovEnCC.size();
 							for (int c = 0; c < lengthCC; c++) {
 								System.out.println(ultimosMovEnCC.get(c).imprimirMovimiento());
@@ -206,17 +205,17 @@ public class CajeroAutomatico {
 						System.out.println(todosLosMensajes.monto());
 						monto = entrada.nextInt();
 						try{
-							 if (clienteIngresado.verificarCuentaEnCliente(1)) { // VERIFICA QUE HAYA CAJA
-							
+							if (clienteIngresado.verificarCuentaEnCliente(1)) { // VERIFICA QUE HAYA CAJA
+
 								if(clienteIngresado.cajaDelClienteARS.retirarEfectivo(monto)) {
-									
+
 									System.out.println(this.dispensador.retirarBillete(monto));
 									System.out.println(todosLosMensajes.extraerExitoso(monto));
-									
+
 									//escribe nuevo movimiento en el sistema
 									nuevoMovimiento = new Movimiento(TipoDeMovimiento.RETIRAREFECTIVO, monto, clienteIngresado.cajaDelClienteARS.alias);
 									this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
-									
+
 									this.deseaImprimir = entrada.nextInt();
 									if (this.deseaImprimir == 1) { // GENERA TICKET
 										this.generarTicket = new Ticket();
@@ -224,10 +223,10 @@ public class CajeroAutomatico {
 										System.out.println("Ticket generado correctamente.");
 									}
 								}
-							  }
-							} catch(ErroresDeCuenta e) {
-								System.out.println(e.getMessage());
 							}
+						} catch(ErroresDeCuenta e) {
+							System.out.println(e.getMessage());
+						}
 
 						break;
 
@@ -239,39 +238,42 @@ public class CajeroAutomatico {
 						System.out.println(todosLosMensajes.monto());
 						monto = entrada.nextInt();
 						try {
-						 if (clienteIngresado.verificarCuentaEnCliente(3)) {
-							
-							if(clienteIngresado.cuentaCorrienteDelCliente.retirarEfectivo(monto)) {
-									
-								System.out.println(this.dispensador.retirarBillete(monto));
-								System.out.println(todosLosMensajes.extraerExitoso(monto));
-								this.deseaImprimir = entrada.nextInt();
-								
-								//escribe movimiento en el txt
-								nuevoMovimiento = new Movimiento(TipoDeMovimiento.RETIRAREFECTIVO, monto, clienteIngresado.cuentaCorrienteDelCliente.alias);
-								this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
-							
-								if (this.deseaImprimir == 1) { // GENERA TICKET
-									this.generarTicket = new Ticket();
-									this.generarTicket.escribirExtraccion(clienteIngresado.cuentaCorrienteDelCliente,
-											monto);
-									System.out.println("Ticket generado correctamente.");
+							if (clienteIngresado.verificarCuentaEnCliente(3)) {
+
+								if(clienteIngresado.cuentaCorrienteDelCliente.retirarEfectivo(monto)) {
+
+									System.out.println(this.dispensador.retirarBillete(monto));
+									System.out.println(todosLosMensajes.extraerExitoso(monto));
+									this.deseaImprimir = entrada.nextInt();
+
+									//escribe movimiento en el txt
+									nuevoMovimiento = new Movimiento(TipoDeMovimiento.RETIRAREFECTIVO, monto, clienteIngresado.cuentaCorrienteDelCliente.alias);
+									this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
+
+									if (this.deseaImprimir == 1) { // GENERA TICKET
+										this.generarTicket = new Ticket();
+										this.generarTicket.escribirExtraccion(clienteIngresado.cuentaCorrienteDelCliente,
+												monto);
+										System.out.println("Ticket generado correctamente.");
+									}
 								}
-							 }
-						  }
+							}
 						}catch(ErroresDeCuenta e) {
 							System.out.println(e.getMessage());
 						}
-						}
-
-						break;
-					default:					
+					}
 					System.out.println("Saliendo...");
 					entrada.close();
 					System.exit(0);
 					break;
 
-				//////////////// COMPRAR USD ////////////////
+				default:					
+					System.out.println("Saliendo...");
+					entrada.close();
+					System.exit(0);
+					break;
+
+					//////////////// COMPRAR USD ////////////////
 
 				case 3:
 					System.out.println(todosLosMensajes.tipoDeCuenta());
@@ -287,11 +289,11 @@ public class CajeroAutomatico {
 							System.out.println(todosLosMensajes.comprarDolaresExitoso(monto, valorFinalUSD));
 
 							this.deseaImprimir = entrada.nextInt();
-							
+
 							//escribe movimiento en el txt
 							nuevoMovimiento = new Movimiento(TipoDeMovimiento.COMPRADEDOLARES, monto, clienteIngresado.cajaDelClienteARS.alias);
 							this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
-						
+
 							if (this.deseaImprimir == 1) { // GENERA TICKET
 								this.generarTicket = new Ticket();
 								this.generarTicket.escribirCompraUSD(clienteIngresado.cajaDelClienteARS, monto);
@@ -315,11 +317,11 @@ public class CajeroAutomatico {
 									clienteIngresado);
 							System.out.println(todosLosMensajes.comprarDolaresExitoso(monto, valorFinalUSD));
 							this.deseaImprimir = entrada.nextInt();
-							
+
 							//escribe movimiento en el txt
 							nuevoMovimiento = new Movimiento(TipoDeMovimiento.COMPRADEDOLARES, monto, clienteIngresado.cuentaCorrienteDelCliente.alias);
 							this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
-						
+
 							if (this.deseaImprimir == 1) { // GENERA TICKET
 								this.generarTicket = new Ticket();
 								this.generarTicket.escribirCompraUSD(clienteIngresado.cuentaCorrienteDelCliente, monto);
@@ -336,7 +338,7 @@ public class CajeroAutomatico {
 					System.exit(0);
 					break;
 
-				//////////////// DEPOSITAR ////////////////
+					//////////////// DEPOSITAR ////////////////
 				case 4:
 					System.out.println(todosLosMensajes.tipoDeCuenta());
 					tipoDeCuenta = entrada.nextInt();
@@ -351,11 +353,11 @@ public class CajeroAutomatico {
 							if (clienteIngresado.cajaDelClienteARS.depositar(monto)) {
 								System.out.println(todosLosMensajes.depositoExitoso());
 								deseaImprimir = entrada.nextInt();
-								
+
 								//escribe movimiento en el txt
 								nuevoMovimiento = new Movimiento(TipoDeMovimiento.DEPOSITO, monto, clienteIngresado.cajaDelClienteARS.alias);
 								this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
-							
+
 								if (this.deseaImprimir == 1) { // GENERA TICKET
 									this.generarTicket = new Ticket();
 									this.generarTicket.escribirDeposito(clienteIngresado.cajaDelClienteARS, monto);
@@ -373,11 +375,11 @@ public class CajeroAutomatico {
 							if (clienteIngresado.cajaDelClienteARS.depositar(monto)) {
 								System.out.println(todosLosMensajes.depositoExitoso());
 								deseaImprimir = entrada.nextInt();
-								
+
 								//escribe movimiento en el txt
 								nuevoMovimiento = new Movimiento(TipoDeMovimiento.DEPOSITO, monto, clienteIngresado.cajaDelClienteUSD.alias);
 								this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
-							
+
 								if (this.deseaImprimir == 1) { // GENERA TICKET
 									this.generarTicket = new Ticket();
 									this.generarTicket.escribirDeposito(clienteIngresado.cajaDelClienteUSD, monto);
@@ -394,11 +396,11 @@ public class CajeroAutomatico {
 							if (clienteIngresado.cajaDelClienteARS.depositar(monto)) {
 								System.out.println(todosLosMensajes.depositoExitoso());
 								deseaImprimir = entrada.nextInt();
-								
+
 								//escribe movimiento en el txt
 								nuevoMovimiento = new Movimiento(TipoDeMovimiento.DEPOSITO, monto, clienteIngresado.cuentaCorrienteDelCliente.alias);
 								this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
-							
+
 								if (this.deseaImprimir == 1) { // GENERA TICKET
 									this.generarTicket = new Ticket();
 									this.generarTicket.escribirDeposito(clienteIngresado.cuentaCorrienteDelCliente,
@@ -416,7 +418,7 @@ public class CajeroAutomatico {
 					System.exit(0);
 					break;
 
-				//////////////// TRANSFERENCIA////////////////
+					//////////////// TRANSFERENCIA////////////////
 				case 5:
 					System.out.println(todosLosMensajes.tipoDeCuenta());
 					tipoDeCuenta = entrada.nextInt();
@@ -446,18 +448,18 @@ public class CajeroAutomatico {
 									switch (revertirOTicket) {
 									case 1: // REVIERTE TRANSFERENCIA
 										Cuenta destinataria = this.todasLasCuentas
-												.encontrarCuentaPorAlias(aliasDestinatario);
+										.encontrarCuentaPorAlias(aliasDestinatario);
 										double saldo = (double) monto;
 										clienteIngresado.cajaDelClienteARS.revertirUltimaTransferencia(saldo,
 												destinataria);
 										System.out.println("Se ha revertido con exito.");
 										break;
 									case 2: // GENERAR TICKET
-										
+
 										//escribe movimiento en el txt
 										MovimientoReversible miMovimiento = new MovimientoReversible(TipoDeMovimiento.TRANSFERENCIAENPESOS, monto, clienteIngresado.cajaDelClienteARS.alias,aliasDestinatario);
 										this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(miMovimiento);
-									
+
 										this.generarTicket = new Ticket();
 										this.generarTicket.escribirTransferencia(aliasDestinatario, monto);
 										System.out.println("Ticket generado correctamente.");
@@ -484,18 +486,18 @@ public class CajeroAutomatico {
 									switch (revertirOTicket) {
 									case 1: // REVIERTE TRANSFERENCIA
 										Cuenta destinataria = this.todasLasCuentas
-												.encontrarCuentaPorAlias(aliasDestinatario);
+										.encontrarCuentaPorAlias(aliasDestinatario);
 										double saldo = (double) monto;
 										clienteIngresado.cuentaCorrienteDelCliente.revertirUltimaTransferencia(saldo,
 												destinataria);
 										System.out.println("Se ha revertido con exito.");
 
 									case 2: // GENERAR TICKET
-										
+
 										//escribe movimiento en el txt
 										MovimientoReversible miMovimiento = new MovimientoReversible(TipoDeMovimiento.TRANSFERENCIAENPESOS, monto, clienteIngresado.cuentaCorrienteDelCliente.alias,aliasDestinatario);
 										this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(miMovimiento);
-										
+
 										this.generarTicket = new Ticket();
 										this.generarTicket.escribirTransferencia(aliasDestinatario, monto);
 										System.out.println("Ticket generado correctamente.");
@@ -525,12 +527,12 @@ public class CajeroAutomatico {
 			}
 		}catch(
 
-	InputMismatchException e)
-	{
-		System.out.println("Numero Invalido");
-	}finally
-	{
-		entrada.close();
-	}
+				InputMismatchException e)
+		{
+			System.out.println("Numero Invalido");
+		}finally
+		{
+			entrada.close();
+		}
 
-}}
+	}}

@@ -99,7 +99,7 @@ public class Mensajes {
 	public String monto() {
 		return  "*************************************************************"
 				+"\n"
-				+"\n	Introduzca el monto a transferir"
+				+"\n	Introduzca el monto"
 				+"\n"
 				+"\n*************************************************************";
 	}

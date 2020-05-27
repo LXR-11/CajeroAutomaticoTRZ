@@ -1,5 +1,10 @@
 package Cajero;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Stack;
 
 
 
@@ -15,6 +20,7 @@ public class ArchivoDeCuentas {
 		this.archivoMovimientos = new ArchivoDeMovimientos();
 		try {
 			crearCuenta();
+			asociarMovimientosACuentas();
 		}
 		catch(Exception e) {
 			System.out.println("Error");
@@ -71,12 +77,29 @@ public class ArchivoDeCuentas {
 		}
 		lecturaArchivoCuentas.close();
 	}
+	
+	private void asociarMovimientosACuentas() {
+	
+		Stack <Movimiento> movimientos = this.archivoMovimientos.getPilaDeMovimientosTXT();
+		Iterator<Movimiento> miIterador = movimientos.iterator();
+		while(miIterador.hasNext()) {
+			Movimiento auxiliar = movimientos.pop();
+			Cuenta paraAsociar = encontrarCuentaPorAlias(auxiliar.miAlias);
+			paraAsociar.agregarMovimiento(auxiliar);
+		}
+		
+	}
+	
 	public ArchivoDeClientes getArchivoCliente() {
 		return archivoCliente;
 	}
 
 	public ArchivoDeTarjetas getArchivoTarjetas() {
 		return archivoTarjetas;
+	}
+	
+	public ArchivoDeMovimientos getArchivoMovimientos() {
+		return archivoMovimientos;
 	}
 	public Cuenta encontrarCuentaPorAlias(String aliasDestinatario) {
 		if (archivoCliente.getAliasConCuit().containsKey(aliasDestinatario)) { 

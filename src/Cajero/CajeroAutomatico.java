@@ -12,6 +12,7 @@ public class CajeroAutomatico {
 	private int numeroDeTarjeta, pin;
 	private int deseaImprimir;
 	private Ticket generarTicket;
+	private Movimiento nuevoMovimiento;
 
 	public CajeroAutomatico() {
 		try {
@@ -210,6 +211,11 @@ public class CajeroAutomatico {
 									
 									System.out.println(this.dispensador.retirarBillete(monto));
 									System.out.println(todosLosMensajes.extraerExitoso(monto));
+									
+									//escribe nuevo movimiento en el sistema
+									nuevoMovimiento = new Movimiento(TipoDeMovimiento.RETIRAREFECTIVO, monto, clienteIngresado.cajaDelClienteARS.alias);
+									this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
+									
 									this.deseaImprimir = entrada.nextInt();
 									if (this.deseaImprimir == 1) { // GENERA TICKET
 										this.generarTicket = new Ticket();
@@ -235,10 +241,15 @@ public class CajeroAutomatico {
 						 if (clienteIngresado.verificarCuentaEnCliente(3)) {
 							
 							if(clienteIngresado.cuentaCorrienteDelCliente.retirarEfectivo(monto)) {
-								
+									
 								System.out.println(this.dispensador.retirarBillete(monto));
 								System.out.println(todosLosMensajes.extraerExitoso(monto));
 								this.deseaImprimir = entrada.nextInt();
+								
+								//escribe movimiento en el txt
+								nuevoMovimiento = new Movimiento(TipoDeMovimiento.RETIRAREFECTIVO, monto, clienteIngresado.cuentaCorrienteDelCliente.alias);
+								this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
+							
 								if (this.deseaImprimir == 1) { // GENERA TICKET
 									this.generarTicket = new Ticket();
 									this.generarTicket.escribirExtraccion(clienteIngresado.cuentaCorrienteDelCliente,
@@ -275,6 +286,11 @@ public class CajeroAutomatico {
 							System.out.println(todosLosMensajes.comprarDolaresExitoso(monto, valorFinalUSD));
 
 							this.deseaImprimir = entrada.nextInt();
+							
+							//escribe movimiento en el txt
+							nuevoMovimiento = new Movimiento(TipoDeMovimiento.COMPRADEDOLARES, monto, clienteIngresado.cajaDelClienteARS.alias);
+							this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
+						
 							if (this.deseaImprimir == 1) { // GENERA TICKET
 								this.generarTicket = new Ticket();
 								this.generarTicket.escribirCompraUSD(clienteIngresado.cajaDelClienteARS, monto);
@@ -298,7 +314,11 @@ public class CajeroAutomatico {
 									clienteIngresado);
 							System.out.println(todosLosMensajes.comprarDolaresExitoso(monto, valorFinalUSD));
 							this.deseaImprimir = entrada.nextInt();
-
+							
+							//escribe movimiento en el txt
+							nuevoMovimiento = new Movimiento(TipoDeMovimiento.COMPRADEDOLARES, monto, clienteIngresado.cuentaCorrienteDelCliente.alias);
+							this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
+						
 							if (this.deseaImprimir == 1) { // GENERA TICKET
 								this.generarTicket = new Ticket();
 								this.generarTicket.escribirCompraUSD(clienteIngresado.cuentaCorrienteDelCliente, monto);
@@ -330,6 +350,11 @@ public class CajeroAutomatico {
 							if (clienteIngresado.cajaDelClienteARS.depositar(monto)) {
 								System.out.println(todosLosMensajes.depositoExitoso());
 								deseaImprimir = entrada.nextInt();
+								
+								//escribe movimiento en el txt
+								nuevoMovimiento = new Movimiento(TipoDeMovimiento.DEPOSITO, monto, clienteIngresado.cajaDelClienteARS.alias);
+								this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
+							
 								if (this.deseaImprimir == 1) { // GENERA TICKET
 									this.generarTicket = new Ticket();
 									this.generarTicket.escribirDeposito(clienteIngresado.cajaDelClienteARS, monto);
@@ -347,6 +372,11 @@ public class CajeroAutomatico {
 							if (clienteIngresado.cajaDelClienteARS.depositar(monto)) {
 								System.out.println(todosLosMensajes.depositoExitoso());
 								deseaImprimir = entrada.nextInt();
+								
+								//escribe movimiento en el txt
+								nuevoMovimiento = new Movimiento(TipoDeMovimiento.DEPOSITO, monto, clienteIngresado.cajaDelClienteUSD.alias);
+								this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
+							
 								if (this.deseaImprimir == 1) { // GENERA TICKET
 									this.generarTicket = new Ticket();
 									this.generarTicket.escribirDeposito(clienteIngresado.cajaDelClienteUSD, monto);
@@ -363,6 +393,11 @@ public class CajeroAutomatico {
 							if (clienteIngresado.cajaDelClienteARS.depositar(monto)) {
 								System.out.println(todosLosMensajes.depositoExitoso());
 								deseaImprimir = entrada.nextInt();
+								
+								//escribe movimiento en el txt
+								nuevoMovimiento = new Movimiento(TipoDeMovimiento.DEPOSITO, monto, clienteIngresado.cuentaCorrienteDelCliente.alias);
+								this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
+							
 								if (this.deseaImprimir == 1) { // GENERA TICKET
 									this.generarTicket = new Ticket();
 									this.generarTicket.escribirDeposito(clienteIngresado.cuentaCorrienteDelCliente,
@@ -417,6 +452,11 @@ public class CajeroAutomatico {
 										System.out.println("Se ha revertido con exito.");
 										break;
 									case 2: // GENERAR TICKET
+										
+										//escribe movimiento en el txt
+										MovimientoReversible miMovimiento = new MovimientoReversible(TipoDeMovimiento.TRANSFERENCIAENPESOS, monto, clienteIngresado.cajaDelClienteARS.alias,aliasDestinatario);
+										this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(miMovimiento);
+									
 										this.generarTicket = new Ticket();
 										this.generarTicket.escribirTransferencia(aliasDestinatario, monto);
 										System.out.println("Ticket generado correctamente.");
@@ -450,6 +490,11 @@ public class CajeroAutomatico {
 										System.out.println("Se ha revertido con exito.");
 
 									case 2: // GENERAR TICKET
+										
+										//escribe movimiento en el txt
+										MovimientoReversible miMovimiento = new MovimientoReversible(TipoDeMovimiento.TRANSFERENCIAENPESOS, monto, clienteIngresado.cuentaCorrienteDelCliente.alias,aliasDestinatario);
+										this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(miMovimiento);
+										
 										this.generarTicket = new Ticket();
 										this.generarTicket.escribirTransferencia(aliasDestinatario, monto);
 										System.out.println("Ticket generado correctamente.");

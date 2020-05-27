@@ -5,16 +5,16 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 public class ArchivoDeMovimientos {
 		
-	Map <String,Movimiento> aliasMovimiento;
+	Stack <Movimiento> movimientos;
 	
 	public ArchivoDeMovimientos() {
 		
-		this.aliasMovimiento = new HashMap<String,Movimiento>();
+		this.movimientos = new Stack<Movimiento>();
 
 		leerArchivoMovimientos();
 	}
@@ -40,7 +40,7 @@ public class ArchivoDeMovimientos {
 				
 				Movimiento movimientoLeido = new Movimiento(fecha, tipo, valorInvolucrado, alias);
 				
-				aliasMovimiento.put(alias, movimientoLeido);
+				this.movimientos.add(movimientoLeido);
 				
 				buffer.close();
 			}
@@ -60,8 +60,8 @@ public class ArchivoDeMovimientos {
 			buffer.write(movimiento.imprimirMovimiento());
 			buffer.newLine();
 			
-			//agrega al mapa
-			aliasMovimiento.put(movimiento.miAlias, movimiento);
+			//agrega a la pila
+			this.movimientos.add(movimiento);
 			
 			buffer.close();
 			
@@ -72,8 +72,8 @@ public class ArchivoDeMovimientos {
 		
 	}
 	
-	public Map<String, Movimiento> getAliasMovimiento() {
-		return aliasMovimiento;
+	public Stack<Movimiento> getPilaDeMovimientosTXT() {
+		return movimientos;
 	}
 	
 }

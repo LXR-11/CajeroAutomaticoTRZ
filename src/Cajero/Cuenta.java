@@ -56,7 +56,8 @@ public abstract class Cuenta{
         }
         
         public List<Movimiento> mostrarHastaXUltimosMovimientos(int ultimosMov){
-
+        	
+        	
         	if(movimientosDeCuenta.size() < ultimosMov) {
         		//si me pasan un numero mas grande lo convierto en el tamaño de la pila
         		ultimosMov = movimientosDeCuenta.size();

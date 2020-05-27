@@ -149,8 +149,7 @@ public class CajeroAutomatico {
 					//////////////// CONSULTAR ULTIMOS MOVIMIENTOS ////////////////
 
 					case 3:
-						// pregunta cuantos mov quiere consultar
-						System.out.println(todosLosMensajes.cantidadDeMovimientos());
+						System.out.println(todosLosMensajes.cantidadDeMovimientos());	// pregunta cuantos mov quiere consultar
 						int cantidadDeMovimientos = entrada.nextInt();
 						// pregunta tipo de cuenta
 						System.out.println(todosLosMensajes.tipoDeCuenta());
@@ -191,7 +190,9 @@ public class CajeroAutomatico {
 							System.exit(0);
 							break;
 						}
-
+						System.out.println("Saliendo...");
+						entrada.close();
+						System.exit(0);
 						break;
 					}
 

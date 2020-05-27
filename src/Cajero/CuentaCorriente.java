@@ -26,18 +26,19 @@ public class CuentaCorriente extends Cuenta implements Operacion{
 		}
 	}
 	
-	public double comprarDolares(int valorARS, Cliente cliente) throws ErroresDeCuenta {
+	public double comprarDolares(double valorARS, Cliente cliente) throws ErroresDeCuenta {
 
 		if (cliente.verificarCuentaEnCliente(2)) {
-			if (valorARS >= this.saldo / this.valorDelDolar * valorARS) {
+			if (saldoSuficiente(valorARS/this.valorDelDolar)) {
 				try {
-					double impuestoPais = ((30 * valorARS) / 100); // 30% Del valor
-					double USDcomprados = valorARS/super.valorDelDolar - impuestoPais;
+					double impuestoPais = (((30 * valorARS) / 100)/super.valorDelDolar); // 30% Del valor
+					double USDcomprados = (valorARS / super.valorDelDolar) - impuestoPais;
+				
 					cliente.cajaDelClienteUSD.depositar(USDcomprados);
-					this.saldo-=valorARS;
-					Movimiento mov = new Movimiento(TipoDeMovimiento.COMPRADEDOLARES,valorARS,this.alias);
+					this.saldo -= valorARS;
+					Movimiento mov = new Movimiento(TipoDeMovimiento.COMPRADEDOLARES, valorARS, this.alias);
 					agregarMovimiento(mov);
-					
+
 					return USDcomprados;
 					
 				} catch (ErroresDeCuenta e) {
@@ -78,7 +79,7 @@ public class CuentaCorriente extends Cuenta implements Operacion{
 		return false;
 	}
 
-	public boolean saldoSuficiente(int saldoAretirar) {
+	public boolean saldoSuficiente(double saldoAretirar) {
 		boolean retorno=false;;
 		if((this.saldo>=0-this.descubierto) && (saldoAretirar>0) ){
 			retorno=true;

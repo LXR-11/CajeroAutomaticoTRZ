@@ -284,9 +284,10 @@ public class CajeroAutomatico {
 						System.out.println(todosLosMensajes.monto());
 						monto = entrada.nextInt();
 						try {
-							double valorFinalUSD = clienteIngresado.cajaDelClienteARS.comprarDolares(monto,
-									clienteIngresado);
-							System.out.println(todosLosMensajes.comprarDolaresExitoso(monto, valorFinalUSD));
+							double numero = clienteIngresado.cajaDelClienteARS.comprarDolares(monto, clienteIngresado);
+							System.out.println(numero);
+							System.out.println(todosLosMensajes.comprarDolaresExitoso(monto, clienteIngresado.cajaDelClienteARS.comprarDolares(monto,
+									clienteIngresado)));
 
 							this.deseaImprimir = entrada.nextInt();
 

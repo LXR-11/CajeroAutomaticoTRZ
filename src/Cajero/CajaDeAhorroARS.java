@@ -1,7 +1,7 @@
 package Cajero;
 //
 public class CajaDeAhorroARS extends Cuenta implements Operacion {
-	
+
 	public CajaDeAhorroARS(double saldo, String alias) throws Exception {
 		super(saldo, alias);
 	}
@@ -32,7 +32,7 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 				try {
 					double impuestoPais = (((30 * valorARS) / 100)/super.valorDelDolar); // 30% Del valor
 					double USDcomprados = (valorARS / super.valorDelDolar) - impuestoPais;
-
+					
 					cliente.cajaDelClienteUSD.depositar(USDcomprados);
 					this.saldo -= valorARS;
 					Movimiento mov = new Movimiento(TipoDeMovimiento.COMPRADEDOLARES, valorARS, this.alias);

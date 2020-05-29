@@ -18,11 +18,9 @@ public class ModificarArchivoDeCuenta {
 	}
 
 	public void modificarSaldo(String tipoDeCuenta, String alias, double antiguoSaldo, double descubierto, double nuevoSaldo ) {
-		
 		DecimalFormatSymbols separadoresPersonalizados = new DecimalFormatSymbols();
 		separadoresPersonalizados.setDecimalSeparator('.');
 		DecimalFormat convertidor = new DecimalFormat("#.00", separadoresPersonalizados);
-		
 		if ( ( tipoDeCuenta.equals("01") ) || ( tipoDeCuenta.equals("03") ) ) {
 			String lineaOriginal = ( tipoDeCuenta + "," + alias + "," + convertidor.format(antiguoSaldo) );
 			String lineaNueva = ( tipoDeCuenta + "," + alias + "," + convertidor.format(nuevoSaldo) );

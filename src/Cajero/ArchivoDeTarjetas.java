@@ -8,7 +8,7 @@ public class ArchivoDeTarjetas {
 	private Map <Tarjeta, Long> tarjetaCuit;
 
 	public ArchivoDeTarjetas() throws FileNotFoundException, IOException {
-		this.cuitCliente = new HashMap<Long,Cliente>();			//Creo un mapa k=CUIT | v=Cliente
+		this.cuitCliente = new HashMap<Long,Cliente>();			//Creo un mapa k = CUIT | v = Cliente
 		this.tarjetaCuit = new HashMap<Tarjeta, Long>();
 		listaDeClientes();
 

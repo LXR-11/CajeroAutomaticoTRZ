@@ -299,8 +299,7 @@ public class CajeroAutomatico {
 						try {
 							double numero = clienteIngresado.cajaDelClienteARS.comprarDolares(monto, clienteIngresado);
 							System.out.println(numero);
-							System.out.println(todosLosMensajes.comprarDolaresExitoso(monto, clienteIngresado.cajaDelClienteARS.comprarDolares(monto,
-									clienteIngresado)));
+							System.out.println(todosLosMensajes.comprarDolaresExitoso(monto, clienteIngresado.cajaDelClienteARS.comprarDolares(monto,clienteIngresado)));
 
 							this.deseaImprimir = entrada.nextInt();
 
@@ -426,7 +425,7 @@ public class CajeroAutomatico {
 								this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
 								
 								// Guarda las cosas
-								this.antiguoSaldo =  clienteIngresado.cuentaCorrienteDelCliente.consultarSaldo() + monto ;
+								this.antiguoSaldo =  clienteIngresado.cuentaCorrienteDelCliente.consultarSaldo() - monto ;
 								this.nuevoSaldo = clienteIngresado.cuentaCorrienteDelCliente.consultarSaldo();
 								this.descubierto = clienteIngresado.cuentaCorrienteDelCliente.getDescubierto();
 								this.todasLasCuentas.modificar.modificarSaldo("02", clienteIngresado.cuentaCorrienteDelCliente.getAlias(), antiguoSaldo, descubierto, nuevoSaldo);

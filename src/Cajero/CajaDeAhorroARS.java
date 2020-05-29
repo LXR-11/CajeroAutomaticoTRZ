@@ -1,57 +1,13 @@
 package Cajero;
 //
-public class CajaDeAhorroARS extends Cuenta implements Operacion {
+public class CajaDeAhorroARS extends CajaARS{
 
 	public CajaDeAhorroARS(double saldo, String alias) throws Exception {
 		super(saldo, alias);
 	}
 
-	public boolean retirarEfectivo(double valor) throws ErroresDeCuenta {
-		if (saldoSuficiente(valor)) {
-			if (valor % 100 == 0) {
-				this.saldo = saldo - valor;
-				Movimiento mov = new Movimiento(TipoDeMovimiento.RETIRAREFECTIVO, valor, this.alias);
-				agregarMovimiento(mov);
-				return true;
-			} else {
-				throw new ErroresDeCuenta("Solo se puede retirar divisores de 100");
-			}
-		} else {
-			throw new ErroresDeCuenta("Saldo insuficiente");
-		}
-	}
-	public boolean saldoSuficiente(double saldoAretirar) {
-
-		return ( ( saldoAretirar <= this.saldo ) && ( saldoAretirar > 0 ) );
-	}
-
-	public double comprarDolares(double valorARS, Cliente cliente) throws ErroresDeCuenta {
-		if ( cliente.verificarCuentaEnCliente(2) ) {
-			if ( saldoSuficiente ( valorARS / this.valorDelDolar ) ) {
-				try {
-					double impuestoPais = ( ( 30 * super.valorDelDolar) / 100 ); // 30% Del valor
-					double USDcomprados = ( valorARS / ( super.valorDelDolar + impuestoPais ) );
-
-					cliente.cajaDelClienteUSD.depositar(USDcomprados);
-					this.saldo = this.saldo - valorARS;
-					Movimiento mov = new Movimiento(TipoDeMovimiento.COMPRADEDOLARES, valorARS, this.alias);
-					agregarMovimiento(mov);
-
-					return USDcomprados;
-
-				} catch (ErroresDeCuenta e) {
-					e.printStackTrace();
-				}
-			} else {
-				throw new ErroresDeCuenta("Saldo insuficiente");
-			}
-
-		} else {
-			throw new ErroresDeCuenta("Usted no posee una Caja de Ahorro en USD");
-		}
-		return -1;
-	}
-
+	//Se reescribe ya que el parametro de verificacion es distinto en las cuentas
+	@Override
 	public boolean transferir(Cliente clienteAtransferir, int valor) throws ErroresDeCuenta {
 		try {
 			if (clienteAtransferir.verificarCuentaEnCliente(1)) {
@@ -74,6 +30,13 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	//Se reescribe ya que esta caja no tiene en cuenta el descubierto
+	@Override
+	public boolean saldoSuficiente(double saldoAretirar) {
+
+		return ( ( saldoAretirar <= this.saldo ) && ( saldoAretirar > 0 ) );
 	}
 
 

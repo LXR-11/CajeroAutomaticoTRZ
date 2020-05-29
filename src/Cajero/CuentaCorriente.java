@@ -12,7 +12,7 @@ public class CuentaCorriente extends Cuenta implements Operacion{
 	public boolean retirarEfectivo(double valor) throws ErroresDeCuenta {
 		if (saldoSuficiente(valor)) {
 			if(valor%100==0) {
-			this.saldo = -valor;
+			this.saldo = saldo - valor;
 			Movimiento mov = new Movimiento(TipoDeMovimiento.RETIRAREFECTIVO, valor,this.alias);
 			agregarMovimiento(mov);
 			return true;
@@ -78,7 +78,11 @@ public class CuentaCorriente extends Cuenta implements Operacion{
 		}
 		return false;
 	}
-
+	
+	public double getDescubierto() {
+		return this.descubierto;
+	}
+	
 	public boolean saldoSuficiente(double saldoAretirar) {
 		boolean retorno=false;;
 		if((this.saldo>=0-this.descubierto) && (saldoAretirar>0) ){

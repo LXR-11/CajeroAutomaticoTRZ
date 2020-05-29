@@ -5,6 +5,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Random;
 
 public class ModificarArchivoDeCuenta {
@@ -15,14 +17,19 @@ public class ModificarArchivoDeCuenta {
 		this.archivoDeCuenta = new File ("C:\\Users\\ramir\\OneDrive\\Escritorio\\Cajero Fisura\\CajeroAutomaticoTRZ\\ArchivoCuentas.txt");
 	}
 
-	public void modificarSaldo(String tipoDeCuenta, String alias, String antiguoSaldo, String descubierto, String nuevoSaldo ) {
+	public void modificarSaldo(String tipoDeCuenta, String alias, double antiguoSaldo, double descubierto, double nuevoSaldo ) {
+		
+		DecimalFormatSymbols separadoresPersonalizados = new DecimalFormatSymbols();
+		separadoresPersonalizados.setDecimalSeparator('.');
+		DecimalFormat convertidor = new DecimalFormat("#.00", separadoresPersonalizados);
+		
 		if ( ( tipoDeCuenta.equals("01") ) || ( tipoDeCuenta.equals("03") ) ) {
-			String lineaOriginal = (tipoDeCuenta+","+alias+","+antiguoSaldo);
-			String lineaNueva = (tipoDeCuenta+","+alias+","+nuevoSaldo);
+			String lineaOriginal = ( tipoDeCuenta + "," + alias + "," + convertidor.format(antiguoSaldo) );
+			String lineaNueva = ( tipoDeCuenta + "," + alias + "," + convertidor.format(nuevoSaldo) );
 			modificar(this.archivoDeCuenta, lineaOriginal, lineaNueva);
 		} else if ( ( tipoDeCuenta.equals("02") ) ) {
-			String lineaOriginal = (tipoDeCuenta+","+alias+","+antiguoSaldo+","+descubierto);
-			String lineaNueva = (tipoDeCuenta+","+alias+","+nuevoSaldo+","+descubierto);
+			String lineaOriginal = ( tipoDeCuenta + "," + alias + "," + convertidor.format(antiguoSaldo) + "," + convertidor.format(descubierto) );
+			String lineaNueva = ( tipoDeCuenta + "," + alias + "," + convertidor.format(nuevoSaldo) + "," + convertidor.format(descubierto) );
 			modificar(this.archivoDeCuenta, lineaOriginal, lineaNueva);
 		}
 	}

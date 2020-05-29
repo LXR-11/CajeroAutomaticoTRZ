@@ -90,6 +90,12 @@ public abstract class Cuenta{
                 this.saldo+=monto;
                 Movimiento mov = new Movimiento(TipoDeMovimiento.DEPOSITO,monto,this.alias);
                 agregarMovimiento(mov);
+                
+                
+                
+				
+				
+				
                 return true;
             } else {
             	throw new ErroresDeCuenta("Debe depositar un valor mayor a 0.");

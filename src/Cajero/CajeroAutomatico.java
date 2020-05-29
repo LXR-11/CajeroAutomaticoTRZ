@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CajeroAutomatico {
+
+	double antiguoSaldo, nuevoSaldo, descubierto;
 	private ArchivoDeCuentas todasLasCuentas;
 	private Mensajes todosLosMensajes;
 	private Scanner entrada;
@@ -216,6 +218,11 @@ public class CajeroAutomatico {
 									nuevoMovimiento = new Movimiento(TipoDeMovimiento.RETIRAREFECTIVO, monto, clienteIngresado.cajaDelClienteARS.alias);
 									this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
 
+									// Guarda las cosas
+									this.antiguoSaldo =  clienteIngresado.cajaDelClienteARS.consultarSaldo() + monto ;
+									this.nuevoSaldo = clienteIngresado.cajaDelClienteARS.consultarSaldo();
+									this.todasLasCuentas.modificar.modificarSaldo("01", clienteIngresado.cajaDelClienteARS.getAlias(), antiguoSaldo, 0, nuevoSaldo);
+
 									this.deseaImprimir = entrada.nextInt();
 									if (this.deseaImprimir == 1) { // GENERA TICKET
 										this.generarTicket = new Ticket();
@@ -249,6 +256,12 @@ public class CajeroAutomatico {
 									//escribe movimiento en el txt
 									nuevoMovimiento = new Movimiento(TipoDeMovimiento.RETIRAREFECTIVO, monto, clienteIngresado.cuentaCorrienteDelCliente.alias);
 									this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
+
+									// Guarda las cosas
+									this.antiguoSaldo =  clienteIngresado.cuentaCorrienteDelCliente.consultarSaldo() + monto ;
+									this.nuevoSaldo = clienteIngresado.cuentaCorrienteDelCliente.consultarSaldo();
+									this.descubierto = clienteIngresado.cuentaCorrienteDelCliente.getDescubierto();
+									this.todasLasCuentas.modificar.modificarSaldo("02", clienteIngresado.cuentaCorrienteDelCliente.getAlias(), antiguoSaldo, descubierto , nuevoSaldo);
 
 									if (this.deseaImprimir == 1) { // GENERA TICKET
 										this.generarTicket = new Ticket();
@@ -358,6 +371,11 @@ public class CajeroAutomatico {
 								//escribe movimiento en el txt
 								nuevoMovimiento = new Movimiento(TipoDeMovimiento.DEPOSITO, monto, clienteIngresado.cajaDelClienteARS.alias);
 								this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
+								
+								// Guarda las cosas
+								this.antiguoSaldo =  clienteIngresado.cajaDelClienteARS.consultarSaldo() - monto ;
+								this.nuevoSaldo = clienteIngresado.cajaDelClienteARS.consultarSaldo();
+								this.todasLasCuentas.modificar.modificarSaldo("01", clienteIngresado.cajaDelClienteARS.getAlias(), antiguoSaldo, 0 , nuevoSaldo);
 
 								if (this.deseaImprimir == 1) { // GENERA TICKET
 									this.generarTicket = new Ticket();
@@ -380,6 +398,11 @@ public class CajeroAutomatico {
 								//escribe movimiento en el txt
 								nuevoMovimiento = new Movimiento(TipoDeMovimiento.DEPOSITO, monto, clienteIngresado.cajaDelClienteUSD.alias);
 								this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
+								
+								// Guarda las cosas
+								this.antiguoSaldo =  clienteIngresado.cajaDelClienteUSD.consultarSaldo() - monto ;
+								this.nuevoSaldo = clienteIngresado.cajaDelClienteUSD.consultarSaldo();
+								this.todasLasCuentas.modificar.modificarSaldo("03", clienteIngresado.cajaDelClienteUSD.getAlias(), antiguoSaldo, 0 , nuevoSaldo);
 
 								if (this.deseaImprimir == 1) { // GENERA TICKET
 									this.generarTicket = new Ticket();
@@ -401,11 +424,16 @@ public class CajeroAutomatico {
 								//escribe movimiento en el txt
 								nuevoMovimiento = new Movimiento(TipoDeMovimiento.DEPOSITO, monto, clienteIngresado.cuentaCorrienteDelCliente.alias);
 								this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
+								
+								// Guarda las cosas
+								this.antiguoSaldo =  clienteIngresado.cuentaCorrienteDelCliente.consultarSaldo() + monto ;
+								this.nuevoSaldo = clienteIngresado.cuentaCorrienteDelCliente.consultarSaldo();
+								this.descubierto = clienteIngresado.cuentaCorrienteDelCliente.getDescubierto();
+								this.todasLasCuentas.modificar.modificarSaldo("02", clienteIngresado.cuentaCorrienteDelCliente.getAlias(), antiguoSaldo, descubierto, nuevoSaldo);
 
 								if (this.deseaImprimir == 1) { // GENERA TICKET
 									this.generarTicket = new Ticket();
-									this.generarTicket.escribirDeposito(clienteIngresado.cuentaCorrienteDelCliente,
-											monto);
+									this.generarTicket.escribirDeposito(clienteIngresado.cuentaCorrienteDelCliente, monto);
 									System.out.println("Ticket generado correctamente.");
 								}
 							}
@@ -454,7 +482,7 @@ public class CajeroAutomatico {
 										clienteIngresado.cajaDelClienteARS.revertirUltimaTransferencia(saldo,
 												destinataria);
 										System.out.println("Se ha revertido con exito.");
-										
+
 										break;
 									case 2: // GENERAR TICKET
 

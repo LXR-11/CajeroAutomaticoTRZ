@@ -12,11 +12,12 @@ public class ArchivoDeCuentas {
 	private ArchivoDeClientes archivoCliente;
 	private ArchivoDeTarjetas archivoTarjetas;
 	private ArchivoDeMovimientos archivoMovimientos;
+	ModificarArchivoDeCuenta modificar = new ModificarArchivoDeCuenta();
 
 	public ArchivoDeCuentas() throws FileNotFoundException, IOException {
-		this.archivoCliente = new ArchivoDeClientes(); // Creo dos objetos, de archivoCliente y de archivoTarjeta
+		this.archivoCliente = new ArchivoDeClientes();  // Creo dos objetos, de archivoCliente y de archivoTarjeta
 		this.archivoTarjetas = new ArchivoDeTarjetas(); // Se crean esos dos objetos para tener dos mapas. Uno: CUIT |
-														// CLIENTE y otro ALIAS | CUIT
+		this.modificar = new ModificarArchivoDeCuenta();	// CLIENTE y otro ALIAS | CUIT
 
 		this.archivoMovimientos = new ArchivoDeMovimientos();
 

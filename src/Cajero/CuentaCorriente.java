@@ -9,7 +9,7 @@ public class CuentaCorriente extends Cuenta implements Operacion{
 		this.descubierto=descubierto;
 	}
 	
-	public boolean retirarEfectivo(int valor) throws ErroresDeCuenta {
+	public boolean retirarEfectivo(double valor) throws ErroresDeCuenta {
 		if (saldoSuficiente(valor)) {
 			if(valor%100==0) {
 			this.saldo = -valor;

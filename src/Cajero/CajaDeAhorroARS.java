@@ -1,16 +1,23 @@
 package Cajero;
 
 public class CajaDeAhorroARS extends Cuenta implements Operacion {
+	
+	ModificarArchivoDeCuenta mod;
+	
 	public CajaDeAhorroARS(double saldo, String alias) throws Exception {
 		super(saldo, alias);
+		this.mod = new ModificarArchivoDeCuenta();
 	}
 
-	public boolean retirarEfectivo(int valor) throws ErroresDeCuenta {
+	public boolean retirarEfectivo(double valor) throws ErroresDeCuenta {
 		if (saldoSuficiente(valor)) {
 			if (valor % 100 == 0) {
-				this.saldo = -valor;
+				this.saldo -= valor;
 				Movimiento mov = new Movimiento(TipoDeMovimiento.RETIRAREFECTIVO, valor, this.alias);
 				agregarMovimiento(mov);
+				String antiguoSaldoString = String.valueOf( consultarSaldo()+valor );
+				String nuevoSaldoString = String.valueOf( consultarSaldo() );
+				this.mod.modificarSaldo("01", this.alias, antiguoSaldoString , null, nuevoSaldoString);
 				return true;
 			} else {
 				throw new ErroresDeCuenta("Solo se puede retirar divisores de 100");
@@ -31,7 +38,7 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 				try {
 					double impuestoPais = (((30 * valorARS) / 100)/super.valorDelDolar); // 30% Del valor
 					double USDcomprados = (valorARS / super.valorDelDolar) - impuestoPais;
-				
+
 					cliente.cajaDelClienteUSD.depositar(USDcomprados);
 					this.saldo -= valorARS;
 					Movimiento mov = new Movimiento(TipoDeMovimiento.COMPRADEDOLARES, valorARS, this.alias);
@@ -76,6 +83,6 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 		return false;
 	}
 
-	
+
 
 }

@@ -160,13 +160,11 @@ public class Mensajes {
 	
 							//OPERACIONES EXITOSAS//
 	public String comprarDolaresExitoso(int valor, double valorFinal) {
-		double impuestoPais = ((30 * valor) / 100);
 		return  "*************************************************************"
 				+"\n"
 				+"\n	Operacion exitosa"
 				+"\n"
 				+"\n	Con "+valor+"ARS compraste "+valorFinal+" USD"
-				+"\n 	debido al impuesto pais del 30% de "+impuestoPais+"ARS"
 				+"\n"
 				+"\n	Desea imprimir ticket?"
 				+"\n	1. Si"

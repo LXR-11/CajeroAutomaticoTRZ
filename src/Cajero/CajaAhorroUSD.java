@@ -7,8 +7,4 @@ public class CajaAhorroUSD extends Cuenta{
         super(saldo, alias);
 
     }
-
-
-
-
 }

@@ -20,21 +20,20 @@ public class CajaDeAhorroARS extends Cuenta implements Operacion {
 			throw new ErroresDeCuenta("Saldo insuficiente");
 		}
 	}
-
 	public boolean saldoSuficiente(double saldoAretirar) {
 
 		return ( ( saldoAretirar <= this.saldo ) && ( saldoAretirar > 0 ) );
 	}
 
 	public double comprarDolares(double valorARS, Cliente cliente) throws ErroresDeCuenta {
-		if (cliente.verificarCuentaEnCliente(2)) {
-			if (saldoSuficiente(valorARS/this.valorDelDolar)) {
+		if ( cliente.verificarCuentaEnCliente(2) ) {
+			if ( saldoSuficiente ( valorARS / this.valorDelDolar ) ) {
 				try {
-					double impuestoPais = (((30 * valorARS) / 100)/super.valorDelDolar); // 30% Del valor
-					double USDcomprados = (valorARS / super.valorDelDolar) - impuestoPais;
-					
+					double impuestoPais = ( ( 30 * super.valorDelDolar) / 100 ); // 30% Del valor
+					double USDcomprados = ( valorARS / ( super.valorDelDolar + impuestoPais ) );
+
 					cliente.cajaDelClienteUSD.depositar(USDcomprados);
-					this.saldo -= valorARS;
+					this.saldo = this.saldo - valorARS;
 					Movimiento mov = new Movimiento(TipoDeMovimiento.COMPRADEDOLARES, valorARS, this.alias);
 					agregarMovimiento(mov);
 

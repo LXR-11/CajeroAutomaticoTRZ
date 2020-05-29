@@ -38,7 +38,7 @@ public class MensajesTicket {
 		return  "*************************************************************"
 		+"\n	Tipo: COMPRA USD"
 		+"\n	Fecha: "+objDate.toString()+"." 
-		+"\n	Compraste: "+((valor/cuenta.valorDelDolar) - impuestoPais)+"USD"
+		+"\n	Compraste: "+(( valor / ( cuenta.valorDelDolar + 30) ) )+"USD"
 		+"\n	Nuevo saldo: "+cuenta.consultarSaldo()
 		+"\n*************************************************************";
 	}

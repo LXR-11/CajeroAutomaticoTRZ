@@ -16,7 +16,7 @@ public abstract class Cuenta{
             if(saldoPositivo(saldo)) {
                 this.saldo=saldo;
                 this.alias=alias;
-                this.valorDelDolar=103;
+                this.valorDelDolar=100;
 
             }
             else {
@@ -76,7 +76,7 @@ public abstract class Cuenta{
         	
         }
         
-        public void revertirUltimaTransferencia(double saldoInvolucrado, Cuenta destinatario) {
+        public void revertirUltimaTransferencia ( double saldoInvolucrado, Cuenta destinatario ) {
         	this.saldo += saldoInvolucrado;
         	destinatario.saldo -= saldoInvolucrado;
         	//remueve el ultimo movimiento 
@@ -84,18 +84,11 @@ public abstract class Cuenta{
         	
         }
         
-        public boolean depositar (double monto)throws ErroresDeCuenta {
+        public boolean depositar (double monto) throws ErroresDeCuenta {
             if(monto>0) {
-            	
-                this.saldo+=monto;
+                this.saldo += monto;
                 Movimiento mov = new Movimiento(TipoDeMovimiento.DEPOSITO,monto,this.alias);
                 agregarMovimiento(mov);
-                
-                
-                
-				
-				
-				
                 return true;
             } else {
             	throw new ErroresDeCuenta("Debe depositar un valor mayor a 0.");

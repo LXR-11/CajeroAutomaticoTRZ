@@ -6,7 +6,7 @@ import java.util.Scanner;
 //
 public class CajeroAutomatico {
 
-	double antiguoSaldo, nuevoSaldo, descubierto;
+	double antiguoSaldo, antiguoSaldoUSD, nuevoSaldo, nuevoSaldoUSD, descubierto;
 	private ArchivoDeCuentas todasLasCuentas;
 	private Mensajes todosLosMensajes;
 	private Scanner entrada;
@@ -297,9 +297,19 @@ public class CajeroAutomatico {
 						System.out.println(todosLosMensajes.monto());
 						monto = entrada.nextInt();
 						try {
+							// Guarda las cosas
+							this.antiguoSaldo =  clienteIngresado.cajaDelClienteARS.consultarSaldo();
+							this.antiguoSaldoUSD =  clienteIngresado.cajaDelClienteUSD.consultarSaldo();
 							double numero = clienteIngresado.cajaDelClienteARS.comprarDolares(monto, clienteIngresado);
+							
 							System.out.println(numero);
-							System.out.println(todosLosMensajes.comprarDolaresExitoso(monto, clienteIngresado.cajaDelClienteARS.comprarDolares(monto,clienteIngresado)));
+							System.out.println(todosLosMensajes.comprarDolaresExitoso(monto, numero));
+							
+							this.nuevoSaldo = clienteIngresado.cajaDelClienteARS.consultarSaldo();
+							this.nuevoSaldoUSD = clienteIngresado.cajaDelClienteUSD.consultarSaldo();
+							
+							this.todasLasCuentas.modificar.modificarSaldo("01", clienteIngresado.cajaDelClienteARS.getAlias(), antiguoSaldo, 0, nuevoSaldo);
+							this.todasLasCuentas.modificar.modificarSaldo("03", clienteIngresado.cajaDelClienteUSD.getAlias(), antiguoSaldoUSD, 0, nuevoSaldoUSD);
 
 							this.deseaImprimir = entrada.nextInt();
 

@@ -1,6 +1,6 @@
-01,isla.pez.arbol,112000.03
-03,ramon.falopero,7500.00
-02,sol.monte.valle,-1521.90,25000.00
-01,uva.sandalia.halcon,0.00
-02,hormiga.lija.crema,-50.97,150.00
-03,lobo.luna.pasto,700.00
+01,isla.pez.arbol,2000.00
+03,ramon.falopero,28.08
+02,sol.monte.valle,-1500.00,20000.00
+01,uva.sandalia.halcon,500.00
+02,hormiga.lija.crema,-700.00,50000.00
+03,lobo.luna.pasto,400.00

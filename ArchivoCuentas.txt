@@ -1,4 +1,4 @@
-01,isla.pez.arbol,12000.03
+01,isla.pez.arbol,62000.03
 03,ramon.falopero,7000.00
 02,sol.monte.valle,-1521.90,25000.00
 01,uva.sandalia.halcon,0.00

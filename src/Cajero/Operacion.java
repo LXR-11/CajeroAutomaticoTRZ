@@ -1,5 +1,5 @@
 package Cajero;
-
+//
 public interface Operacion {
 	boolean retirarEfectivo(double valor) throws ErroresDeCuenta;
 	double comprarDolares(double valor, Cliente cliente) throws ErroresDeCuenta;

@@ -1,5 +1,5 @@
 package Cajero;
-
+//
 public class MovimientoReversible extends Movimiento {
 
 	protected String aliasDelDestinatario;

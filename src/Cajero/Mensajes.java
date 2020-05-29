@@ -1,5 +1,5 @@
 package Cajero;
-
+//
 public class Mensajes {
 
 	public Mensajes() {}

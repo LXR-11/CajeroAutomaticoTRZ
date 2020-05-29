@@ -1,5 +1,5 @@
 package Cajero;
-
+//
 public enum TipoDeMovimiento {
 	
 	DEPOSITO,

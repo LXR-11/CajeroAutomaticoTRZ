@@ -1,5 +1,5 @@
 package Cajero;
-
+//
 import java.util.Date;
 
 public class MensajesTicket {

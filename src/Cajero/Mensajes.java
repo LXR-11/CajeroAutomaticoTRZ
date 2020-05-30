@@ -186,7 +186,7 @@ public class Mensajes {
 		System.out.println(
 				    "*************************************************************"
 				+"\n"
-				+"\n	Se extrajo correctamente"+valor+"ARS"
+				+"\n	Se extrajo correctamente "+valor+"ARS"
 				+"\n"
 				+"\n	Desea imprimir ticket?"
 				+"\n"

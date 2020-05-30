@@ -1,15 +1,53 @@
 package Cajero;
 //
-public class CajaDeAhorroARS extends CajaARS{
+public class CajaDeAhorroARS extends Cuenta implements Operacion {
 
 	public CajaDeAhorroARS(double saldo, String alias) throws Exception {
 		super(saldo, alias);
 	}
 
-	//Se reescribe ya que el parametro de verificacion es distinto en las cuentas
-	@Override
+	public boolean retirarEfectivo(double valor) throws ErroresDeCuenta {
+		if (saldoSuficiente(valor)) {
+			if (valor % 100 == 0) {
+				this.saldo = saldo - valor;
+				Movimiento mov = new Movimiento(TipoDeMovimiento.RETIRAREFECTIVO, valor, this.alias);
+				agregarMovimiento(mov);
+				return true;
+			} else {
+				throw new ErroresDeCuenta("Solo se puede retirar divisores de 100");
+			}
+		} else {
+			throw new ErroresDeCuenta("Lo sentimos, su saldo insuficiente.");
+		}
+	}
+
+	public boolean saldoSuficiente(double saldoAretirar) {
+
+		return ( ( saldoAretirar <= this.saldo ) && ( saldoAretirar > 0 ) );
+	}
+
+	public double comprarDolares(double valorARS, Cliente cliente) throws ErroresDeCuenta {
+		if (cliente.verificarCuentaEnCliente(2)) {
+			if (saldoSuficiente(valorARS/this.valorDelDolar)) {
+					double impuestoPais = (((30 * valorARS) / 100)/super.valorDelDolar); // 30% Del valor
+					double USDcomprados = (valorARS / super.valorDelDolar) - impuestoPais;
+					
+					cliente.cajaDelClienteUSD.depositar(USDcomprados);
+					this.saldo -= valorARS;
+					Movimiento mov = new Movimiento(TipoDeMovimiento.COMPRADEDOLARES, valorARS, this.alias);
+					agregarMovimiento(mov);
+
+					return USDcomprados;
+			} else {
+				throw new ErroresDeCuenta("Saldo insuficiente");
+			}
+
+		} else {
+			throw new ErroresDeCuenta("Usted no posee una Caja de Ahorro en USD");
+		}
+	}
+
 	public boolean transferir(Cliente clienteAtransferir, int valor) throws ErroresDeCuenta {
-		try {
 			if (clienteAtransferir.verificarCuentaEnCliente(1)) {
 				if (saldoSuficiente(valor)) {
 					clienteAtransferir.cajaDelClienteARS.depositar(valor);
@@ -26,17 +64,6 @@ public class CajaDeAhorroARS extends CajaARS{
 			} else {
 				throw new ErroresDeCuenta("El destinatario no posee una cuenta en ARS");
 			}
-		} catch (ErroresDeCuenta e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-	
-	//Se reescribe ya que esta caja no tiene en cuenta el descubierto
-	@Override
-	public boolean saldoSuficiente(double saldoAretirar) {
-
-		return ( ( saldoAretirar <= this.saldo ) && ( saldoAretirar > 0 ) );
 	}
 
 

@@ -17,7 +17,7 @@ public abstract class CajaARS extends Cuenta implements Operacion  {
 	
 	
 	public boolean retirarEfectivo(double valor) throws ErroresDeCuenta {
-		if (saldoSuficiente(valor)) {
+		if (saldoSuficiente(this.saldo)) {
 			if(valor%100==0) {
 			this.saldo = saldo - valor;
 			Movimiento mov = new Movimiento(TipoDeMovimiento.RETIRAREFECTIVO, valor,this.alias);
@@ -36,9 +36,8 @@ public abstract class CajaARS extends Cuenta implements Operacion  {
 
 
 	public double comprarDolares(double valorARS, Cliente cliente) throws ErroresDeCuenta {
-
 		if (cliente.verificarCuentaEnCliente(2)) {
-			if (saldoSuficiente(valorARS/this.valorDelDolar)) {
+			if (saldoSuficiente(this.saldo/this.valorDelDolar)) {
 				try {
 					double impuestoPais = (((30 * valorARS) / 100)/super.valorDelDolar); // 30% Del valor
 					double USDcomprados = (valorARS / super.valorDelDolar) - impuestoPais;

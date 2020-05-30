@@ -79,7 +79,7 @@ public class ModificarArchivoDeCuenta {
 				archivoNuevo.renameTo(archivoOrginal);
 
 			} else {
-				System.out.println( "El archivo no existe" );
+				System.out.println( "El archivo no existe,," );
 			}
 		} catch (Exception e) {
 			System.out.println( "No se pudo modificar el archivo" );

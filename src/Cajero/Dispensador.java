@@ -19,12 +19,10 @@ public class Dispensador {
 
 	}
 
-	public String retirarBillete(int dineroAretirar){ // Se podria hacer recursivo
+	public String retirarBillete(int dineroAretirar) throws ErroresDeDispensador{ // Se podria hacer recursivo
 		int billeteDe100 = 0;
 		int billeteDe500 = 0;
 		int billeteDe1000 = 0;
-		try {
-
 
 			if (hayDinero(dineroAretirar)) {
 				while (dineroAretirar >= 100) {
@@ -51,15 +49,10 @@ public class Dispensador {
 			else {
 				throw new ErroresDeDispensador("No hay dinero en el dispensador");
 			}
-		}
-		catch(ErroresDeDispensador e) {
-			e.printStackTrace();
-		}
+
 			return "Retiraste " + billeteDe1000 + " billetes de 1000, " + billeteDe500 + " billetes de 500, " + billeteDe100
 					+ " billetes de 100";
-
-
-		
+	
 	}
 
 

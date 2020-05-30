@@ -12,6 +12,7 @@ public abstract class Cuenta{
       protected double valorDelDolar;
       protected Stack<Movimiento> movimientosDeCuenta= new Stack<Movimiento>();
 
+      
         public Cuenta(double saldo, String alias)throws ErroresDeCuenta{
             if(saldoPositivo(saldo)) {
                 this.saldo=saldo;

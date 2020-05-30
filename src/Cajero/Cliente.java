@@ -34,7 +34,7 @@ public class Cliente {
 			case 1:	//ARS
 
 				if(verificarCuentaEnCliente(1)) {
-					System.out.println(mensajes.alias(this.cajaDelClienteARS));
+					mensajes.alias(this.cajaDelClienteARS);
 				}
 				else {
 					throw new ErroresDeCuenta("Usted no posee esta cuenta");
@@ -43,7 +43,7 @@ public class Cliente {
 
 			case 2:	//USD
 				if(verificarCuentaEnCliente(2)){
-					System.out.println(mensajes.alias(this.cajaDelClienteUSD));
+					mensajes.alias(this.cajaDelClienteUSD);
 				}
 				else {
 					throw new ErroresDeCuenta("Usted no posee esta cuenta");
@@ -51,7 +51,7 @@ public class Cliente {
 				break;
 			case 3:	//CC
 				if(verificarCuentaEnCliente(3)) {
-					System.out.println(mensajes.alias(this.cuentaCorrienteDelCliente));
+					mensajes.alias(this.cuentaCorrienteDelCliente);
 				}
 				else {
 					throw new ErroresDeCuenta("Usted no posee esta cuenta");

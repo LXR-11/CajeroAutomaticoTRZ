@@ -28,11 +28,12 @@ public class CajeroAutomatico {
 	}
 
 	public void iniciar() {
-		System.out.println(todosLosMensajes.bienvenida());
+		
+		todosLosMensajes.bienvenida();
 
 		try {
 			this.numeroDeTarjeta = entrada.nextInt();
-			System.out.println(todosLosMensajes.pinTarjeta());
+			todosLosMensajes.pinTarjeta();
 			this.pin = entrada.nextInt();
 
 			///// Creamos una tarjeta con los valores dados/////
@@ -47,7 +48,7 @@ public class CajeroAutomatico {
 				Cliente clienteIngresado = todasLasCuentas.getArchivoTarjetas().getClientesConCuit()
 						.get(cuitDelUsuario);
 
-				System.out.println(this.todosLosMensajes.menuPrincipal());
+				todosLosMensajes.menuPrincipal();
 
 				int opcionElegida = entrada.nextInt();
 				int tipoDeCuenta, monto;
@@ -56,19 +57,19 @@ public class CajeroAutomatico {
 				///////////////////// CONSULTA /////////////////////
 
 				case 1:
-					System.out.println(todosLosMensajes.consultas());
+					todosLosMensajes.consultas();
 					int opcionConsultas = entrada.nextInt();
 					switch (opcionConsultas) {
 
 					//////////////// CONSULTAR SALDO ////////////////
 					case 1:
-						System.out.println(todosLosMensajes.tipoDeCuenta());
+						todosLosMensajes.tipoDeCuenta();
 						tipoDeCuenta = entrada.nextInt();
 						switch (tipoDeCuenta) {
 
 						case 1: // ARS
-							System.out.println(
-									todosLosMensajes.saldo(clienteIngresado.cajaDelClienteARS.consultarSaldo()));
+							
+							todosLosMensajes.saldo(clienteIngresado.cajaDelClienteARS.consultarSaldo());
 							this.deseaImprimir = entrada.nextInt();
 							if (this.deseaImprimir == 1) { // GENERA TICKET
 								this.generarTicket = new Ticket();
@@ -78,8 +79,7 @@ public class CajeroAutomatico {
 							break;
 
 						case 2: // USD
-							System.out.println(
-									todosLosMensajes.saldo(clienteIngresado.cajaDelClienteUSD.consultarSaldo()));
+							todosLosMensajes.saldo(clienteIngresado.cajaDelClienteUSD.consultarSaldo());
 							this.deseaImprimir = entrada.nextInt();
 							if (this.deseaImprimir == 1) { // GENERA TICKET
 								this.generarTicket = new Ticket();
@@ -89,8 +89,7 @@ public class CajeroAutomatico {
 							break;
 
 						case 3: // CC
-							System.out.println(todosLosMensajes
-									.saldo(clienteIngresado.cuentaCorrienteDelCliente.consultarSaldo()));
+							todosLosMensajes.saldo(clienteIngresado.cuentaCorrienteDelCliente.consultarSaldo());
 							this.deseaImprimir = entrada.nextInt();
 							if (this.deseaImprimir == 1) { // GENERA TICKET
 								this.generarTicket = new Ticket();
@@ -106,11 +105,11 @@ public class CajeroAutomatico {
 
 						//////////////// CONSULTAR ALIAS ////////////////
 					case 2:
-						System.out.println(todosLosMensajes.tipoDeCuenta());
+						todosLosMensajes.tipoDeCuenta();
 						tipoDeCuenta = entrada.nextInt();
 						switch (tipoDeCuenta) {
 						case 1: // ARS
-							System.out.println(this.todosLosMensajes.alias(clienteIngresado.cajaDelClienteARS));
+							todosLosMensajes.alias(clienteIngresado.cajaDelClienteARS);
 							this.deseaImprimir = entrada.nextInt();
 							if (this.deseaImprimir == 1) { // GENERA TICKET
 								this.generarTicket = new Ticket();
@@ -121,7 +120,7 @@ public class CajeroAutomatico {
 							break;
 
 						case 2: // USD
-							System.out.println(this.todosLosMensajes.alias(clienteIngresado.cajaDelClienteUSD));
+							todosLosMensajes.alias(clienteIngresado.cajaDelClienteUSD);
 							this.deseaImprimir = entrada.nextInt();
 							if (this.deseaImprimir == 1) { // GENERA TICKET
 								this.generarTicket = new Ticket();
@@ -132,7 +131,7 @@ public class CajeroAutomatico {
 							break;
 
 						case 3: // CC
-							System.out.println(this.todosLosMensajes.alias(clienteIngresado.cuentaCorrienteDelCliente));
+							todosLosMensajes.alias(clienteIngresado.cuentaCorrienteDelCliente);
 							this.deseaImprimir = entrada.nextInt();
 							if (this.deseaImprimir == 1) { // GENERA TICKET
 								this.generarTicket = new Ticket();
@@ -150,10 +149,10 @@ public class CajeroAutomatico {
 						//////////////// CONSULTAR ULTIMOS MOVIMIENTOS ////////////////
 
 					case 3:
-						System.out.println(todosLosMensajes.cantidadDeMovimientos());	// pregunta cuantos mov quiere consultar
+						todosLosMensajes.cantidadDeMovimientos();	// pregunta cuantos mov quiere consultar
 						int cantidadDeMovimientos = entrada.nextInt();
 						// pregunta tipo de cuenta
-						System.out.println(todosLosMensajes.tipoDeCuenta());
+						todosLosMensajes.tipoDeCuenta();
 						tipoDeCuenta = entrada.nextInt();
 
 						switch (tipoDeCuenta) {
@@ -199,12 +198,12 @@ public class CajeroAutomatico {
 
 					//////////////// EXTRAER ////////////////
 				case 2:
-					System.out.println(todosLosMensajes.tipoDeCuenta());
+					todosLosMensajes.tipoDeCuenta();
 					tipoDeCuenta = entrada.nextInt();
 					switch (tipoDeCuenta) {
 
 					case 1: // ARS
-						System.out.println(todosLosMensajes.monto());
+						todosLosMensajes.monto();
 						monto = entrada.nextInt();
 						try{
 							if (clienteIngresado.verificarCuentaEnCliente(1)) { // VERIFICA QUE HAYA CAJA
@@ -212,7 +211,7 @@ public class CajeroAutomatico {
 								if(clienteIngresado.cajaDelClienteARS.retirarEfectivo(monto)) {
 
 									System.out.println(this.dispensador.retirarBillete(monto));
-									System.out.println(todosLosMensajes.extraerExitoso(monto));
+									todosLosMensajes.extraerExitoso(monto);
 
 									//escribe nuevo movimiento en el sistema
 									nuevoMovimiento = new Movimiento(TipoDeMovimiento.RETIRAREFECTIVO, monto, clienteIngresado.cajaDelClienteARS.alias);
@@ -242,7 +241,7 @@ public class CajeroAutomatico {
 						break;
 
 					case 3: // CC
-						System.out.println(todosLosMensajes.monto());
+						todosLosMensajes.monto();
 						monto = entrada.nextInt();
 						try {
 							if (clienteIngresado.verificarCuentaEnCliente(3)) {
@@ -250,7 +249,7 @@ public class CajeroAutomatico {
 								if(clienteIngresado.cuentaCorrienteDelCliente.retirarEfectivo(monto)) {
 
 									System.out.println(this.dispensador.retirarBillete(monto));
-									System.out.println(todosLosMensajes.extraerExitoso(monto));
+									todosLosMensajes.extraerExitoso(monto);
 									this.deseaImprimir = entrada.nextInt();
 
 									//escribe movimiento en el txt
@@ -289,12 +288,12 @@ public class CajeroAutomatico {
 					//////////////// COMPRAR USD ////////////////
 
 				case 3:
-					System.out.println(todosLosMensajes.tipoDeCuenta());
+					todosLosMensajes.tipoDeCuenta();
 					tipoDeCuenta = entrada.nextInt();
 
 					switch (tipoDeCuenta) {
 					case 1: // ARS
-						System.out.println(todosLosMensajes.monto());
+						todosLosMensajes.monto();
 						monto = entrada.nextInt();
 						try {
 							// Guarda las cosas
@@ -303,7 +302,7 @@ public class CajeroAutomatico {
 							double numero = clienteIngresado.cajaDelClienteARS.comprarDolares(monto, clienteIngresado);
 							
 							System.out.println(numero);
-							System.out.println(todosLosMensajes.comprarDolaresExitoso(monto, numero));
+							todosLosMensajes.comprarDolaresExitoso(monto, numero);
 							
 							this.nuevoSaldo = clienteIngresado.cajaDelClienteARS.consultarSaldo();
 							this.nuevoSaldoUSD = clienteIngresado.cajaDelClienteUSD.consultarSaldo();
@@ -333,12 +332,12 @@ public class CajeroAutomatico {
 						break;
 
 					case 3: // CC
-						System.out.println(todosLosMensajes.monto());
+						todosLosMensajes.monto();
 						monto = entrada.nextInt();
 						try {
 							double valorFinalUSD = clienteIngresado.cuentaCorrienteDelCliente.comprarDolares(monto,
 									clienteIngresado);
-							System.out.println(todosLosMensajes.comprarDolaresExitoso(monto, valorFinalUSD));
+							todosLosMensajes.comprarDolaresExitoso(monto, valorFinalUSD);
 							this.deseaImprimir = entrada.nextInt();
 
 							//escribe movimiento en el txt
@@ -363,9 +362,9 @@ public class CajeroAutomatico {
 
 					//////////////// DEPOSITAR ////////////////
 				case 4:
-					System.out.println(todosLosMensajes.tipoDeCuenta());
+					todosLosMensajes.tipoDeCuenta();
 					tipoDeCuenta = entrada.nextInt();
-					System.out.println(todosLosMensajes.monto());
+					todosLosMensajes.monto();
 					monto = entrada.nextInt();
 
 					switch (tipoDeCuenta) {
@@ -374,7 +373,7 @@ public class CajeroAutomatico {
 
 						try {
 							if (clienteIngresado.cajaDelClienteARS.depositar(monto)) {
-								System.out.println(todosLosMensajes.depositoExitoso());
+								todosLosMensajes.depositoExitoso();
 								deseaImprimir = entrada.nextInt();
 
 								//escribe movimiento en el txt
@@ -401,7 +400,7 @@ public class CajeroAutomatico {
 					case 2: // USD
 						try {
 							if (clienteIngresado.cajaDelClienteUSD.depositar(monto)) {
-								System.out.println(todosLosMensajes.depositoExitoso());
+								todosLosMensajes.depositoExitoso();
 								deseaImprimir = entrada.nextInt();
 
 								//escribe movimiento en el txt
@@ -427,7 +426,7 @@ public class CajeroAutomatico {
 					case 3: // CC
 						try {
 							if (clienteIngresado.cuentaCorrienteDelCliente.depositar(monto)) {
-								System.out.println(todosLosMensajes.depositoExitoso());
+								todosLosMensajes.depositoExitoso();
 								deseaImprimir = entrada.nextInt();
 
 								//escribe movimiento en el txt
@@ -458,9 +457,9 @@ public class CajeroAutomatico {
 
 					//////////////// TRANSFERENCIA////////////////
 				case 5:
-					System.out.println(todosLosMensajes.tipoDeCuenta());
+					todosLosMensajes.tipoDeCuenta();
 					tipoDeCuenta = entrada.nextInt();
-					System.out.println(this.todosLosMensajes.transferenciaAlias());
+					todosLosMensajes.transferenciaAlias();
 					String aliasDestinatario = entrada.next();
 					if (this.todasLasCuentas.getArchivoCliente().getAliasConCuit().containsKey(aliasDestinatario)) { // ¿Existe
 						// cuit
@@ -475,12 +474,12 @@ public class CajeroAutomatico {
 						switch (tipoDeCuenta) {
 						case 1: // ARS
 
-							System.out.println(this.todosLosMensajes.monto());
+							todosLosMensajes.monto();
 							monto = entrada.nextInt();
 							try {
 								if (clienteIngresado.cajaDelClienteARS.transferir(clienteDestinatario, monto)) {
 
-									System.out.println(todosLosMensajes.transferenciaExitosa(monto));
+									todosLosMensajes.transferenciaExitosa(monto);
 									int revertirOTicket = entrada.nextInt();
 
 									switch (revertirOTicket) {
@@ -516,12 +515,12 @@ public class CajeroAutomatico {
 							break;
 						case 2: // CC
 
-							System.out.println(this.todosLosMensajes.monto());
+							todosLosMensajes.monto();
 							monto = entrada.nextInt();
 							try {
 								if (clienteIngresado.cuentaCorrienteDelCliente.transferir(clienteDestinatario, monto)) {
 
-									System.out.println(todosLosMensajes.transferenciaExitosa(monto));
+									todosLosMensajes.transferenciaExitosa(monto);
 									int revertirOTicket = entrada.nextInt();
 									switch (revertirOTicket) {
 									case 1: // REVIERTE TRANSFERENCIA

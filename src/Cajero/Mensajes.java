@@ -6,9 +6,10 @@ public class Mensajes {
 
 
 
-	public String bienvenida() {
+	public void bienvenida() {
 
-		return "*************************************************************"
+		System.out.println(
+		  "*************************************************************"
 		+ "\n"
 		+ "\n                    BANCO"
 		+ "\n              TRANZAS DE CODIGO"
@@ -17,18 +18,20 @@ public class Mensajes {
 		+ "\n"
 		+ "\nIntroduzca su numero de Tarjeta: "
 		+"\n"
-		+ "*************************************************************";
+		+ "*************************************************************");
 	}
 	
-	public String pinTarjeta() {
-		return "*************************************************************"
+	public void pinTarjeta() {
+		System.out.println(
+				"*************************************************************"
 				+ "\nINTRODUZCA SU PIN"
-				+ "\n*************************************************************";
+				+ "\n*************************************************************");
 	}
 	
-	public String menuPrincipal() {
+	public void menuPrincipal() {
 		 
-				return "*************************************************************"
+		System.out.println(
+				 "*************************************************************"
 				+"\nQUE DESEA HACER?"
 				+"\n"
 				+"\n	1. Consultar"
@@ -37,27 +40,26 @@ public class Mensajes {
 				+"\n	4. Depositar"
 				+"\n	5. Transferencia"
 				+"\n"
-				+"\n*************************************************************";
+				+"\n*************************************************************");
 		
 		
 	}
 	
-
-
-	
-	public String consultas() {
-		return  "*************************************************************"
+	public void consultas() {
+		System.out.println(
+				  "*************************************************************"
 				+"\n"
 				+"\n	1. Consultar Saldo"
 				+"\n	2. Consultar Alias"
 				+"\n	3. Consultar ultimos movimientos."
 				+ "\n"		
 				+"\n"
-				+"\n*************************************************************";
+				+"\n*************************************************************");
 	}
 	
-	public String cantidadDeMovimientos() {
-		return  "*************************************************************"
+	public void cantidadDeMovimientos() {
+		System.out.println(
+				  "*************************************************************"
 				+"\n"
 				+"\n	Introduzca la cantidad de ultimos movimientos que "
 				+ "\n	desea consultar."
@@ -65,48 +67,53 @@ public class Mensajes {
 				+ "\n	Si el numero es mayor a los movimientos hechos se"
 				+ "\n	mostraran todos los movimientos de la cuenta."
 				+"\n"
-				+"\n*************************************************************";
+				+"\n*************************************************************");
 	}
 	
-	public String tipoDeCuenta() {
-		return  "*************************************************************"
+	public void tipoDeCuenta() {
+		System.out.println(
+				  "*************************************************************"
 				+"\n"
 				+"\n	1. Caja de ahorro ARS"
 				+"\n	2. Caja de ahorro USD"
 				+"\n	3. Cuenta corriente"
 				+"\n"
-				+"\n*************************************************************";
+				+"\n*************************************************************");
 	}
 	
-	public String tipoDeCuentaParaTrasferir() {
-		return  "*************************************************************"
+	public void tipoDeCuentaParaTrasferir() {
+		System.out.println(
+				   "*************************************************************"
 				+"\n"
 				+"\n	1. Caja de ahorro ARS"
 				+"\n	2. Cuenta corriente"
 				+"\n"
 				+"\n	(No se pueden realizar transferencias en USD)"
-				+"\n*************************************************************";
+				+"\n*************************************************************");
 	}
 	
-	public String transferenciaAlias() {
-		return  "*************************************************************"
+	public void transferenciaAlias() {
+		System.out.println(
+				   "*************************************************************"
 				+"\n"
 				+"\n	Introduzca el Alias de la cuenta del destinatario"
 				+"\n"
-				+"\n*************************************************************";
+				+"\n*************************************************************");
 	}
 	
-	public String monto() {
-		return  "*************************************************************"
+	public void monto() {
+		System.out.println(
+				   "*************************************************************"
 				+"\n"
 				+"\n	Introduzca el monto"
 				+"\n"
-				+"\n*************************************************************";
+				+"\n*************************************************************");
 	}
 	
 									//CONSULTAS//
-	public String saldo(double saldo) {
-		return  "*************************************************************"
+	public void saldo(double saldo) {
+		System.out.println(
+				   "*************************************************************"
 				+"\n"
 				+"\n	Su saldo es: "+saldo
 				+"\n"
@@ -114,11 +121,12 @@ public class Mensajes {
 				+"\n"
 				+"\n	1. Si"
 				+"\n	2. No"
-				+"\n*************************************************************";
+				+"\n*************************************************************");
 	}
 	
-	public String alias(Cuenta cuenta) {
-		return  "*************************************************************"
+	public void alias(Cuenta cuenta) {
+		System.out.println(
+				    "*************************************************************"
 				+"\n"
 				+"\n	Su alias es: "+cuenta.getAlias()
 				+"\n"
@@ -126,11 +134,12 @@ public class Mensajes {
 				+"\n"
 				+"\n	1. Si"
 				+"\n	2. No"
-				+"\n*************************************************************";
+				+"\n*************************************************************");
 	}
-	public String ultimoMovimientoNoReversible(String movimiento) {
+	public void ultimoMovimientoNoReversible(String movimiento) {
 
-		return  "*************************************************************"
+		System.out.println(
+				    "*************************************************************"
 				+"\n"
 				+"\n	Su ultimo movimiento fue: "
 				+ "\n"+movimiento
@@ -140,12 +149,13 @@ public class Mensajes {
 				+"\n"
 				+"\n	1. Si"
 				+"\n	2. No"
-				+"\n*************************************************************";
+				+"\n*************************************************************");
 	}
 	
-	public String ultimoMovimientoReversible(String movimiento) {
+	public void ultimoMovimientoReversible(String movimiento) {
 
-		return  "*************************************************************"
+		System.out.println(
+				    "*************************************************************"
 				+"\n"
 				+"\n	Su ultimo movimiento fue: "
 				+ "\n"+movimiento
@@ -155,12 +165,13 @@ public class Mensajes {
 				+"\n	1. Imprimir ticket."
 				+"\n	2. Revertir Transaccion."
 				+"\n"
-				+"\n*************************************************************";
+				+"\n*************************************************************");
 	}
 	
 							//OPERACIONES EXITOSAS//
-	public String comprarDolaresExitoso(int valor, double valorFinal) {
-		return  "*************************************************************"
+	public void comprarDolaresExitoso(int valor, double valorFinal) {
+		System.out.println(
+				    "*************************************************************"
 				+"\n"
 				+"\n	Operacion exitosa"
 				+"\n"
@@ -169,10 +180,11 @@ public class Mensajes {
 				+"\n	Desea imprimir ticket?"
 				+"\n	1. Si"
 				+"\n	2. No"
-				+"\n*************************************************************";
+				+"\n*************************************************************");
 	}
-	public String extraerExitoso(int valor) {
-		return  "*************************************************************"
+	public void extraerExitoso(int valor) {
+		System.out.println(
+				    "*************************************************************"
 				+"\n"
 				+"\n	Se extrajo correctamente"+valor+"ARS"
 				+"\n"
@@ -180,10 +192,11 @@ public class Mensajes {
 				+"\n"
 				+"\n	1. Si"
 				+"\n	2. No"
-				+"\n*************************************************************";
+				+"\n*************************************************************");
 	}
-	public String transferenciaExitosa(int valor) {
-		 return "*************************************************************"
+	public void transferenciaExitosa(int valor) {
+		System.out.println(
+				   "*************************************************************"
 					+"\n"
 					+"\n	Transferiste correctamente: "+valor+ " ARS"
 					+"\n"
@@ -191,10 +204,11 @@ public class Mensajes {
 					+"\n"
 					+"\n	1.Revertir transferencia."
 					+"\n	2.Imprimir ticket."
-					+"\n*************************************************************";
+					+"\n*************************************************************");
 	}
-	public String depositoExitoso() {
-		 return "*************************************************************"
+	public void depositoExitoso() {
+		System.out.println(
+				   "*************************************************************"
 					+"\n"
 					+"\n	Depositaste correctamente."
 					+"\n"
@@ -202,7 +216,7 @@ public class Mensajes {
 					+"\n	Desea imprimir ticket?"
 					+"\n	1. Si"
 					+"\n	2. No"
-					+"\n*************************************************************";
+					+"\n*************************************************************");
 	}
 
 }

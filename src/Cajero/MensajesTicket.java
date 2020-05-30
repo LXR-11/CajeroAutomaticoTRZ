@@ -1,62 +1,79 @@
 package Cajero;
+import java.text.SimpleDateFormat;
 //
 import java.util.Date;
 
 public class MensajesTicket {
 	public MensajesTicket() {}
-
+	
+	private Date objDate;
+	private  SimpleDateFormat objSDF;
+	private String fecha;
+	
 	public String transferencia(double monto) {
-		Date objDate = new Date();
+		objDate = new Date();
+        objSDF = new SimpleDateFormat("yyyy-MM-dd");
+        fecha = objSDF.format(objDate);
+        
 		return  "*************************************************************"
 		+"\n	Tipo: TRANSFERENCIA"
-		+"\n	Fecha: "+objDate.toString()+"." 
+		+"\n	Fecha: "+fecha+"." 
 		+"\n	Importe involcrado: "+monto
 		+"\n*************************************************************";
 	}
 	public String alias(String alias) {
-		Date objDate = new Date();
+		objDate = new Date();
+        objSDF = new SimpleDateFormat("yyyy-MM-dd");
+        fecha = objSDF.format(objDate);
 		
 		return  "*************************************************************"
 		+"\n	Tipo: CONSULTA"
-		+"\n	Fecha: "+objDate.toString()+"." 
+		+"\n	Fecha: "+fecha+"." 
 		+"\n	Su alias es: "+alias
 		+"\n*************************************************************";
 	}
 	public String extraer(Cuenta cuenta, double valor) {
-		Date objDate = new Date();
+		objDate = new Date();
+        objSDF = new SimpleDateFormat("yyyy-MM-dd");
+        fecha = objSDF.format(objDate);
 		return  "*************************************************************"
 		+"\n	Tipo: EXTRACCION"
-		+"\n	Fecha: "+objDate.toString()+"." 
+		+"\n	Fecha: "+fecha+"." 
 		+"\n	Retiraste: "+valor+"ARS"
 		+"\n	Nuevo saldo: "+cuenta.consultarSaldo()
 		+"\n*************************************************************";
 	}
 	public String comprarUSD(Cuenta cuenta, double valor) {
-		Date objDate = new Date();
-		double impuestoPais = ((30 * valor) / 100);
+		objDate = new Date();
+        objSDF = new SimpleDateFormat("yyyy-MM-dd");
+        fecha = objSDF.format(objDate);
 		
 		return  "*************************************************************"
 		+"\n	Tipo: COMPRA USD"
-		+"\n	Fecha: "+objDate.toString()+"." 
+		+"\n	Fecha: "+fecha+"." 
 		+"\n	Compraste: "+(( valor / ( cuenta.valorDelDolar + 30) ) )+"USD"
 		+"\n	Nuevo saldo: "+cuenta.consultarSaldo()
 		+"\n*************************************************************";
 	}
 	public String depositar(Cuenta cuenta, double monto) {
-		Date objDate = new Date();
+		objDate = new Date();
+        objSDF = new SimpleDateFormat("yyyy-MM-dd");
+        fecha = objSDF.format(objDate);
 		
 		return  "*************************************************************"
 		+"\n	Tipo: DEPOSITO"
-		+"\n	Fecha: "+objDate.toString()+"." 
+		+"\n	Fecha: "+fecha+"." 
 		+"\n	Depositaste: "+monto+"."
 		+"\n	Nuevo saldo: "+cuenta.consultarSaldo()
 		+"\n*************************************************************";
 	}
 	public String saldo(Cuenta cuenta) {
-		Date objDate = new Date();
+		objDate = new Date();
+        objSDF = new SimpleDateFormat("yyyy-MM-dd");
+        fecha = objSDF.format(objDate);
 		return  "*************************************************************"
 		+"\n	Tipo: CONSULTA"
-		+"\n	Fecha: "+objDate.toString()+"." 
+		+"\n	Fecha: "+fecha+"." 
 		+"\n	Su saldo es: "+cuenta.consultarSaldo()
 		+"\n*************************************************************";
 	}

@@ -10,14 +10,13 @@ public abstract class Cuenta{
       protected String alias;
       protected double saldo;
       protected double valorDelDolar;
-      protected Stack<Movimiento> movimientosDeCuenta;
+      protected Stack<Movimiento> movimientosDeCuenta= new Stack<Movimiento>();
 
         public Cuenta(double saldo, String alias)throws ErroresDeCuenta{
             if(saldoPositivo(saldo)) {
                 this.saldo=saldo;
                 this.alias=alias;
                 this.valorDelDolar=100;
-                this.movimientosDeCuenta = new Stack<Movimiento>();
 
             }
             else {

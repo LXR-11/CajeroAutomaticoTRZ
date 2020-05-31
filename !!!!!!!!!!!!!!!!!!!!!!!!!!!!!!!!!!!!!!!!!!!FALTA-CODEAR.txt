@@ -1,2 +1,0 @@
-Falta: Pruebas + Agarrar todos los errores
-ERRORES: Cuando haces un movimiento, se sobreescibe el ArchivoDeMovimientos.txt

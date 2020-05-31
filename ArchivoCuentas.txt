@@ -1,6 +1,6 @@
-01,isla.pez.arbol,1500.00
+01,isla.pez.arbol,1000.00
 03,ramon.perro,28.08
-02,lucho.probando.cc,-2021.90,25000.00
+02,lucho.probando.cc,-3021.90,25000.00
 02,sol.monte.valle,-1500.00,20000.00
 01,uva.sandalia.halcon,500.00
 02,hormiga.lija.crema,-700.00,50000.00

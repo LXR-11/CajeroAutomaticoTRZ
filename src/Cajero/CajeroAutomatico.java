@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-//
+///
 public class CajeroAutomatico {
 
 	double antiguoSaldo, antiguoSaldoUSD, nuevoSaldo, nuevoSaldoUSD, descubierto;

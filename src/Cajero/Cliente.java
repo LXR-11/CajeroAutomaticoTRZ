@@ -1,7 +1,7 @@
 package Cajero;
 
 
-//
+///
 public class Cliente {
 
 	Tarjeta tarjeta;

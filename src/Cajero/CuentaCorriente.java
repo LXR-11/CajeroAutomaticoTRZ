@@ -34,7 +34,11 @@ public class CuentaCorriente extends CajaARS{
 	//Se reescribe ya que debe tener en cuenta el descubierto
 	@Override
 	public boolean saldoSuficiente(double saldoAretirar) {
-		if((this.saldo>=0-this.descubierto) && (saldoAretirar>0) ){
+		// Retiro 5000
+		// Tengo -1500
+		// Descubierto 25000
+		// Puedo tener hasta -25000
+		if ( ( ( this.saldo - saldoAretirar ) >= (-this.descubierto) )  && ( saldoAretirar > 0) ){
 			return true;
 		} else {
 			return false;

@@ -17,7 +17,7 @@ public abstract class CajaARS extends Cuenta implements Operacion  {
 	
 	
 	public boolean retirarEfectivo(double valor) throws ErroresDeCuenta {
-		if (saldoSuficiente(this.saldo)) {
+		if (saldoSuficiente(valor)) {
 			if(valor%100==0) {
 			this.saldo = saldo - valor;
 			Movimiento mov = new Movimiento(TipoDeMovimiento.RETIRAREFECTIVO, valor,this.alias);

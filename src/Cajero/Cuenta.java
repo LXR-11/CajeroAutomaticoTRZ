@@ -79,6 +79,9 @@ public abstract class Cuenta{
         
         public void revertirUltimaTransferencia ( double saldoInvolucrado, Cuenta destinatario ) {
         	this.saldo += saldoInvolucrado;
+        	
+        	
+        	
         	destinatario.saldo -= saldoInvolucrado;
         	//remueve el ultimo movimiento 
         	movimientosDeCuenta.pop();

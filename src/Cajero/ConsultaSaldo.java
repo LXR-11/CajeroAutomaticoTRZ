@@ -24,11 +24,11 @@ public class ConsultaSaldo extends Consulta{
 			break;
 
 		case 2:		//USD
-			todosLosMensajes.saldo(this.usuario.cajaDelClienteARS.consultarSaldo());
+			todosLosMensajes.saldo(this.usuario.cajaDelClienteUSD.consultarSaldo());
 			this.deseaImprimir = entrada.nextInt();
 			if (this.deseaImprimir == 1) { // GENERA TICKET
 				generarTicket = new Ticket();
-				this.generarTicket.escribirSaldo(this.usuario.cajaDelClienteARS);
+				this.generarTicket.escribirSaldo(this.usuario.cajaDelClienteUSD);
 				System.out.println("Ticket generado correctamente.");
 			} else {
 				cerrarTodo();
@@ -36,11 +36,11 @@ public class ConsultaSaldo extends Consulta{
 			break;
 
 		case 3:	//CC
-			todosLosMensajes.saldo(this.usuario.cajaDelClienteARS.consultarSaldo());
+			todosLosMensajes.saldo(this.usuario.cuentaCorrienteDelCliente.consultarSaldo());
 			this.deseaImprimir = entrada.nextInt();
 			if (this.deseaImprimir == 1) { // GENERA TICKET
 				generarTicket = new Ticket();
-				this.generarTicket.escribirSaldo(this.usuario.cajaDelClienteARS);
+				this.generarTicket.escribirSaldo(this.usuario.cuentaCorrienteDelCliente);
 				System.out.println("Ticket generado correctamente.");
 			} else {
 				cerrarTodo();

@@ -13,7 +13,6 @@ public class CajaDeAhorroARS extends CajaARS{
 			if (saldoSuficiente(valor)) {
 				clienteAtransferir.cajaDelClienteARS.depositar(valor);
 				this.saldo -= valor;
-				String destinatarioAlias = clienteAtransferir.cajaDelClienteARS.alias;
 				Movimiento mov = new Movimiento(TipoDeMovimiento.TRANSFERENCIAENPESOS, valor,
 						this.alias);
 				agregarMovimiento(mov);
@@ -27,7 +26,6 @@ public class CajaDeAhorroARS extends CajaARS{
 			if (saldoSuficiente(valor)) {
 				clienteAtransferir.cuentaCorrienteDelCliente.depositar(valor);
 				this.saldo -= valor;
-				String destinatarioAlias = clienteAtransferir.cuentaCorrienteDelCliente.alias;
 				Movimiento mov = new Movimiento(TipoDeMovimiento.TRANSFERENCIAENPESOS, valor,
 						this.alias);
 				agregarMovimiento(mov);

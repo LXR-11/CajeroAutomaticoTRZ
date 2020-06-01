@@ -56,7 +56,9 @@ public final class Transferencia extends MovimientosEnPantalla implements Revers
 				this.nuevoSaldo = usuario.cajaDelClienteARS.consultarSaldo();
 				// Nuevo saldo cliente ingresado
 				this.todasLasCuentas.modificar.modificarSaldo("01", usuario.cajaDelClienteARS.getAlias(), antiguoSaldo, 0, nuevoSaldo);
-				String tipoDeCuentaDestinatario;
+				String tipoDeCuentaDestinatario = null;
+				
+				
 				if ( clienteDestinatario.cajaDelClienteARS.getAlias().equals(aliasDestinatario) ){
 					antiguoSaldoReceptor = ( clienteDestinatario.cajaDelClienteARS.consultarSaldo() - monto ); // Antiguo saldo cliente receptor
 					nuevoSaldoReceptor = clienteDestinatario.cajaDelClienteARS.consultarSaldo(); // Nuevo saldo cliente receptor
@@ -77,6 +79,12 @@ public final class Transferencia extends MovimientosEnPantalla implements Revers
 					switch (revertirOTicket) {
 					case 1: // REVIERTE TRANSFERENCIA
 						revertir(usuario.cajaDelClienteARS);
+						this.todasLasCuentas.modificar.modificarSaldo("01", usuario.cajaDelClienteARS.getAlias(), nuevoSaldo, 0, antiguoSaldo);
+						if (clienteDestinatario.cajaDelClienteARS.getAlias().equals(aliasDestinatario) ) {
+							this.todasLasCuentas.modificar.modificarSaldo(tipoDeCuentaDestinatario, aliasDestinatario, nuevoSaldoReceptor, 0, antiguoSaldoReceptor);
+						} else if ( clienteDestinatario.cuentaCorrienteDelCliente.getAlias().equals(aliasDestinatario) ) {
+							this.todasLasCuentas.modificar.modificarSaldo(tipoDeCuentaDestinatario, aliasDestinatario, nuevoSaldoReceptor, 0, antiguoSaldoReceptor);
+						}
 						break;
 					case 2: // GENERAR TICKET
 	
@@ -90,7 +98,9 @@ public final class Transferencia extends MovimientosEnPantalla implements Revers
 						generarTicket.escribirTransferencia(aliasDestinatario, monto);
 						System.out.println("Ticket generado correctamente.");
 						break;
-	
+					case 3:
+						cerrarTodo();
+						break;
 					default:
 						valorInvalidoIntroducido();
 						break;
@@ -116,7 +126,7 @@ public final class Transferencia extends MovimientosEnPantalla implements Revers
 				descubierto = usuario.cuentaCorrienteDelCliente.getDescubierto();
 
 				this.todasLasCuentas.modificar.modificarSaldo("01", usuario.cuentaCorrienteDelCliente.getAlias(), antiguoSaldo, descubierto, nuevoSaldo);
-				String tipoDeCuentaDestinatario;
+				String tipoDeCuentaDestinatario = null;
 				if ( clienteDestinatario.cajaDelClienteARS.getAlias().equals(aliasDestinatario) ){
 					antiguoSaldoReceptor = ( clienteDestinatario.cajaDelClienteARS.consultarSaldo() - monto );
 					// Antiguo saldo cliente receptor
@@ -141,6 +151,12 @@ public final class Transferencia extends MovimientosEnPantalla implements Revers
 				switch (revertirOTicket) {
 				case 1: // REVIERTE TRANSFERENCIA
 					revertir(usuario.cuentaCorrienteDelCliente);
+					this.todasLasCuentas.modificar.modificarSaldo("02", usuario.cuentaCorrienteDelCliente.getAlias(), nuevoSaldo, descubierto, antiguoSaldo);
+					if ( clienteDestinatario.cajaDelClienteARS.getAlias().equals(aliasDestinatario ) ) {
+						this.todasLasCuentas.modificar.modificarSaldo(tipoDeCuentaDestinatario, aliasDestinatario, nuevoSaldoReceptor, 0, antiguoSaldoReceptor);
+					} else if ( clienteDestinatario.cuentaCorrienteDelCliente.getAlias().equals(aliasDestinatario) ){
+						this.todasLasCuentas.modificar.modificarSaldo(tipoDeCuentaDestinatario, aliasDestinatario, nuevoSaldoReceptor, descubierto, antiguoSaldoReceptor);
+					}
 					break;
 
 				case 2: // GENERAR TICKET
@@ -170,11 +186,11 @@ public final class Transferencia extends MovimientosEnPantalla implements Revers
 	
 	public void revertir(Cuenta miCuenta) {
 		Cuenta destinataria = todasLasCuentas.encontrarCuentaPorAlias(aliasDestinatario);
-		double saldo = (double) monto;
-		miCuenta.revertirUltimaTransferencia(saldo,
+		double monto_ = (double) monto;
+		miCuenta.revertirUltimaTransferencia(monto_,
 				destinataria);
 		System.out.println("Se ha revertido con exito la transferencia"
-				+ " "+ saldo+"ARS a "+ aliasDestinatario);
+				+ " "+ monto_+"ARS a "+ aliasDestinatario);
 
 	}
 }

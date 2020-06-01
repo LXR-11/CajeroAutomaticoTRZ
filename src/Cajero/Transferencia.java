@@ -56,6 +56,11 @@ public final class Transferencia extends MovimientosEnPantalla{
 							this.generarTicket.escribirTransferencia(aliasDestinatario, monto);
 							System.out.println("Ticket generado correctamente.");
 							break;
+						case 3:
+							System.out.println("Saliendo..");
+							entrada.close();
+							System.exit(0);
+							break;
 						default:
 							System.out.println("Valor invalido");
 							entrada.close();

@@ -136,37 +136,6 @@ public class Mensajes {
 				+"\n	2. No"
 				+"\n*************************************************************");
 	}
-	public void ultimoMovimientoNoReversible(String movimiento) {
-
-		System.out.println(
-				    "*************************************************************"
-				+"\n"
-				+"\n	Su ultimo movimiento fue: "
-				+ "\n"+movimiento
-				+"\n 	Esta operacion no es reversible."
-				+"\n"
-				+"\n	Desea imprimir ticket?"
-				+"\n"
-				+"\n	1. Si"
-				+"\n	2. No"
-				+"\n*************************************************************");
-	}
-	
-	public void ultimoMovimientoReversible(String movimiento) {
-
-		System.out.println(
-				    "*************************************************************"
-				+"\n"
-				+"\n	Su ultimo movimiento fue: "
-				+ "\n"+movimiento
-				+"\n"
-				+"\n	QUE DESEA HACER?"
-				+"\n"
-				+"\n	1. Imprimir ticket."
-				+"\n	2. Revertir Transaccion."
-				+"\n"
-				+"\n*************************************************************");
-	}
 	
 							//OPERACIONES EXITOSAS//
 	public void comprarDolaresExitoso(int valor, double valorFinal) {
@@ -204,6 +173,7 @@ public class Mensajes {
 					+"\n"
 					+"\n	1.Revertir transferencia."
 					+"\n	2.Imprimir ticket."
+					+"\n	3.Salir."
 					+"\n*************************************************************");
 	}
 	public void depositoExitoso() {

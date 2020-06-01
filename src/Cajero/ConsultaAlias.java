@@ -1,29 +1,28 @@
 package Cajero;
 
-public class ConsultaAlias extends MovimientosEnPantalla{
-	private int deseaImprimir;
-	private Ticket generarTicket;
-	public ConsultaAlias(Cliente usuario,int opcion) {
-		super(usuario,opcion);
+public class ConsultaAlias extends Consulta {
+
+	public ConsultaAlias(Cliente usuario, ArchivoDeCuentas todasLasCuentas) {
+		super(usuario, todasLasCuentas);
+		generarTicket = new Ticket();
 	}
 
 	public void consultar() {
+		
 		todosLosMensajes.tipoDeCuenta();
-		int tipo = entrada.nextInt();
-		switch (tipo) {
+		tipoDeCuenta = entrada.nextInt();
+		switch (tipoDeCuenta) {
 		case 1: // ARS
 			todosLosMensajes.alias(usuario.cajaDelClienteARS);
 			this.deseaImprimir = entrada.nextInt();
-			if (this.deseaImprimir == 1) { // GENERA TICKET
-				this.generarTicket = new Ticket();
-				this.generarTicket.escribirConsulta(usuario.tarjeta.getNumeroDeTarjeta(),
+			if (deseaImprimir == 1) { // GENERA TICKET
+				generarTicket = new Ticket();
+				
+				generarTicket.escribirConsulta(usuario.tarjeta.getNumeroDeTarjeta(),
 						usuario.cajaDelClienteARS.getAlias());
 				System.out.println("Ticket generado correctamente.");
 			} else {
-				System.out.println("Saliendo...");
-				entrada.close();
-				System.exit(0);
-				break;
+				cerrarTodo();
 			}
 
 			break;
@@ -31,41 +30,30 @@ public class ConsultaAlias extends MovimientosEnPantalla{
 		case 2: // USD
 			todosLosMensajes.alias(usuario.cajaDelClienteUSD);
 			this.deseaImprimir = entrada.nextInt();
-			if (this.deseaImprimir == 1) { // GENERA TICKET
-				this.generarTicket = new Ticket();
-				this.generarTicket.escribirConsulta(usuario.tarjeta.getNumeroDeTarjeta(),
-						usuario.cajaDelClienteUSD.getAlias());
+			if (deseaImprimir == 1) { // GENERA TICKET
+				generarTicket = new Ticket();
+				generarTicket.escribirConsulta(usuario.tarjeta.getNumeroDeTarjeta(), usuario.cajaDelClienteUSD.getAlias());
 				System.out.println("Ticket generado correctamente.");
 			} else {
-				System.out.println("Saliendo...");
-				entrada.close();
-				System.exit(0);
-				break;
+				cerrarTodo();
 			}
 
 			break;
 
 		case 3: // CC
 			todosLosMensajes.alias(usuario.cuentaCorrienteDelCliente);
-			this.deseaImprimir = entrada.nextInt();
-			if (this.deseaImprimir == 1) { // GENERA TICKET
-				this.generarTicket = new Ticket();
-				this.generarTicket.escribirConsulta(usuario.tarjeta.getNumeroDeTarjeta(),
-						usuario.cuentaCorrienteDelCliente.getAlias());
+			deseaImprimir = entrada.nextInt();
+			if (deseaImprimir == 1) { // GENERA TICKET
+				generarTicket = new Ticket();
+				generarTicket.escribirConsulta(usuario.tarjeta.getNumeroDeTarjeta(), usuario.cuentaCorrienteDelCliente.getAlias());
 				System.out.println("Ticket generado correctamente.");
 			} else {
-				System.out.println("Saliendo...");
-				entrada.close();
-				System.exit(0);
-				break;
+				cerrarTodo();
 			}
 			break;
 
 		default:
-			System.out.println("Valor invalido.");
-			System.out.println("Saliendo...");
-			entrada.close();
-			System.exit(0);
+			valorInvalidoIntroducido();
 			break;
 		}
 	}

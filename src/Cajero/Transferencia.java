@@ -1,132 +1,180 @@
 package Cajero;
 
-public final class Transferencia extends MovimientosEnPantalla{
-	private ArchivoDeCuentas todasLasCuentas;
-	Ticket generarTicket;
+public final class Transferencia extends MovimientosEnPantalla implements Reversible {
 
-	public Transferencia(Cliente usuario, int opcion, ArchivoDeCuentas todasLasCuentas) {
-		super(usuario, opcion);
-		this.todasLasCuentas=todasLasCuentas;
+	private int monto;
+	private String aliasDestinatario;
+	private Cliente clienteDestinatario;
+	private double antiguoSaldoReceptor,nuevoSaldoReceptor;
+	public Transferencia(Cliente usuario, ArchivoDeCuentas todasLasCuentas) {
+		super(usuario, todasLasCuentas);
 	}
 
 	public void ejecutar() {
+		
+		todosLosMensajes.tipoDeCuentasEnARS();
+		tipoDeCuenta = entrada.nextInt();
+		
 		todosLosMensajes.transferenciaAlias();
-		String aliasDestinatario = entrada.next();
-		if (this.todasLasCuentas.getArchivoCliente().getAliasConCuit().containsKey(aliasDestinatario)) { // ¿Existe
-			// cuit
-			// con
-			// ese
-			// alias?
-			long cuitDestinatario = this.todasLasCuentas.getArchivoCliente().getAliasConCuit()
+		aliasDestinatario = entrada.next();
+		
+		if (this.todasLasCuentas.getArchivoCliente().getAliasConCuit().containsKey(aliasDestinatario)) { 
+			//Pregunta si existe cuit con ese alias.
+			long cuitDestinatario = todasLasCuentas.getArchivoCliente().getAliasConCuit()
 					.get(aliasDestinatario);
-			Cliente clienteDestinatario = this.todasLasCuentas.getArchivoTarjetas().getClientesConCuit()
+			clienteDestinatario = todasLasCuentas.getArchivoTarjetas().getClientesConCuit()
 					.get(cuitDestinatario);
 
-			switch (opcion) {
+			switch (tipoDeCuenta) {
 			case 1: // ARS
-
-				todosLosMensajes.monto();
-				int monto = entrada.nextInt();
-				try {
-					if (usuario.cajaDelClienteARS.transferir(clienteDestinatario, monto)) {
-
-						todosLosMensajes.transferenciaExitosa(monto);
-						int revertirOTicket = entrada.nextInt();
-
-						switch (revertirOTicket) {
-						case 1: // REVIERTE TRANSFERENCIA
-							Cuenta destinataria = this.todasLasCuentas
-							.encontrarCuentaPorAlias(aliasDestinatario);
-							double saldo = (double) monto;
-							usuario.cajaDelClienteARS.revertirUltimaTransferencia(saldo,
-									destinataria);
-							System.out.println("Se ha revertido con exito la transferencia"
-									+ " "+ saldo+"ARS a "+ aliasDestinatario);
-
-							break;
-						case 2: // GENERAR TICKET
-
-							// escribe movimiento en el txt
-							MovimientoReversible miMovimiento = new MovimientoReversible(
-									TipoDeMovimiento.TRANSFERENCIAENPESOS, monto,
-									usuario.cajaDelClienteARS.alias, aliasDestinatario);
-							this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(miMovimiento);
-
-							this.generarTicket = new Ticket();
-							this.generarTicket.escribirTransferencia(aliasDestinatario, monto);
-							System.out.println("Ticket generado correctamente.");
-							break;
-						case 3:
-							System.out.println("Saliendo..");
-							entrada.close();
-							System.exit(0);
-							break;
-						default:
-							System.out.println("Valor invalido");
-							entrada.close();
-							System.exit(0);
-							break;
-						}
-					} 
-				} catch (ErroresDeCuenta e) {
-					System.out.println(e.getMessage());
-				}
-
+				transferirDesdeCajaEnARS();
+				cerrarTodo();
 				break;
 			case 2: // CC
-
-				todosLosMensajes.monto();
-				monto = entrada.nextInt();
-				try {
-					if (usuario.cuentaCorrienteDelCliente.transferir(clienteDestinatario, monto)) {
-
-						todosLosMensajes.transferenciaExitosa(monto);
-						int revertirOTicket = entrada.nextInt();
-						switch (revertirOTicket) {
-						case 1: // REVIERTE TRANSFERENCIA
-							Cuenta destinataria = this.todasLasCuentas
-							.encontrarCuentaPorAlias(aliasDestinatario);
-							double saldo = (double) monto;
-							usuario.cuentaCorrienteDelCliente.revertirUltimaTransferencia(saldo,
-									destinataria);
-							System.out.println("Se ha revertido con exito.");
-							break;
-
-						case 2: // GENERAR TICKET
-
-							// escribe movimiento en el txt
-							MovimientoReversible miMovimiento = new MovimientoReversible(
-									TipoDeMovimiento.TRANSFERENCIAENPESOS, monto,
-									usuario.cuentaCorrienteDelCliente.alias, aliasDestinatario);
-							this.todasLasCuentas.getArchivoMovimientos().escribirMovimiento(miMovimiento);
-
-							this.generarTicket = new Ticket();
-							this.generarTicket.escribirTransferencia(aliasDestinatario, monto);
-							System.out.println("Ticket generado correctamente.");
-							break;
-						default:
-							System.out.println("Valor invalido");
-							entrada.close();
-							System.exit(0);
-							break;
-						}
-					}
-
-				} catch (ErroresDeCuenta e) {
-					System.out.println(e.getMessage());
-				}
-
+				transferirDesdeCuentaCorriente();
+				cerrarTodo();
 				break;
 
 			default:
-				System.out.println("Valor invalido");
-				entrada.close();
-				System.exit(0);
+				valorInvalidoIntroducido();
 				break;
 			}
 		} else {
 			System.out.println("No se ha encontrado un alias con ese nombre.");
 		}
+
+	}
+
+	public void transferirDesdeCajaEnARS() {
+		todosLosMensajes.monto();
+		monto = entrada.nextInt();
+		try {
+			double descubierto;
+			this.antiguoSaldo = usuario.cajaDelClienteARS.consultarSaldo();
+			// Antiguo saldo cliente ingresado
+			if (usuario.cajaDelClienteARS.transferir(clienteDestinatario,aliasDestinatario, monto)) {
+				this.nuevoSaldo = usuario.cajaDelClienteARS.consultarSaldo();
+				// Nuevo saldo cliente ingresado
+				this.todasLasCuentas.modificar.modificarSaldo("01", usuario.cajaDelClienteARS.getAlias(), antiguoSaldo, 0, nuevoSaldo);
+				String tipoDeCuentaDestinatario;
+				if ( clienteDestinatario.cajaDelClienteARS.getAlias().equals(aliasDestinatario) ){
+					antiguoSaldoReceptor = ( clienteDestinatario.cajaDelClienteARS.consultarSaldo() - monto ); // Antiguo saldo cliente receptor
+					nuevoSaldoReceptor = clienteDestinatario.cajaDelClienteARS.consultarSaldo(); // Nuevo saldo cliente receptor
+					tipoDeCuentaDestinatario = "01";
+					this.todasLasCuentas.modificar.modificarSaldo(tipoDeCuentaDestinatario, aliasDestinatario, antiguoSaldoReceptor, 0, nuevoSaldoReceptor);
+				} else if ( clienteDestinatario.cuentaCorrienteDelCliente.getAlias().equals(aliasDestinatario) ) {
+					antiguoSaldoReceptor = ( clienteDestinatario.cuentaCorrienteDelCliente.consultarSaldo() - monto ); // Antiguo saldo cliente receptor
+					nuevoSaldoReceptor = clienteDestinatario.cuentaCorrienteDelCliente.consultarSaldo(); // Nuevo saldo cliente receptor
+					tipoDeCuentaDestinatario = "02";
+					descubierto = clienteDestinatario.cuentaCorrienteDelCliente.getDescubierto();
+					this.todasLasCuentas.modificar.modificarSaldo(tipoDeCuentaDestinatario, aliasDestinatario, antiguoSaldoReceptor, descubierto, nuevoSaldoReceptor);
+				} else {
+					System.out.println("No se puede realizar transferencias a una cuenta en dolares");
+				}
+
+				todosLosMensajes.transferenciaExitosa(monto);
+				int revertirOTicket = entrada.nextInt();
+					switch (revertirOTicket) {
+					case 1: // REVIERTE TRANSFERENCIA
+						revertir(usuario.cajaDelClienteARS);
+						break;
+					case 2: // GENERAR TICKET
+	
+						// escribe movimiento en el txt
+						nuevoMovimiento = new Movimiento(
+								TipoDeMovimiento.TRANSFERENCIAENPESOS, monto,
+								usuario.cajaDelClienteARS.alias);
+						todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
+	
+						generarTicket = new Ticket();
+						generarTicket.escribirTransferencia(aliasDestinatario, monto);
+						System.out.println("Ticket generado correctamente.");
+						break;
+	
+					default:
+						valorInvalidoIntroducido();
+						break;
+					}
+			} 
+		} catch (ErroresDeCuenta e) {
+			System.out.println(e.getMessage());
+		}
+
+
+	}
+	
+	public void transferirDesdeCuentaCorriente() {
+		double descubierto;
+		todosLosMensajes.monto();
+		monto = entrada.nextInt();
+		try {
+			this.antiguoSaldo = usuario.cuentaCorrienteDelCliente.consultarSaldo();
+			// Antiguo saldo cliente ingresado
+			if (usuario.cuentaCorrienteDelCliente.transferir(clienteDestinatario,aliasDestinatario, monto)) {
+				this.nuevoSaldo = usuario.cuentaCorrienteDelCliente.consultarSaldo();
+				// Nuevo saldo cliente ingresado
+				descubierto = usuario.cuentaCorrienteDelCliente.getDescubierto();
+
+				this.todasLasCuentas.modificar.modificarSaldo("01", usuario.cuentaCorrienteDelCliente.getAlias(), antiguoSaldo, descubierto, nuevoSaldo);
+				String tipoDeCuentaDestinatario;
+				if ( clienteDestinatario.cajaDelClienteARS.getAlias().equals(aliasDestinatario) ){
+					antiguoSaldoReceptor = ( clienteDestinatario.cajaDelClienteARS.consultarSaldo() - monto );
+					// Antiguo saldo cliente receptor
+					nuevoSaldoReceptor = clienteDestinatario.cajaDelClienteARS.consultarSaldo();
+					// Nuevo saldo cliente receptor
+					tipoDeCuentaDestinatario = "01";
+					this.todasLasCuentas.modificar.modificarSaldo(tipoDeCuentaDestinatario, aliasDestinatario, antiguoSaldoReceptor, 0, nuevoSaldoReceptor);
+				} else if ( clienteDestinatario.cuentaCorrienteDelCliente.getAlias().equals(aliasDestinatario) ) {
+					antiguoSaldoReceptor = ( clienteDestinatario.cuentaCorrienteDelCliente.consultarSaldo() - monto );
+					// Antiguo saldo cliente receptor
+					nuevoSaldoReceptor = clienteDestinatario.cuentaCorrienteDelCliente.consultarSaldo();
+					// Nuevo saldo cliente receptor
+					tipoDeCuentaDestinatario = "02";
+					descubierto = clienteDestinatario.cuentaCorrienteDelCliente.getDescubierto();
+					this.todasLasCuentas.modificar.modificarSaldo(tipoDeCuentaDestinatario, aliasDestinatario, antiguoSaldoReceptor, descubierto, nuevoSaldoReceptor);
+				} else {
+					System.out.println("No se puede realizar transferencias a una cuenta en dolares");
+				}
+
+				todosLosMensajes.transferenciaExitosa(monto);
+				int revertirOTicket = entrada.nextInt();
+				switch (revertirOTicket) {
+				case 1: // REVIERTE TRANSFERENCIA
+					revertir(usuario.cuentaCorrienteDelCliente);
+					break;
+
+				case 2: // GENERAR TICKET
+
+					// escribe movimiento en el txt
+					nuevoMovimiento = new Movimiento(
+							TipoDeMovimiento.TRANSFERENCIAENPESOS, monto,
+							usuario.cuentaCorrienteDelCliente.alias);
+					todasLasCuentas.getArchivoMovimientos().escribirMovimiento(nuevoMovimiento);
+
+					generarTicket = new Ticket();
+					generarTicket.escribirTransferencia(aliasDestinatario, monto);
+					System.out.println("Ticket generado correctamente.");
+					break;
+					
+				default:
+					valorInvalidoIntroducido();
+					break;
+				}
+			}
+
+		} catch (ErroresDeCuenta e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
+	
+	public void revertir(Cuenta miCuenta) {
+		Cuenta destinataria = todasLasCuentas.encontrarCuentaPorAlias(aliasDestinatario);
+		double saldo = (double) monto;
+		miCuenta.revertirUltimaTransferencia(saldo,
+				destinataria);
+		System.out.println("Se ha revertido con exito la transferencia"
+				+ " "+ saldo+"ARS a "+ aliasDestinatario);
 
 	}
 }

@@ -81,14 +81,13 @@ public class Mensajes {
 				+"\n*************************************************************");
 	}
 	
-	public void tipoDeCuentaParaTrasferir() {
+	public void tipoDeCuentasEnARS() {
 		System.out.println(
 				   "*************************************************************"
 				+"\n"
 				+"\n	1. Caja de ahorro ARS"
 				+"\n	2. Cuenta corriente"
 				+"\n"
-				+"\n	(No se pueden realizar transferencias en USD)"
 				+"\n*************************************************************");
 	}
 	

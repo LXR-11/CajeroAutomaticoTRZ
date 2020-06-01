@@ -1,20 +1,17 @@
 package Cajero;
 
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 
 public class CajeroAutomatico {
+	
 	private ArchivoDeCuentas todasLasCuentas;
 	private Mensajes todosLosMensajes;
 	private Scanner entrada;
-	private Dispensador dispensador;
-	private int numeroDeTarjeta, pin,opcion;
+	private int numeroDeTarjeta, pin;
 	private Cliente clienteIngresado;
-	private int tipoDeCuenta, monto, opcionElegida;
 	private Tarjeta tarjetaIngresada;
-	private long cuitDelUsuario;
 
 	public CajeroAutomatico() {
 		try {
@@ -25,7 +22,6 @@ public class CajeroAutomatico {
 		}
 		todosLosMensajes = new Mensajes();
 		entrada = new Scanner(System.in);
-		dispensador = new Dispensador();
 	}
 
 	public void iniciar() {
@@ -45,71 +41,30 @@ public class CajeroAutomatico {
 					.containsKey(tarjetaIngresada);
 
 			if (existeElUsuario) {
-				cuitDelUsuario = todasLasCuentas.getArchivoTarjetas().getCuitConTarjeta().get(tarjetaIngresada);
+				long cuitDelUsuario = todasLasCuentas.getArchivoTarjetas().getCuitConTarjeta().get(tarjetaIngresada);
 				this.clienteIngresado = todasLasCuentas.getArchivoTarjetas().getClientesConCuit().get(cuitDelUsuario);
 
 				todosLosMensajes.menuPrincipal();
+				int opcionElegida = entrada.nextInt();
 
-				opcionElegida = entrada.nextInt();
+				MovimientosEnPantalla ejecucionDelPrograma = new MovimientosEnPantalla(clienteIngresado,todasLasCuentas);
+				ejecucionDelPrograma.ejecutarLaEleccionDeMovimiento(opcionElegida);
 
-				switch (opcionElegida) {
-
-				///////////////////// CONSULTAS /////////////////////
-
-				case 1:
-					todosLosMensajes.consultas();
-					opcion = entrada.nextInt();
-					MovimientosEnPantalla movimientosEnPantalla= new MovimientosEnPantalla(clienteIngresado, opcion);
-					movimientosEnPantalla.ejecutar();					
-					break;
-
-				//////////////// EXTRAER ////////////////
-				case 2:
-					todosLosMensajes.tipoDeCuenta();
-					opcion = entrada.nextInt();
-					Extraer extraccion= new Extraer(clienteIngresado, opcion, this.dispensador, this.todasLasCuentas);
-					extraccion.ejecutar();		
-					break;
-
-				//////////////// COMPRAR USD ////////////////
-
-				case 3:
-					todosLosMensajes.tipoDeCuenta();
-					opcion = entrada.nextInt();
-					ComprarDOLARRRRES compra= new ComprarDOLARRRRES(clienteIngresado, opcion, this.todasLasCuentas);
-					compra.ejecutar();
-					break;
-
-				//////////////// DEPOSITAR ////////////////
-				case 4:
-					todosLosMensajes.tipoDeCuenta();
-					opcion = entrada.nextInt();
-					Deposito deposito = new Deposito(clienteIngresado, opcion, this.todasLasCuentas);
-					deposito.ejecutar();
-					break;
-					
-				//////////////// TRANSFERENCIA////////////////
-				case 5:
-					
-					todosLosMensajes.tipoDeCuenta();
-					opcion = entrada.nextInt();
-					Transferencia transferencia = new Transferencia(clienteIngresado, opcion, this.todasLasCuentas);
-					transferencia.ejecutar();
-					break;
-					
-				default:
-					System.out.println("Valor invalido");
-				}
-
-			}
-
-			else {
+			} else {
 				System.out.println("Usuario no encontrado");
 			}
+		
+		
 		} catch (InputMismatchException e) {
-
-			System.out.println("Valor Invalido."
-					+ "\nSaliendo...");
-		} 
+			System.out.println(
+			"*************************************************************"
+			+ "\n"
+			+ "\nLo sentimos, ha introducido un valor invalido."
+			+ "\nCerraremos el programa, intente nuevamente."
+			+ "\n"
+			+"*************************************************************");
+			this.entrada.close();
+			System.exit(0);
+		}
 	}
 }

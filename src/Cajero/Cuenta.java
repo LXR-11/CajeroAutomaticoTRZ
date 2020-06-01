@@ -95,5 +95,14 @@ public abstract class Cuenta{
             	throw new ErroresDeCuenta("Debe depositar un valor mayor a 0.");
             }
         }
+        public String tipoDeCuenta(Cliente cliente) {
+    		if ( cliente.verificarCuentaEnCliente(1) ){
+    			return "01";
+    		} else if ( cliente.verificarCuentaEnCliente(3) ) {
+    			return "02";
+    		} else {
+    			return "03";
+    		}
+    	}
 
 }

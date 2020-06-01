@@ -14,7 +14,7 @@ public class ModificarArchivoDeCuenta {
 	File archivoDeCuenta;
 
 	public ModificarArchivoDeCuenta(){
-		this.archivoDeCuenta = new File ("C:\\Users\\Agustin\\git\\CajeroAutomaticoTRZ\\ArchivoCuentas.txt");
+		this.archivoDeCuenta = new File ("C:\\Users\\Dell\\git\\CajeroAutomatico.TRZ\\ArchivoCuentas.txt");
 	}
 
 	public void modificarSaldo(String tipoDeCuenta, String alias, double antiguoSaldo, double descubierto, double nuevoSaldo ) {

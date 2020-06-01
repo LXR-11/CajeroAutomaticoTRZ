@@ -2,17 +2,20 @@ package Cajero;
 
 import java.util.List;
 
-public class ConsultaMov extends MovimientosEnPantalla {
-	public ConsultaMov(Cliente usuario,int opcion) {
-		super(usuario, opcion);
+public class ConsultaMovimiento extends Consulta {
+	
+	public ConsultaMovimiento(Cliente usuario, ArchivoDeCuentas todasLasCuentas) {
+		super(usuario, todasLasCuentas);
 	}
 
 	public void consultar() {
+		
 		todosLosMensajes.tipoDeCuenta();
-		int tipo = entrada.nextInt();
+		tipoDeCuenta = entrada.nextInt();
 		todosLosMensajes.cantidadDeMovimientos(); // pregunta cuantos mov quiere consultar
 		int cantidadDeMovimientos = entrada.nextInt();
-		switch (tipo) {
+		
+		switch (tipoDeCuenta) {
 
 		case 1: // ARS
 			List<Movimiento> ultimosMovEnARS = usuario.cajaDelClienteARS
@@ -42,10 +45,7 @@ public class ConsultaMov extends MovimientosEnPantalla {
 			break;
 
 		default:
-			System.out.println("Valor invalido.");
-			System.out.println("Saliendo...");
-			entrada.close();
-			System.exit(0);
+			valorInvalidoIntroducido();
 			break;
 		}
 	}

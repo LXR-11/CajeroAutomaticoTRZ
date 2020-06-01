@@ -1,19 +1,15 @@
 package Cajero;
 
-public class ConsultaSaldo extends MovimientosEnPantalla{
-	private int deseaImprimir;
-	private Ticket generarTicket;
-	private int tipoDeCuenta;
-	
-	
-	public ConsultaSaldo(Cliente usuario, int opcion) {
-		super(usuario,opcion);
+public class ConsultaSaldo extends Consulta{
+
+	public ConsultaSaldo(Cliente usuario, ArchivoDeCuentas todasLasCuentas) {
+		super(usuario, todasLasCuentas);
 		generarTicket = new Ticket();
 	}
 
 	public void consultar() {
 		super.todosLosMensajes.tipoDeCuenta();
-		tipoDeCuenta = super.entrada.nextInt();
+		tipoDeCuenta = entrada.nextInt();
 		switch(tipoDeCuenta) {
 		case 1:	//ARS 
 			todosLosMensajes.saldo(super.usuario.cajaDelClienteARS.consultarSaldo());
@@ -22,10 +18,9 @@ public class ConsultaSaldo extends MovimientosEnPantalla{
 				generarTicket = new Ticket();
 				this.generarTicket.escribirSaldo(super.usuario.cajaDelClienteARS);
 				System.out.println("Ticket generado correctamente.");
+			} else {
+				cerrarTodo();
 			}
-			System.out.println("Saliendo...");
-			entrada.close();
-			System.exit(0);
 			break;
 
 		case 2:		//USD
@@ -35,10 +30,9 @@ public class ConsultaSaldo extends MovimientosEnPantalla{
 				generarTicket = new Ticket();
 				this.generarTicket.escribirSaldo(this.usuario.cajaDelClienteARS);
 				System.out.println("Ticket generado correctamente.");
+			} else {
+				cerrarTodo();
 			}
-			System.out.println("Saliendo...");
-			entrada.close();
-			System.exit(0);
 			break;
 
 		case 3:	//CC
@@ -48,10 +42,9 @@ public class ConsultaSaldo extends MovimientosEnPantalla{
 				generarTicket = new Ticket();
 				this.generarTicket.escribirSaldo(this.usuario.cajaDelClienteARS);
 				System.out.println("Ticket generado correctamente.");
+			} else {
+				cerrarTodo();
 			}
-			System.out.println("Saliendo...");
-			entrada.close();
-			System.exit(0);
 			break;
 		}
 	}

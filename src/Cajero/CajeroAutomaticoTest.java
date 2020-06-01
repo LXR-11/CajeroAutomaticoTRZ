@@ -30,7 +30,7 @@ public class CajeroAutomaticoTest {
 	public void initObjects() throws FileNotFoundException, IOException {
 
 		//Inicializo los objetos para realizar las pruebas
-		
+
 		todasLasCuentas=new ArchivoDeCuentas();
 		tarjetaIngresada = new Tarjeta(12345678,1234);
 		cuitDelUsuario = todasLasCuentas.getArchivoTarjetas().getCuitConTarjeta().get(tarjetaIngresada);
@@ -40,8 +40,6 @@ public class CajeroAutomaticoTest {
 		clienteTest2 = todasLasCuentas.getArchivoTarjetas().getClientesConCuit().get(cuitDelUsuarioDos);
 
 	}
-
-
 	@Test
 	public void chequearSaldoActual() throws FileNotFoundException, IOException {
 
@@ -60,12 +58,10 @@ public class CajeroAutomaticoTest {
 		assertNotEquals(1000, clienteTest2.cajaDelClienteUSD.consultarSaldo(),0.1);
 		assertEquals(4500, clienteTest2.cuentaCorrienteDelCliente.consultarSaldo(),0.5);
 		assertNotEquals(8400, clienteTest2.cuentaCorrienteDelCliente.consultarSaldo(),0.5);
-
-
 	}
 
 	@Test
-	public void testTransferir() throws Exception{
+	public void pruebaTransferir() throws Exception{
 
 		//Realiza la transferencia
 		clienteTest1.cajaDelClienteARS.transferir(clienteTest2, 500);
@@ -73,11 +69,10 @@ public class CajeroAutomaticoTest {
 		// Consulta si se realizo correctamente la trasnferencia 
 		assertEquals(1000, clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);
 		assertEquals(5000, clienteTest2.cajaDelClienteARS.consultarSaldo(),0.1);
-	
 	}
 
 	@Test
-	public void testRevertirTransferencia () throws ErroresDeCuenta{
+	public void pruebaRevertirTransferencia () throws ErroresDeCuenta{
 		//Realiza la transferencia
 		clienteTest1.cajaDelClienteARS.transferir(clienteTest2, 500);
 		// Consulta si se realizo correctamente la trasnferencia 
@@ -104,11 +99,6 @@ public class CajeroAutomaticoTest {
 		assertNotEquals(10000.00,clienteTest2.cajaDelClienteARS.consultarSaldo(),0.1);
 
 	}
-
-
-
-
-
 
 	@Test
 	public void pruebaSaldoSuficiente () throws Exception {
@@ -174,16 +164,32 @@ public class CajeroAutomaticoTest {
 		assertNotEquals("ramon.perro.gato", clienteTest1.cajaDelClienteUSD.getAlias());
 		assertNotEquals("lucho.isla", clienteTest2.cajaDelClienteARS.getAlias());
 		assertNotEquals("lobo.sol.campo", clienteTest2.cajaDelClienteUSD.getAlias());
-		
-		
+
+
 
 	}
-	
-	
+
+
+	@Test(expected = ErroresDeCuenta.class)
+	public void pruebaExcepciones() throws ErroresDeCuenta {
+
+		clienteTest1.cajaDelClienteARS.transferir(clienteTest2, 100000);
+		clienteTest2.cajaDelClienteARS.transferir(clienteTest1, 10000000);
+
+		assertEquals(100000000, clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);
+		assertEquals(30000000, clienteTest2.cajaDelClienteARS.consultarSaldo(),0.1);
+
+	}
+
+
 	@Test
-	public void pruebaMostrarUltimosMovimientos() {
-		
-		
-	}
 
+	public void pruebaVerificarCuentaEnCliente () {
+
+		//Verifica que hay cuenta existente en los clientes.
+		assertEquals(true, clienteTest1.verificarCuentaEnCliente(1));
+		assertEquals(true, clienteTest1.verificarCuentaEnCliente(2));
+		assertEquals(true, clienteTest2.verificarCuentaEnCliente(1));
+		assertEquals(true, clienteTest2.verificarCuentaEnCliente(2));
+	}
 }

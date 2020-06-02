@@ -23,8 +23,9 @@ Se pueden ver en el UML. La intención del diseño es almacenar Clientes(con sus
   
   •`ArchivoDeMovimientos`: Encargada de leer y asignar los movimientos a todas las Cuentas
   
-  •`CajaARS`: Hereda de Cuenta. Posee las acciones que se ejecutaran en sus clases hijas (CajaDeAhorroARS y CuentaCorriente)
+  •`ModificarArchivosDeCuenta`: Actualizado los .txt con la nueva informacion de saldo a medida que se realizan operaciones
   
+  •`CajaARS`: Hereda de Cuenta. Posee las acciones que se ejecutaran en sus clases hijas (CajaDeAhorroARS y CuentaCorriente)
   
   •`Cliente`: Cada cliente posee una Tarjeta, un cuit, y una cuenta(opcional). Se crea con una tarjeta y un cuit. Tiene métodos para asociar un cliente con una cuenta.
   

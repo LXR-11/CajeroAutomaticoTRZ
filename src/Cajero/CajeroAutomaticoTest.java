@@ -44,11 +44,11 @@ public class CajeroAutomaticoTest {
 	public void chequearSaldoActual() throws FileNotFoundException, IOException {
 
 		//Chequea el saldo de las cajas del  cliente1
-		assertEquals(1500, clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);  
+		assertEquals(2000, clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);  
 		assertNotEquals(6000, clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);  
 		assertEquals(28, clienteTest1.cajaDelClienteUSD.consultarSaldo(),0.5);
 		assertNotEquals (80,clienteTest1.cajaDelClienteUSD.consultarSaldo(),0.5);
-		assertEquals(-2022, clienteTest1.cuentaCorrienteDelCliente.consultarSaldo(),0.5);
+		assertEquals(-1521.9, clienteTest1.cuentaCorrienteDelCliente.consultarSaldo(),0.5);
 		assertNotEquals(2000, clienteTest1.cuentaCorrienteDelCliente.consultarSaldo(),0.5);
 
 		//Chequea el saldo de las cajas del cliente2
@@ -64,10 +64,10 @@ public class CajeroAutomaticoTest {
 	public void pruebaTransferir() throws Exception{
 
 		//Realiza la transferencia
-		//clienteTest1.cajaDelClienteARS.transferir(clienteTest2, 500);
+		clienteTest1.cajaDelClienteARS.transferir(clienteTest2,clienteTest2.cajaDelClienteARS.getAlias(), 500);
 
 		// Consulta si se realizo correctamente la trasnferencia 
-		assertEquals(1000, clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);
+		assertEquals(1500, clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);
 		assertEquals(5000, clienteTest2.cajaDelClienteARS.consultarSaldo(),0.1);
 	}
 
@@ -76,12 +76,12 @@ public class CajeroAutomaticoTest {
 		//Realiza la transferencia
 	//	clienteTest1.cajaDelClienteARS.transferir(clienteTest2, 500);
 		// Consulta si se realizo correctamente la trasnferencia 
-		assertEquals(1000, clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);
-		assertEquals(5000, clienteTest2.cajaDelClienteARS.consultarSaldo(),0.1);
+		assertEquals(2000, clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);
+		assertEquals(4500, clienteTest2.cajaDelClienteARS.consultarSaldo(),0.1);
 
 		//revierte la transferencia anterior
 		clienteTest1.cajaDelClienteARS.revertirUltimaTransferencia(500, clienteTest2.cajaDelClienteARS);
-		assertEquals(1500, clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);
+		assertEquals(2500, clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);
 
 	}
 
@@ -93,7 +93,7 @@ public class CajeroAutomaticoTest {
 		clienteTest2.cajaDelClienteARS.depositar(5000);
 
 		//Consulta si el dinero esta en la cuenta
-		assertEquals(6500.00,clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);
+		assertEquals(7000.00,clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);
 		assertNotEquals(10000.00,clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);
 		assertEquals(9500.00,clienteTest2.cajaDelClienteARS.consultarSaldo(),0.1);
 		assertNotEquals(10000.00,clienteTest2.cajaDelClienteARS.consultarSaldo(),0.1);
@@ -124,7 +124,7 @@ public class CajeroAutomaticoTest {
 		clienteTest2.cajaDelClienteARS.retirarEfectivo(1500);
 
 		//Consulta de saldo
-		assertEquals(0, clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);
+		assertEquals(500, clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);
 		assertEquals(3000, clienteTest2.cajaDelClienteARS.consultarSaldo(),0.1);
 		assertNotEquals(20000, clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);
 		assertNotEquals(12000, clienteTest2.cajaDelClienteARS.consultarSaldo(),0.1);
@@ -173,8 +173,8 @@ public class CajeroAutomaticoTest {
 	@Test(expected = ErroresDeCuenta.class)
 	public void pruebaExcepciones() throws ErroresDeCuenta {
 
-	//clienteTest1.cajaDelClienteARS.transferir(clienteTest2, 100000);
-		//clienteTest2.cajaDelClienteARS.transferir(clienteTest1, 10000000);
+		clienteTest1.cajaDelClienteARS.transferir(clienteTest2, clienteTest2.cajaDelClienteARS.getAlias(), 100000);
+		clienteTest2.cajaDelClienteARS.transferir(clienteTest1, clienteTest2.cuentaCorrienteDelCliente.getAlias(),10000000);
 
 		assertEquals(100000000, clienteTest1.cajaDelClienteARS.consultarSaldo(),0.1);
 		assertEquals(30000000, clienteTest2.cajaDelClienteARS.consultarSaldo(),0.1);

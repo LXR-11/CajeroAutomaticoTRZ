@@ -60,18 +60,23 @@ public abstract class Cuenta{
         	
         	
         	if(movimientosDeCuenta.size() < ultimosMov) {
-        		//si me pasan un numero mas grande lo convierto en el tamaño de la pila
+        		//si me pasan un numero mas grande lo convierto en el tamaÃ±o de la pila
         		ultimosMov = movimientosDeCuenta.size();
         	}     	
         	//crea una copia de los movimientos, los agrega a una lista y los devuelve
-	        	Stack<Movimiento> auxiliar = movimientosDeCuenta;
+	        	Stack<Movimiento> auxiliar = new Stack<Movimiento>();
 	        	Iterator<Movimiento> miIterador = auxiliar.iterator();
 	        	List<Movimiento> resultado = new LinkedList<Movimiento>();
+	        	Iterator<Movimiento> iteradorDeCuenta = movimientosDeCuenta.iterator();
+	        	while (iteradorDeCuenta.hasNext()) {
+	        		auxiliar.push(movimientosDeCuenta.pop());
+	        	}
 	        	int contador=0;
-	        	while (miIterador.hasNext() && contador < ultimosMov ) {
+	        	while(miIterador.hasNext() && contador < ultimosMov) {
 	        		resultado.add(auxiliar.pop());
 	        		contador++;
 	        	}
+	        	
 	        	return resultado;
         
         	
